@@ -6,8 +6,7 @@ import javax.persistence.Persistence;
 
 public class JPAUtil {
 
-	private static EntityManagerFactory emf = 
-			Persistence.createEntityManagerFactory("uniph");
+	private static EntityManagerFactory emf = Persistence.createEntityManagerFactory("uniph");
 
 	public static EntityManager getEntityManager() {
 		return emf.createEntityManager();
