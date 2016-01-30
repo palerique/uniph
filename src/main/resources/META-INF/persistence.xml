@@ -1,0 +1,36 @@
+<persistence xmlns="http://java.sun.com/xml/ns/persistence"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd"
+             version="2.0">
+
+    <persistence-unit name="uniph">
+
+        <properties>
+
+            <!--****************** H2 ****************** -->
+            <property name="javax.persistence.jdbc.driver" value="org.h2.Driver"/>
+            <property name="javax.persistence.jdbc.url"
+                      value="jdbc:h2:file:~/unibluedb;DB_CLOSE_DELAY=-1;MVCC=TRUE;AUTO_SERVER=TRUE"/>
+            <property name="javax.persistence.jdbc.user" value="sa"/>
+            <property name="javax.persistence.jdbc.password" value=""/>
+
+            <!-- ****************** Outras configurações ****************** -->
+
+            <!-- Criação automática do Database -->
+            <property name="hibernate.hbm2ddl.auto" value="update"/>
+            <!-- Exibição e formatação do SQL no log -->
+            <property name="hibernate.show_sql" value="true"/>
+            <property name="hibernate.format_sql" value="true"/>
+
+            <property name="hibernate.use_sql_comments" value="true"/>
+            <property name="hibernate.jdbc.wrap_result_sets" value="true"/>
+            <property name="hibernate.hibernate.cache.use_query_cache" value="true"/>
+
+        </properties>
+
+    </persistence-unit>
+
+</persistence>
+
+
+
