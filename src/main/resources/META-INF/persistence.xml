@@ -10,7 +10,7 @@
             <!--****************** H2 ****************** -->
             <property name="javax.persistence.jdbc.driver" value="org.h2.Driver"/>
             <property name="javax.persistence.jdbc.url"
-                      value="jdbc:h2:file:~/unibluedb;DB_CLOSE_DELAY=-1;MVCC=TRUE;AUTO_SERVER=TRUE"/>
+                      value="jdbc:h2:file:~/uniPHdb;DB_CLOSE_DELAY=-1;MVCC=TRUE;AUTO_SERVER=TRUE"/>
             <property name="javax.persistence.jdbc.user" value="sa"/>
             <property name="javax.persistence.jdbc.password" value=""/>
 
