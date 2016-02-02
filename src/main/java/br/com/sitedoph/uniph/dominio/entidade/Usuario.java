@@ -1,58 +1,152 @@
 package br.com.sitedoph.uniph.dominio.entidade;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.io.Serializable;
 
+/**
+ * The Class Usuario.
+ */
 @Entity
-@Table(name = "TB_USUARIOS")
-public class Usuario {
+public class Usuario implements Serializable {
 
-	@Id
-	@GeneratedValue
-	@Column(name = "CODIGO")
-	private Long id;
+    /**
+     * The Constant serialVersionUID.
+     */
+    private static final long serialVersionUID = -162222018784333347L;
 
-	@Column(name = "NOME_COMPLETO")
-	private String nomeCompleto;
+    /**
+     * The email.
+     */
+    @Column(unique = true)
+    private String email;
 
-	@Column(name = "LOGIN")
-	private String login;
+    /**
+     * The id.
+     */
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
 
-	@Column(name = "SENHA")
-	private String senha;
+    /**
+     * The login.
+     */
+    @Column(unique = true)
+    private String login;
 
-	public Long getId() {
-		return id;
-	}
+    /**
+     * The nome completo.
+     */
+    private String nomeCompleto;
 
-	public void setId(Long id) {
-		this.id = id;
-	}
+    /**
+     * The senha.
+     */
+    private String senha;
 
-	public String getNomeCompleto() {
-		return nomeCompleto;
-	}
+    /**
+     * Gets the email.
+     *
+     * @return the email
+     */
+    public String getEmail() {
 
-	public void setNomeCompleto(String nomeCompleto) {
-		this.nomeCompleto = nomeCompleto;
-	}
+        return email;
+    }
 
-	public String getLogin() {
-		return login;
-	}
+    /**
+     * Sets the email.
+     *
+     * @param email the new email
+     */
+    public void setEmail(final String email) {
 
-	public void setLogin(String login) {
-		this.login = login;
-	}
+        this.email = email;
+    }
 
-	public String getSenha() {
-		return senha;
-	}
+    /**
+     * Gets the id.
+     *
+     * @return the id
+     */
+    public Long getId() {
 
-	public void setSenha(String senha) {
-		this.senha = senha;
-	}
+        return id;
+    }
+
+    /**
+     * Sets the id.
+     *
+     * @param id the new id
+     */
+    public void setId(final Long id) {
+
+        this.id = id;
+    }
+
+    /**
+     * Gets the login.
+     *
+     * @return the login
+     */
+    public String getLogin() {
+
+        return login;
+    }
+
+    /**
+     * Sets the login.
+     *
+     * @param login the new login
+     */
+    public void setLogin(final String login) {
+
+        this.login = login;
+    }
+
+    /**
+     * Gets the nome completo.
+     *
+     * @return the nome completo
+     */
+    public String getNomeCompleto() {
+
+        return nomeCompleto;
+    }
+
+    /**
+     * Sets the nome completo.
+     *
+     * @param nomeCompleto the new nome completo
+     */
+    public void setNomeCompleto(final String nomeCompleto) {
+
+        this.nomeCompleto = nomeCompleto;
+    }
+
+    /**
+     * Gets the senha.
+     *
+     * @return the senha
+     */
+    public String getSenha() {
+
+        return senha;
+    }
+
+    /**
+     * Sets the senha.
+     *
+     * @param senha the new senha
+     */
+    public void setSenha(final String senha) {
+
+        this.senha = senha;
+    }
+
+    @Override
+    public String toString() {
+
+        return "Usuario [email=" + email + ", id=" + id + ", login=" + login + ", nomeCompleto=" + nomeCompleto + ", senha=" + senha + "]";
+    }
+
 }

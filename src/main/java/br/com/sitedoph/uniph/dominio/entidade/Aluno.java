@@ -1,106 +1,121 @@
 package br.com.sitedoph.uniph.dominio.entidade;
 
+import javax.persistence.*;
 import java.util.Calendar;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
-
 @Entity
-@Table(name = "TB_ALUNO")
 public class Aluno {
 
-	@Id
-	@GeneratedValue
-	@Column(name = "MATRICULA")
-	private Long id;
+    @Id
+    @GeneratedValue
+    private Long id;
 
-	@Column(name = "NOME_COMPLETO")
-	private String nomeCompleto;
-	@Column(name = "RG")
-	private String rg;
-	@Column(name = "CPF")
-	private String cpf;
+    private String nomeCompleto;
+    private String rg;
 
-	@Column(name = "DT_NASCIMENTO")
-	@Temporal(TemporalType.TIMESTAMP)
-	private Calendar dataDeNascimento;
+    private String cpf;
 
-	@Column(name = "DT_CADASTRO")
-	@Temporal(TemporalType.TIMESTAMP)
-	private Calendar dataDeCadastro;
+    @Temporal(TemporalType.TIMESTAMP)
+    private Calendar dataDeNascimento;
 
-	@Column(name = "TELEFONE")
-	private String telefone;
-	@Column(name = "EMAIL")
-	private String email;
+    private String telefone;
 
-	public Long getId() {
-		return id;
-	}
+    private String email;
 
-	public void setId(Long id) {
-		this.id = id;
-	}
+    @Temporal(TemporalType.TIMESTAMP)
+    private Calendar dataDeCadastro;
 
-	public String getNomeCompleto() {
-		return nomeCompleto;
-	}
+    @Enumerated(EnumType.ORDINAL)
+    private Sexo sexo;
 
-	public void setNomeCompleto(String nomeCompleto) {
-		this.nomeCompleto = nomeCompleto;
-	}
+    public Long getId() {
 
-	public String getRg() {
-		return rg;
-	}
+        return id;
+    }
 
-	public void setRg(String rg) {
-		this.rg = rg;
-	}
+    public void setId(Long id) {
 
-	public String getCpf() {
-		return cpf;
-	}
+        this.id = id;
+    }
 
-	public void setCpf(String cpf) {
-		this.cpf = cpf;
-	}
+    public String getNomeCompleto() {
 
-	public Calendar getDataDeNascimento() {
-		return dataDeNascimento;
-	}
+        return nomeCompleto;
+    }
 
-	public void setDataDeNascimento(Calendar dataDeNascimento) {
-		this.dataDeNascimento = dataDeNascimento;
-	}
+    public void setNomeCompleto(String nomeCompleto) {
 
-	public String getTelefone() {
-		return telefone;
-	}
+        this.nomeCompleto = nomeCompleto;
+    }
 
-	public void setTelefone(String telefone) {
-		this.telefone = telefone;
-	}
+    public String getRg() {
 
-	public String getEmail() {
-		return email;
-	}
+        return rg;
+    }
 
-	public void setEmail(String email) {
-		this.email = email;
-	}
+    public void setRg(String rg) {
 
-	public Calendar getDataDeCadastro() {
-		return dataDeCadastro;
-	}
+        this.rg = rg;
+    }
 
-	public void setDataDeCadastro(Calendar dataDeCadastro) {
-		this.dataDeCadastro = dataDeCadastro;
-	}
+    public String getCpf() {
+
+        return cpf;
+    }
+
+    public void setCpf(String cpf) {
+
+        this.cpf = cpf;
+    }
+
+    public Calendar getDataDeNascimento() {
+
+        return dataDeNascimento;
+    }
+
+    public void setDataDeNascimento(Calendar dataDeNascimento) {
+
+        this.dataDeNascimento = dataDeNascimento;
+    }
+
+    public String getTelefone() {
+
+        return telefone;
+    }
+
+    public void setTelefone(String telefone) {
+
+        this.telefone = telefone;
+    }
+
+    public String getEmail() {
+
+        return email;
+    }
+
+    public void setEmail(String email) {
+
+        this.email = email;
+    }
+
+    public Calendar getDataDeCadastro() {
+
+        return dataDeCadastro;
+    }
+
+    public void setDataDeCadastro(Calendar dataDeCadastro) {
+
+        this.dataDeCadastro = dataDeCadastro;
+    }
+
+    public Sexo getSexo() {
+
+        return sexo;
+    }
+
+    public void setSexo(Sexo sexo) {
+
+        this.sexo = sexo;
+    }
 
 }
