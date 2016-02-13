@@ -14,7 +14,7 @@ import br.com.sitedoph.uniph.infraestrutura.persistencia.util.JPAUtil;
 
 public class AlunoDAOTest {
 
-	private String CPF = "999.999.999-99";
+	private String CPF = "038.865.119-95";
 
 	@Test
 	public void deveFazerCRUDDeAluno() {

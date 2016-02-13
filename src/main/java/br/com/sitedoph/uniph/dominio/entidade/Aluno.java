@@ -10,6 +10,9 @@ import javax.persistence.Id;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import org.hibernate.validator.constraints.CreditCardNumber;
+import org.hibernate.validator.constraints.br.CPF;
+
 @Entity
 public class Aluno {
 
@@ -20,6 +23,7 @@ public class Aluno {
 	private String nomeCompleto;
 	private String rg;
 
+	@CPF(message = "CPF inválido")
 	private String cpf;
 
 	@Temporal(TemporalType.TIMESTAMP)

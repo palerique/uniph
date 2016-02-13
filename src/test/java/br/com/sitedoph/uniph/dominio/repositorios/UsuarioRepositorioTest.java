@@ -23,6 +23,8 @@ public class UsuarioRepositorioTest {
 
 		Usuario usuario = new Usuario();
 
+		usuario.setEmail("ph@sitedoph.com.br");
+		usuario.setNomeCompleto("Paulo Henrique");
 		usuario.setLogin(LOGIN);
 		usuario.setSenha(SENHA);
 

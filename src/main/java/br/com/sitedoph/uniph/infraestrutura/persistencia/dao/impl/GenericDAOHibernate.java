@@ -49,7 +49,7 @@ public class GenericDAOHibernate<T, ID extends Serializable> implements GenericD
 
 	@Override
 	public void excluir(T entidade) {
-		// ENTITY_MANAGER.merge(entidade);
+		entidade = ENTITY_MANAGER.merge(entidade);
 		ENTITY_MANAGER.remove(entidade);
 	}
 
@@ -84,13 +84,11 @@ public class GenericDAOHibernate<T, ID extends Serializable> implements GenericD
 		for (String prop : propriedadesAExcluir) {
 			example.excludeProperty(prop);
 		}
-		
+
 		final Session session = getHibernateSession();
-		
-		final Criteria criteria = session
-				.createCriteria(CLASSE)
-				.add(example);
-		
+
+		final Criteria criteria = session.createCriteria(CLASSE).add(example);
+
 		return criteria.list();
 	}
 

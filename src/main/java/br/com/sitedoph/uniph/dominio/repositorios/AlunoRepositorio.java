@@ -4,89 +4,87 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 
-import br.com.sitedoph.uniph.dominio.entidade.Usuario;
-import br.com.sitedoph.uniph.infraestrutura.persistencia.dao.impl.UsuarioDAO;
+import br.com.sitedoph.uniph.dominio.entidade.Aluno;
+import br.com.sitedoph.uniph.infraestrutura.persistencia.dao.impl.AlunoDAO;
 import br.com.sitedoph.uniph.infraestrutura.persistencia.util.JPAUtil;
 
-public class UsuarioRepositorio {
+public class AlunoRepositorio {
 
 	private EntityManager em;
-	private UsuarioDAO DAO;
+	private AlunoDAO DAO;
 
 	private void criarDAOeEM() {
 		em = JPAUtil.getEntityManager();
-		DAO = new UsuarioDAO(em);
+		DAO = new AlunoDAO(em);
 	}
 
-	public Usuario buscarPorId(Long id) {
+	public Aluno buscarPorId(Long id) {
 
 		criarDAOeEM();
 
-		Usuario u = DAO.buscarPorId(id);
+		Aluno u = DAO.buscarPorId(id);
 
 		em.close();
 
 		return u;
 	}
 
-	public Usuario buscarPorLoginESenha(String login, String senha) {
+	public List<Aluno> buscarTodos() {
 
 		criarDAOeEM();
 
-		Usuario u = DAO.buscarPorLoginESenha(login, senha);
-
-		em.close();
-
-		return u;
-	}
-
-	public List<Usuario> buscarTodos() {
-
-		criarDAOeEM();
-
-		List<Usuario> lista = DAO.buscarTodos();
+		List<Aluno> lista = DAO.buscarTodos();
 
 		em.close();
 
 		return lista;
 	}
 
-	public void excluir(final Usuario usuario) {
+	public void excluir(final Aluno aluno) {
 
 		criarDAOeEM();
 
 		em.getTransaction().begin();
 
 		try {
-			DAO.excluir(usuario);
+			DAO.excluir(aluno);
 			em.getTransaction().commit();
 		} catch (final Exception e) {
-			e.printStackTrace();
 			em.getTransaction().rollback();
-			throw e;
 		}
 
 		em.close();
 
 	}
 
-	public Usuario salvarOuAtualizar(Usuario usuario) {
+	public Aluno salvarOuAtualizar(Aluno aluno) {
 
 		criarDAOeEM();
 
 		em.getTransaction().begin();
 
 		try {
-			usuario = DAO.salvarOuAtualizar(usuario);
+			aluno = DAO.salvarOuAtualizar(aluno);
 			em.getTransaction().commit();
 		} catch (Exception e) {
-			e.printStackTrace();
 			em.getTransaction().rollback();
 			throw e;
 		} finally {
 			em.close();
 		}
 
-		return usuario;
+		return aluno;
 	}
+
+	public Aluno buscarPorCPF(String cpf) {
+
+		criarDAOeEM();
+
+		Aluno u = DAO.buscarCPF(cpf);
+
+		em.close();
+
+		return u;
+	}
+
 }
