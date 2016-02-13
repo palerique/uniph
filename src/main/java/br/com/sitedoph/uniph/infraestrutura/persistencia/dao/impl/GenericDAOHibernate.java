@@ -9,6 +9,8 @@ import javax.persistence.criteria.CriteriaQuery;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.criterion.Criterion;
+import org.hibernate.criterion.Example;
+import org.hibernate.criterion.MatchMode;
 
 import br.com.sitedoph.uniph.infraestrutura.persistencia.dao.GenericDAO;
 
@@ -52,27 +54,44 @@ public class GenericDAOHibernate<T, ID extends Serializable> implements GenericD
 	}
 
 	@Override
-	public List<T> buscarPorCriteria(
-			Criterion... criteria) {
+	public List<T> buscarPorCriteria(Criterion... criteria) {
 
-		final Session session = 
-				(Session) ENTITY_MANAGER
-				.getDelegate();
+		final Session session = getHibernateSession();
 
-		final Criteria crit = 
-				session.createCriteria(CLASSE);
-		
+		final Criteria crit = session.createCriteria(CLASSE);
+
 		for (Criterion criterion : criteria) {
 			crit.add(criterion);
 		}
-		
+
 		return crit.list();
+	}
+
+	private Session getHibernateSession() {
+		final Session session = (Session) ENTITY_MANAGER.getDelegate();
+		return session;
 	}
 
 	@Override
 	public List<T> buscarPorExemplo(T exemplo, String... propriedadesAExcluir) {
-		// TODO Auto-generated method stub
-		return null;
+
+		final Example example = Example.create(exemplo);
+
+		example.enableLike(MatchMode.ANYWHERE);
+		example.excludeZeroes();
+		example.ignoreCase();
+
+		for (String prop : propriedadesAExcluir) {
+			example.excludeProperty(prop);
+		}
+		
+		final Session session = getHibernateSession();
+		
+		final Criteria criteria = session
+				.createCriteria(CLASSE)
+				.add(example);
+		
+		return criteria.list();
 	}
 
 }
