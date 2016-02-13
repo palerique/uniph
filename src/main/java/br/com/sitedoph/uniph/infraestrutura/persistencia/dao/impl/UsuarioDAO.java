@@ -27,7 +27,7 @@ public class UsuarioDAO {
 		exemplo.setLogin(login);
 		exemplo.setSenha(senha);
 
-		List<Usuario> list = DAO.buscarPorExemplo(exemplo, null);
+		List<Usuario> list = DAO.buscarPorExemplo(exemplo);
 
 		if (list != null && !list.isEmpty()) {
 			return list.get(0);
