@@ -58,6 +58,7 @@ public class AlunoDAOTest {
 		Assert.assertEquals(danilo.getDataDeNascimento(), buscarPorId.getDataDeNascimento());
 		Assert.assertEquals(danilo.getEmail(), buscarPorId.getEmail());
 		Assert.assertEquals(danilo.getTelefone(), buscarPorId.getTelefone());
+		Assert.assertEquals(danilo.getSexo(), buscarPorId.getSexo());
 
 		List<Aluno> buscarTodos = dao.buscarTodos();
 
