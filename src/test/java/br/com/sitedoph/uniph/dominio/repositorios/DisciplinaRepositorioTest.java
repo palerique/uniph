@@ -1,9 +1,12 @@
 package br.com.sitedoph.uniph.dominio.repositorios;
 
 import br.com.sitedoph.uniph.dominio.entidades.Disciplina;
+import br.com.sitedoph.uniph.dominio.entidades.Professor;
 import br.com.sitedoph.uniph.tests.BaseTest;
 import br.com.six2six.fixturefactory.Fixture;
 import org.junit.Test;
+
+import java.util.List;
 
 import static org.unitils.reflectionassert.ReflectionAssert.assertReflectionEquals;
 
@@ -17,7 +20,14 @@ public class DisciplinaRepositorioTest extends BaseTest {
 
         Disciplina disciplina = Fixture.from(Disciplina.class).gimme(VALID);
 
-        disciplina.setProfessor(repoProfessor.buscarTodos().get(0));
+        List<Professor> list = repoProfessor.buscarTodos();
+
+        if (list.isEmpty()) {
+            disciplina.setProfessor(null);
+        } else {
+            disciplina.setProfessor(list.get(0));
+        }
+
 
         Disciplina buscarPorDescricao = repo.buscarPorDescricao(disciplina.getDescricao());
 

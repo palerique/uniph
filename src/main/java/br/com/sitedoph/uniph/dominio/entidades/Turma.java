@@ -1,5 +1,7 @@
 package br.com.sitedoph.uniph.dominio.entidades;
 
+import org.hibernate.validator.constraints.NotEmpty;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -13,7 +15,9 @@ public class Turma {
     @GeneratedValue
     private Long id;
 
+    @NotEmpty(message = "Preencha a descrição!")
     private String descricao;
+
     private String diasDaSemana;
     private String horario;
 

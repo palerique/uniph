@@ -1,5 +1,7 @@
 package br.com.sitedoph.uniph.dominio.entidades;
 
+import org.hibernate.validator.constraints.Email;
+import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.br.CPF;
 
 import javax.persistence.*;
@@ -8,129 +10,134 @@ import java.util.Calendar;
 @Entity
 public class Aluno {
 
-	@Id
-	@GeneratedValue
-	private Long id;
+    @Id
+    @GeneratedValue
+    private Long id;
 
-	private String nomeCompleto;
-	private String rg;
+    @NotBlank(message = "Preencha o nome completo!")
+    private String nomeCompleto;
 
-	@CPF(message = "CPF inválido")
-	private String cpf;
+    private String rg;
 
-	@Temporal(TemporalType.TIMESTAMP)
-	private Calendar dataDeNascimento;
+    @CPF(message = "CPF inválido")
+    @NotBlank(message = "Preencha o CPF!")
+    private String cpf;
 
-	private String telefone;
+    @Temporal(TemporalType.TIMESTAMP)
+    private Calendar dataDeNascimento;
 
-	private String email;
+    private String telefone;
 
-	@Temporal(TemporalType.TIMESTAMP)
-	private Calendar dataDeCadastro;
+    @NotBlank(message = "Preencha o e-mail!")
+    @Email(message = "Endereço de e-mail inválido")
+    private String email;
 
-	@Enumerated(EnumType.ORDINAL)
-	private Sexo sexo;
+    @Temporal(TemporalType.TIMESTAMP)
+    private Calendar dataDeCadastro;
 
-	public Long getId() {
+    @Enumerated(EnumType.ORDINAL)
+    private Sexo sexo;
 
-		return id;
-	}
+    public Long getId() {
 
-	public void setId(Long id) {
+        return id;
+    }
 
-		this.id = id;
-	}
+    public void setId(Long id) {
 
-	public String getNomeCompleto() {
+        this.id = id;
+    }
 
-		return nomeCompleto;
-	}
+    public String getNomeCompleto() {
 
-	public void setNomeCompleto(String nomeCompleto) {
+        return nomeCompleto;
+    }
 
-		this.nomeCompleto = nomeCompleto;
-	}
+    public void setNomeCompleto(String nomeCompleto) {
 
-	public String getRg() {
+        this.nomeCompleto = nomeCompleto;
+    }
 
-		return rg;
-	}
+    public String getRg() {
 
-	public void setRg(String rg) {
+        return rg;
+    }
 
-		this.rg = rg;
-	}
+    public void setRg(String rg) {
 
-	public String getCpf() {
+        this.rg = rg;
+    }
 
-		return cpf;
-	}
+    public String getCpf() {
 
-	public void setCpf(String cpf) {
+        return cpf;
+    }
 
-		this.cpf = cpf;
-	}
+    public void setCpf(String cpf) {
 
-	public Calendar getDataDeNascimento() {
+        this.cpf = cpf;
+    }
 
-		return dataDeNascimento;
-	}
+    public Calendar getDataDeNascimento() {
 
-	public void setDataDeNascimento(Calendar dataDeNascimento) {
+        return dataDeNascimento;
+    }
 
-		this.dataDeNascimento = dataDeNascimento;
-	}
+    public void setDataDeNascimento(Calendar dataDeNascimento) {
 
-	public String getTelefone() {
+        this.dataDeNascimento = dataDeNascimento;
+    }
 
-		return telefone;
-	}
+    public String getTelefone() {
 
-	public void setTelefone(String telefone) {
+        return telefone;
+    }
 
-		this.telefone = telefone;
-	}
+    public void setTelefone(String telefone) {
 
-	public String getEmail() {
+        this.telefone = telefone;
+    }
 
-		return email;
-	}
+    public String getEmail() {
 
-	public void setEmail(String email) {
+        return email;
+    }
 
-		this.email = email;
-	}
+    public void setEmail(String email) {
 
-	public Calendar getDataDeCadastro() {
+        this.email = email;
+    }
 
-		return dataDeCadastro;
-	}
+    public Calendar getDataDeCadastro() {
 
-	public void setDataDeCadastro(Calendar dataDeCadastro) {
+        return dataDeCadastro;
+    }
 
-		this.dataDeCadastro = dataDeCadastro;
-	}
+    public void setDataDeCadastro(Calendar dataDeCadastro) {
 
-	public Sexo getSexo() {
+        this.dataDeCadastro = dataDeCadastro;
+    }
 
-		return sexo;
-	}
+    public Sexo getSexo() {
 
-	public void setSexo(Sexo sexo) {
+        return sexo;
+    }
 
-		this.sexo = sexo;
-	}
+    public void setSexo(Sexo sexo) {
 
-	@Override
-	public String toString() {
-		return "Aluno [" + (id != null ? "id=" + id + ", " : "")
-				+ (nomeCompleto != null ? "nomeCompleto=" + nomeCompleto + ", " : "")
-				+ (rg != null ? "rg=" + rg + ", " : "") + (cpf != null ? "cpf=" + cpf + ", " : "")
-				+ (dataDeNascimento != null ? "dataDeNascimento=" + dataDeNascimento.getTime() + ", " : "")
-				+ (telefone != null ? "telefone=" + telefone + ", " : "")
-				+ (email != null ? "email=" + email + ", " : "")
-				+ (dataDeCadastro != null ? "dataDeCadastro=" + dataDeCadastro.getTime() + ", " : "")
-				+ (sexo != null ? "sexo=" + sexo : "") + "]";
-	}
+        this.sexo = sexo;
+    }
+
+    @Override
+    public String toString() {
+        return "Aluno [" + (id != null ? "id=" + id + ", " : "")
+                + (nomeCompleto != null ? "nomeCompleto=" + nomeCompleto + ", " : "")
+                + (rg != null ? "rg=" + rg + ", " : "") + (cpf != null ? "cpf=" + cpf + ", " : "")
+                + (dataDeNascimento != null ? "dataDeNascimento=" + dataDeNascimento.getTime() + ", " : "")
+                + (telefone != null ? "telefone=" + telefone + ", " : "")
+                + (email != null ? "email=" + email + ", " : "")
+                + (dataDeCadastro != null ? "dataDeCadastro=" + dataDeCadastro.getTime() + ", " : "")
+                + (sexo != null ? "sexo=" + sexo : "") + "]";
+    }
 
 }

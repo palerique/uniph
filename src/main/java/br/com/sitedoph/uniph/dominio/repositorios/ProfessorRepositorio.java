@@ -49,6 +49,7 @@ public class ProfessorRepositorio {
 			DAO.excluir(professor);
 			em.getTransaction().commit();
 		} catch (final Exception e) {
+			e.printStackTrace();
 			em.getTransaction().rollback();
 		}
 

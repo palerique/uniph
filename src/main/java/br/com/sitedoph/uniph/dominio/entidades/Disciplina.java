@@ -1,5 +1,7 @@
 package br.com.sitedoph.uniph.dominio.entidades;
 
+import org.hibernate.validator.constraints.NotEmpty;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -12,6 +14,7 @@ public class Disciplina {
     @GeneratedValue
     private Long id;
 
+    @NotEmpty(message = "Preencha a descrição!")
     private String descricao;
 
     @ManyToOne

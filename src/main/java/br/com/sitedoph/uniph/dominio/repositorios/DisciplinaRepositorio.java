@@ -52,6 +52,7 @@ public class DisciplinaRepositorio {
             DAO.excluir(disciplina);
             em.getTransaction().commit();
         } catch (final Exception e) {
+            e.printStackTrace();
             em.getTransaction().rollback();
         }
 
