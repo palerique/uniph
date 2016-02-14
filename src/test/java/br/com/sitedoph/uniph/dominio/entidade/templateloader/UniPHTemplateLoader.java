@@ -43,7 +43,7 @@ public class UniPHTemplateLoader implements TemplateLoader {
             add("rg", random(CPFS));
             add("dataDeNascimento", randomDate("2011-04-15", "2011-11-07", new SimpleDateFormat("yyyy-MM-dd")));
             add("telefone", random(TELEFONES));
-            add("email", random(EMAILS));
+            add("email", MILLIS + "@gmail.com");
             add("sexo", Sexo.MASCULINO);
         }});
 
@@ -51,7 +51,7 @@ public class UniPHTemplateLoader implements TemplateLoader {
             add("nomeCompleto", random(NOMES));
             add("cpf", random(CPFS));
             add("telefone", random(TELEFONES));
-            add("email", random(EMAILS));
+            add("email", MILLIS + "@gmail.com");
             add("dataDeCadastro", randomDate("2011-04-15", "2011-11-07", new SimpleDateFormat("yyyy-MM-dd")));
             add("currriculo", random(CVS));
         }});
@@ -66,8 +66,8 @@ public class UniPHTemplateLoader implements TemplateLoader {
             add("descricao", random(DESCS_TURMA));
             add("diasDaSemana", one(Professor.class, VALID));
             add("horario", random(CARGAS));
-            add("alunos", has(10).of(Aluno.class, "valid"));
-            add("disciplinas", has(3).of(Disciplina.class, "valid"));
+            add("alunos", has(1).of(Aluno.class, VALID));
+            add("disciplinas", has(1).of(Disciplina.class, VALID));
         }});
 
     }
