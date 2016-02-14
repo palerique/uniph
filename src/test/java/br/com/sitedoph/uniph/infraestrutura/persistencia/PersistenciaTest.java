@@ -1,6 +1,6 @@
 package br.com.sitedoph.uniph.infraestrutura.persistencia;
 
-import br.com.sitedoph.uniph.dominio.entidade.Aluno;
+import br.com.sitedoph.uniph.dominio.entidades.Aluno;
 import br.com.sitedoph.uniph.infraestrutura.persistencia.util.JPAUtil;
 import org.junit.Test;
 

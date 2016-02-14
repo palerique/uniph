@@ -1,4 +1,4 @@
-package br.com.sitedoph.uniph.dominio.repositorios;
+package br.com.sitedoph.uniph.dominio.services;
 
 import br.com.sitedoph.uniph.dominio.entidades.Turma;
 import br.com.sitedoph.uniph.tests.BaseTest;
@@ -8,34 +8,36 @@ import org.junit.Test;
 import static org.unitils.reflectionassert.ReflectionAssert.assertReflectionEquals;
 import static org.unitils.reflectionassert.ReflectionComparatorMode.IGNORE_DEFAULTS;
 
-public class TurmaRepositorioTest extends BaseTest {
+/**
+ * Created by paler on 14/02/2016.
+ */
+public class TurmaServiceTest extends BaseTest {
 
     @Test
-    public void deveFuncionarORepositorio() {
+    public void deveFuncionarOService() {
 
-        TurmaRepositorio repo = new TurmaRepositorio();
+        TurmaService service = new TurmaService();
 
         Turma turma = Fixture.from(Turma.class).gimme(VALID);
 
-        Turma buscarPorDescricao = repo.buscarPorDescricao(turma.getDescricao());
+        Turma buscarPorDescricao = service.buscarPorDescricao(turma.getDescricao());
 
         if (buscarPorDescricao != null) {
             turma = buscarPorDescricao;
         }
 
-        turma.setAlunos(null);
         turma.setDisciplinas(null);
+        turma.setAlunos(null);
 
-        turma = repo.salvarOuAtualizar(turma);
+        turma = service.salvarOuAtualizar(turma);
 
-        assertReflectionEquals(turma, repo.buscarPorId(turma.getId()), IGNORE_DEFAULTS);
+        assertReflectionEquals(turma, service.buscarPorId(turma.getId()), IGNORE_DEFAULTS);
 
-        repo.excluir(turma);
+        service.excluir(turma);
 
-        for (Turma turma1 : repo.buscarTodos()) {
+        for (Turma turma1 : service.buscarTodos()) {
             System.out.println(turma1);
         }
 
     }
-
 }

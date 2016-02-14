@@ -1,6 +1,6 @@
 package br.com.sitedoph.uniph.dominio.repositorios;
 
-import br.com.sitedoph.uniph.dominio.entidade.Usuario;
+import br.com.sitedoph.uniph.dominio.entidades.Usuario;
 import br.com.sitedoph.uniph.tests.BaseTest;
 import br.com.six2six.fixturefactory.Fixture;
 import org.junit.Test;
@@ -29,7 +29,7 @@ public class UsuarioRepositorioTest extends BaseTest {
         repo.excluir(usuario);
 
         for (Usuario usuario1 : repo.buscarTodos()) {
-            System.out.println(usuario);
+            System.out.println(usuario1);
         }
 
     }

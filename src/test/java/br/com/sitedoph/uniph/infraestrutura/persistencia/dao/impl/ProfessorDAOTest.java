@@ -1,6 +1,6 @@
 package br.com.sitedoph.uniph.infraestrutura.persistencia.dao.impl;
 
-import br.com.sitedoph.uniph.dominio.entidade.Professor;
+import br.com.sitedoph.uniph.dominio.entidades.Professor;
 import br.com.sitedoph.uniph.infraestrutura.persistencia.util.JPAUtil;
 import br.com.sitedoph.uniph.tests.BaseTest;
 import br.com.six2six.fixturefactory.Fixture;

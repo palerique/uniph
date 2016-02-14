@@ -11,6 +11,6 @@ public class BaseTest {
 
     @BeforeClass
     public static void setUp() {
-        FixtureFactoryLoader.loadTemplates("br.com.sitedoph.uniph.dominio.entidade.templateloader");
+        FixtureFactoryLoader.loadTemplates("br.com.sitedoph.uniph.dominio.entidades.templateloader");
     }
 }

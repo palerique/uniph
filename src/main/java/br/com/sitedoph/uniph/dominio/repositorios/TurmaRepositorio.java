@@ -1,6 +1,6 @@
 package br.com.sitedoph.uniph.dominio.repositorios;
 
-import br.com.sitedoph.uniph.dominio.entidade.Turma;
+import br.com.sitedoph.uniph.dominio.entidades.Turma;
 import br.com.sitedoph.uniph.infraestrutura.persistencia.dao.impl.TurmaDAO;
 import br.com.sitedoph.uniph.infraestrutura.persistencia.util.JPAUtil;
 

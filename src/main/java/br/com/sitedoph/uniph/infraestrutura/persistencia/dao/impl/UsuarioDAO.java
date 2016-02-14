@@ -1,11 +1,10 @@
 package br.com.sitedoph.uniph.infraestrutura.persistencia.dao.impl;
 
-import java.util.List;
+import br.com.sitedoph.uniph.dominio.entidades.Usuario;
+import br.com.sitedoph.uniph.infraestrutura.persistencia.dao.GenericDAO;
 
 import javax.persistence.EntityManager;
-
-import br.com.sitedoph.uniph.dominio.entidade.Usuario;
-import br.com.sitedoph.uniph.infraestrutura.persistencia.dao.GenericDAO;
+import java.util.List;
 
 public class UsuarioDAO {
 

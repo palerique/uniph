@@ -1,12 +1,11 @@
 package br.com.sitedoph.uniph.dominio.repositorios;
 
-import java.util.List;
-
-import javax.persistence.EntityManager;
-
-import br.com.sitedoph.uniph.dominio.entidade.Professor;
+import br.com.sitedoph.uniph.dominio.entidades.Professor;
 import br.com.sitedoph.uniph.infraestrutura.persistencia.dao.impl.ProfessorDAO;
 import br.com.sitedoph.uniph.infraestrutura.persistencia.util.JPAUtil;
+
+import javax.persistence.EntityManager;
+import java.util.List;
 
 public class ProfessorRepositorio {
 

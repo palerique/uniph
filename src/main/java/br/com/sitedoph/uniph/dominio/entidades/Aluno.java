@@ -1,4 +1,4 @@
-package br.com.sitedoph.uniph.dominio.entidade;
+package br.com.sitedoph.uniph.dominio.entidades;
 
 import org.hibernate.validator.constraints.br.CPF;
 

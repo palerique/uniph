@@ -1,6 +1,6 @@
 package br.com.sitedoph.uniph.infraestrutura.persistencia.dao.impl;
 
-import br.com.sitedoph.uniph.dominio.entidade.Disciplina;
+import br.com.sitedoph.uniph.dominio.entidades.Disciplina;
 import br.com.sitedoph.uniph.infraestrutura.persistencia.dao.GenericDAO;
 
 import javax.persistence.EntityManager;
