@@ -1,17 +1,9 @@
 package br.com.sitedoph.uniph.dominio.entidade;
 
-import java.util.Calendar;
-
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
-
-import org.hibernate.validator.constraints.CreditCardNumber;
 import org.hibernate.validator.constraints.br.CPF;
+
+import javax.persistence.*;
+import java.util.Calendar;
 
 @Entity
 public class Aluno {
@@ -23,7 +15,7 @@ public class Aluno {
 	private String nomeCompleto;
 	private String rg;
 
-	@CPF(message = "CPF inv·lido")
+	@CPF(message = "CPF inv√°lido")
 	private String cpf;
 
 	@Temporal(TemporalType.TIMESTAMP)

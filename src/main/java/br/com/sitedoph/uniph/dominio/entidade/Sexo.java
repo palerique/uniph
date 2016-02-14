@@ -36,7 +36,7 @@ public enum Sexo {
     }
 
     /**
-     * Obtém a descricao.
+     * ObtÃ©m a descricao.
      *
      * @return a descricao
      */
@@ -46,7 +46,7 @@ public enum Sexo {
     }
 
     /**
-     * Obtém o id.
+     * ObtÃ©m o id.
      *
      * @return o id
      */

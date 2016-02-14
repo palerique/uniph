@@ -1,16 +1,11 @@
 package br.com.sitedoph.uniph.dominio.entidade;
 
-import java.io.Serializable;
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.validation.constraints.Size;
-
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotBlank;
+
+import javax.persistence.*;
+import javax.validation.constraints.Size;
+import java.io.Serializable;
 
 /**
  * The Class Usuario.
@@ -26,9 +21,9 @@ public class Usuario implements Serializable {
 	/**
 	 * The email.
 	 */
-	@Email(message = "E-mail inv·lido")
-	@NotBlank(message = "… necess·rio um "
-			+ "endereÁo de e-mail")
+	@Email(message = "E-mail inv√°lido")
+	@NotBlank(message = "√â necess√°rio um "
+			+ "endere√ßo de e-mail")
 	@Column(unique = true)
 	private String email;
 
@@ -42,7 +37,7 @@ public class Usuario implements Serializable {
 	/**
 	 * The login.
 	 */
-	@NotBlank(message = "Login obrigatÛrio")
+	@NotBlank(message = "Login obrigat√≥rio")
 	@Size(min = 3, message = "O login deve ter "
 			+ "ao menos 3 caracteres")
 	@Column(unique = true)
@@ -51,7 +46,7 @@ public class Usuario implements Serializable {
 	/**
 	 * The nome completo.
 	 */
-	@NotBlank(message = "O nome n„o "
+	@NotBlank(message = "O nome n√£o "
 			+ "pode estar vazio")
 	@Size(min = 5, message = "O nome deve ter ao "
 			+ "menos 5 caracteres")
@@ -60,7 +55,7 @@ public class Usuario implements Serializable {
 	/**
 	 * The senha.
 	 */
-	@NotBlank(message = "A senha n„o pode "
+	@NotBlank(message = "A senha n√£o pode "
 			+ "estar em branco")
 	@Size(min = 5, message = "A senha deve"
 			+ " ter pelo "
