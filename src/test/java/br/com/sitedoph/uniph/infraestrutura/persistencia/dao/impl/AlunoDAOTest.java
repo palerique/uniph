@@ -1,16 +1,14 @@
 package br.com.sitedoph.uniph.infraestrutura.persistencia.dao.impl;
 
-import java.util.Calendar;
-import java.util.List;
-
-import javax.persistence.EntityManager;
-
-import org.junit.Assert;
-import org.junit.Test;
-
 import br.com.sitedoph.uniph.dominio.entidade.Aluno;
 import br.com.sitedoph.uniph.dominio.entidade.Sexo;
 import br.com.sitedoph.uniph.infraestrutura.persistencia.util.JPAUtil;
+import org.junit.Assert;
+import org.junit.Test;
+
+import javax.persistence.EntityManager;
+import java.util.Calendar;
+import java.util.List;
 
 public class AlunoDAOTest {
 
@@ -36,7 +34,7 @@ public class AlunoDAOTest {
 		Aluno danilo = new Aluno();
 
 		danilo.setEmail("danilo@danilo.com");
-		danilo.setNomeCompleto("danilo Gregório");
+		danilo.setNomeCompleto("danilo GregÃ³rio");
 		danilo.setCpf(CPF);
 		danilo.setRg(CPF);
 		danilo.setDataDeNascimento(Calendar.getInstance());

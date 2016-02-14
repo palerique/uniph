@@ -1,15 +1,13 @@
 package br.com.sitedoph.uniph.infraestrutura.persistencia;
 
-import java.util.Calendar;
-import java.util.List;
+import br.com.sitedoph.uniph.dominio.entidade.Aluno;
+import br.com.sitedoph.uniph.infraestrutura.persistencia.util.JPAUtil;
+import org.junit.Test;
 
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
-
-import org.junit.Test;
-
-import br.com.sitedoph.uniph.dominio.entidade.Aluno;
-import br.com.sitedoph.uniph.infraestrutura.persistencia.util.JPAUtil;
+import java.util.Calendar;
+import java.util.List;
 
 public class PersistenciaTest {
 
@@ -28,7 +26,7 @@ public class PersistenciaTest {
 
 		Aluno ze = new Aluno();
 
-		ze.setNomeCompleto("José Roberto");
+		ze.setNomeCompleto("JosÃ© Roberto");
 		ze.setCpf("038.865.119-95");
 		ze.setDataDeCadastro(Calendar.getInstance());
 		ze.setEmail("ze@ze.com");

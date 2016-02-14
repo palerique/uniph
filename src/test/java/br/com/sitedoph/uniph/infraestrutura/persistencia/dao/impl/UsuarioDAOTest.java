@@ -1,64 +1,63 @@
 package br.com.sitedoph.uniph.infraestrutura.persistencia.dao.impl;
 
-import java.util.List;
-
-import javax.persistence.EntityManager;
-
+import br.com.sitedoph.uniph.dominio.entidade.Usuario;
+import br.com.sitedoph.uniph.infraestrutura.persistencia.util.JPAUtil;
+import br.com.sitedoph.uniph.tests.BaseTest;
+import br.com.six2six.fixturefactory.Fixture;
 import org.junit.Assert;
 import org.junit.Test;
 
-import br.com.sitedoph.uniph.dominio.entidade.Usuario;
-import br.com.sitedoph.uniph.infraestrutura.persistencia.util.JPAUtil;
+import javax.persistence.EntityManager;
+import java.util.List;
 
-public class UsuarioDAOTest {
+public class UsuarioDAOTest extends BaseTest {
 
-	private static final String SENHA = "123456";
-	private static final String MARQUINHOS = "marquinhos";
+    @Test
+    public void deveSalvar() {
 
-	@Test
-	public void deveSalvar() {
+        EntityManager em = JPAUtil.getEntityManager();
 
-		EntityManager em = JPAUtil.getEntityManager();
+        UsuarioDAO dao = new UsuarioDAO(em);
 
-		UsuarioDAO dao = new UsuarioDAO(em);
+        Usuario usuario = Fixture.from(Usuario.class).gimme(VALID);
 
-		Usuario loginESenha = dao.buscarPorLoginESenha(MARQUINHOS, SENHA);
+        excluir(em, dao, usuario);
 
-		em.getTransaction().begin();
-		if (loginESenha != null) {
-			dao.excluir(loginESenha);
-		}
-		em.getTransaction().commit();
+        em.getTransaction().begin();
 
-		em.getTransaction().begin();
+        usuario = dao.salvarOuAtualizar(usuario);
 
-		Usuario marcos = new Usuario();
+        em.getTransaction().commit();
 
-		marcos.setEmail("marcos@marcos.com");
-		marcos.setNomeCompleto("Marcos Gregório");
-		marcos.setLogin(MARQUINHOS);
-		marcos.setSenha(SENHA);
+        Usuario buscarPorId = dao.buscarPorId(usuario.getId());
 
-		marcos = dao.salvarOuAtualizar(marcos);
+        Assert.assertEquals(usuario.getId(), buscarPorId.getId());
+        Assert.assertEquals(usuario.getEmail(), buscarPorId.getEmail());
+        Assert.assertEquals(usuario.getLogin(), buscarPorId.getLogin());
+        Assert.assertEquals(usuario.getNomeCompleto(), buscarPorId.getNomeCompleto());
+        Assert.assertEquals(usuario.getSenha(), buscarPorId.getSenha());
 
-		em.getTransaction().commit();
+        List<Usuario> buscarTodos = dao.buscarTodos();
 
-		Usuario buscarPorId = dao.buscarPorId(marcos.getId());
+        for (Usuario user : buscarTodos) {
+            System.out.println(user);
+        }
 
-		Assert.assertEquals(marcos.getId(), buscarPorId.getId());
-		Assert.assertEquals(marcos.getEmail(), buscarPorId.getEmail());
-		Assert.assertEquals(marcos.getLogin(), buscarPorId.getLogin());
-		Assert.assertEquals(marcos.getNomeCompleto(), buscarPorId.getNomeCompleto());
-		Assert.assertEquals(marcos.getSenha(), buscarPorId.getSenha());
+        excluir(em, dao, usuario);
 
-		List<Usuario> buscarTodos = dao.buscarTodos();
+        em.close();
 
-		for (Usuario usuario : buscarTodos) {
-			System.out.println(usuario);
-		}
+    }
 
-		em.close();
+    private void excluir(EntityManager em, UsuarioDAO dao, Usuario usuario) {
+        Usuario loginESenha;
+        loginESenha = dao.buscarPorLoginESenha(usuario.getLogin(), usuario.getSenha());
 
-	}
+        em.getTransaction().begin();
+        if (loginESenha != null) {
+            dao.excluir(loginESenha);
+        }
+        em.getTransaction().commit();
+    }
 
 }
