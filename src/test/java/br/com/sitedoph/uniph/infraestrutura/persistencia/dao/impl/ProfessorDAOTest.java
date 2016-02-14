@@ -1,68 +1,48 @@
 package br.com.sitedoph.uniph.infraestrutura.persistencia.dao.impl;
 
-import java.util.Calendar;
-import java.util.List;
+import br.com.sitedoph.uniph.dominio.entidade.Professor;
+import br.com.sitedoph.uniph.infraestrutura.persistencia.util.JPAUtil;
+import br.com.sitedoph.uniph.tests.BaseTest;
+import br.com.six2six.fixturefactory.Fixture;
+import org.junit.Test;
 
 import javax.persistence.EntityManager;
 
-import org.junit.Assert;
-import org.junit.Test;
+import static org.unitils.reflectionassert.ReflectionAssert.assertReflectionEquals;
 
-import br.com.sitedoph.uniph.dominio.entidade.Professor;
-import br.com.sitedoph.uniph.infraestrutura.persistencia.util.JPAUtil;
+public class ProfessorDAOTest extends BaseTest {
 
-public class ProfessorDAOTest {
+    @Test
+    public void deveFazerCRUDDeProfessor() {
 
-	private String CPF = "999.999.999-99";
+        EntityManager em = JPAUtil.getEntityManager();
+        ProfessorDAO dao = new ProfessorDAO(em);
 
-	@Test
-	public void deveFazerCRUDDeProfessor() {
+        Professor professor1 = Fixture.from(Professor.class).gimme(VALID);
 
-		EntityManager em = JPAUtil.getEntityManager();
+        Professor professorPorCPF = dao.buscarCPF(professor1.getCpf());
 
-		ProfessorDAO dao = new ProfessorDAO(em);
+        em.getTransaction().begin();
+        if (professorPorCPF != null) {
+            dao.excluir(professorPorCPF);
+        }
+        em.getTransaction().commit();
 
-		Professor professorPorCPF = dao.buscarCPF(CPF);
+        em.getTransaction().begin();
 
-		em.getTransaction().begin();
-		if (professorPorCPF != null) {
-			dao.excluir(professorPorCPF);
-		}
-		em.getTransaction().commit();
 
-		em.getTransaction().begin();
+        professor1 = dao.salvarOuAtualizar(professor1);
 
-		Professor ph = new Professor();
+        em.getTransaction().commit();
 
-		ph.setEmail("ph@ph.com");
-		ph.setNomeCompleto("ph lerbach");
-		ph.setCpf(CPF);
-		ph.setCurrriculo(CPF);
-		ph.setDataDeCadastro(Calendar.getInstance());
-		ph.setTelefone(CPF);
+        assertReflectionEquals(professor1, dao.buscarPorId(professor1.getId()));
 
-		ph = dao.salvarOuAtualizar(ph);
+        for (Professor professor : dao.buscarTodos()) {
+            System.out.println(professor);
+        }
 
-		em.getTransaction().commit();
+        em.close();
 
-		Professor buscarPorId = dao.buscarPorId(ph.getId());
-
-		Assert.assertEquals(ph.getId(), buscarPorId.getId());
-		Assert.assertEquals(ph.getNomeCompleto(), buscarPorId.getNomeCompleto());
-		Assert.assertEquals(ph.getCurrriculo(), buscarPorId.getCurrriculo());
-		Assert.assertEquals(ph.getCpf(), buscarPorId.getCpf());
-		Assert.assertEquals(ph.getDataDeCadastro(), buscarPorId.getDataDeCadastro());
-		Assert.assertEquals(ph.getEmail(), buscarPorId.getEmail());
-		Assert.assertEquals(ph.getTelefone(), buscarPorId.getTelefone());
-
-		List<Professor> buscarTodos = dao.buscarTodos();
-
-		for (Professor professor : buscarTodos) {
-			System.out.println(professor);
-		}
-
-		em.close();
-
-	}
+    }
 
 }

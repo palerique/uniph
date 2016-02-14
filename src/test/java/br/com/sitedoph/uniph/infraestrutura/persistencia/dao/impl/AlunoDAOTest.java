@@ -1,71 +1,45 @@
 package br.com.sitedoph.uniph.infraestrutura.persistencia.dao.impl;
 
 import br.com.sitedoph.uniph.dominio.entidade.Aluno;
-import br.com.sitedoph.uniph.dominio.entidade.Sexo;
 import br.com.sitedoph.uniph.infraestrutura.persistencia.util.JPAUtil;
-import org.junit.Assert;
+import br.com.sitedoph.uniph.tests.BaseTest;
+import br.com.six2six.fixturefactory.Fixture;
 import org.junit.Test;
 
 import javax.persistence.EntityManager;
-import java.util.Calendar;
-import java.util.List;
 
-public class AlunoDAOTest {
+import static org.unitils.reflectionassert.ReflectionAssert.assertReflectionEquals;
 
-	private String CPF = "038.865.119-95";
+public class AlunoDAOTest extends BaseTest {
 
-	@Test
-	public void deveFazerCRUDDeAluno() {
+    @Test
+    public void deveFazerCRUDDeAluno() {
 
-		EntityManager em = JPAUtil.getEntityManager();
+        EntityManager em = JPAUtil.getEntityManager();
+        AlunoDAO dao = new AlunoDAO(em);
 
-		AlunoDAO dao = new AlunoDAO(em);
+        Aluno estudante = Fixture.from(Aluno.class).gimme(VALID);
 
-		Aluno alunoPorCPF = dao.buscarCPF(CPF);
+        Aluno alunoPorCPF = dao.buscarCPF(estudante.getCpf());
+        if (alunoPorCPF != null) {
+            estudante = alunoPorCPF;
+        }
 
-		em.getTransaction().begin();
-		if (alunoPorCPF != null) {
-			dao.excluir(alunoPorCPF);
-		}
-		em.getTransaction().commit();
+        em.getTransaction().begin();
 
-		em.getTransaction().begin();
 
-		Aluno danilo = new Aluno();
+        estudante = dao.salvarOuAtualizar(estudante);
 
-		danilo.setEmail("danilo@danilo.com");
-		danilo.setNomeCompleto("danilo Gregório");
-		danilo.setCpf(CPF);
-		danilo.setRg(CPF);
-		danilo.setDataDeNascimento(Calendar.getInstance());
-		danilo.setDataDeCadastro(Calendar.getInstance());
-		danilo.setTelefone(CPF);
-		danilo.setSexo(Sexo.MASCULINO);
+        em.getTransaction().commit();
 
-		danilo = dao.salvarOuAtualizar(danilo);
+        assertReflectionEquals(estudante, dao.buscarPorId(estudante.getId()));
 
-		em.getTransaction().commit();
+        for (Aluno aluno : dao.buscarTodos()) {
+            System.out.println(aluno);
+        }
 
-		Aluno buscarPorId = dao.buscarPorId(danilo.getId());
+        em.close();
 
-		Assert.assertEquals(danilo.getId(), buscarPorId.getId());
-		Assert.assertEquals(danilo.getNomeCompleto(), buscarPorId.getNomeCompleto());
-		Assert.assertEquals(danilo.getRg(), buscarPorId.getRg());
-		Assert.assertEquals(danilo.getCpf(), buscarPorId.getCpf());
-		Assert.assertEquals(danilo.getDataDeCadastro(), buscarPorId.getDataDeCadastro());
-		Assert.assertEquals(danilo.getDataDeNascimento(), buscarPorId.getDataDeNascimento());
-		Assert.assertEquals(danilo.getEmail(), buscarPorId.getEmail());
-		Assert.assertEquals(danilo.getTelefone(), buscarPorId.getTelefone());
-		Assert.assertEquals(danilo.getSexo(), buscarPorId.getSexo());
-
-		List<Aluno> buscarTodos = dao.buscarTodos();
-
-		for (Aluno aluno : buscarTodos) {
-			System.out.println(aluno);
-		}
-
-		em.close();
-
-	}
+    }
 
 }

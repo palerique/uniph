@@ -21,6 +21,7 @@ public class UniPHTemplateLoader implements TemplateLoader {
     private static final Object[] CVS = {"professor formado em Harvard", "Estudou no MIT", "Foi aluno do ITA"};
     private static final Object[] TELEFONES = {"81818181", "99999999", "91919191"};
     private static final Object[] DESCS_TURMA = {"Turma A", "Turma B", "Turma C"};
+    private static final Object[] DIAS_DA_SEMANA = {"Segunda, quarta e sexta", "Terça e quinta", "Sábados"};
     private static final Object[] DESCS_DISC = {"Java", "OO", "UML"};
     private static final Object[] CARGAS = {"8 horas", "12 horas", "32 horas"};
 
@@ -64,7 +65,7 @@ public class UniPHTemplateLoader implements TemplateLoader {
 
         Fixture.of(Turma.class).addTemplate(VALID, new Rule() {{
             add("descricao", random(DESCS_TURMA));
-            add("diasDaSemana", one(Professor.class, VALID));
+            add("diasDaSemana", random(DIAS_DA_SEMANA));
             add("horario", random(CARGAS));
             add("alunos", has(1).of(Aluno.class, VALID));
             add("disciplinas", has(1).of(Disciplina.class, VALID));

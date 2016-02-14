@@ -4,11 +4,11 @@ import br.com.sitedoph.uniph.dominio.entidade.Usuario;
 import br.com.sitedoph.uniph.infraestrutura.persistencia.util.JPAUtil;
 import br.com.sitedoph.uniph.tests.BaseTest;
 import br.com.six2six.fixturefactory.Fixture;
-import org.junit.Assert;
 import org.junit.Test;
 
 import javax.persistence.EntityManager;
-import java.util.List;
+
+import static org.unitils.reflectionassert.ReflectionAssert.assertReflectionEquals;
 
 public class UsuarioDAOTest extends BaseTest {
 
@@ -16,7 +16,6 @@ public class UsuarioDAOTest extends BaseTest {
     public void deveSalvar() {
 
         EntityManager em = JPAUtil.getEntityManager();
-
         UsuarioDAO dao = new UsuarioDAO(em);
 
         Usuario usuario = Fixture.from(Usuario.class).gimme(VALID);
@@ -24,22 +23,12 @@ public class UsuarioDAOTest extends BaseTest {
         excluir(em, dao, usuario);
 
         em.getTransaction().begin();
-
         usuario = dao.salvarOuAtualizar(usuario);
-
         em.getTransaction().commit();
 
-        Usuario buscarPorId = dao.buscarPorId(usuario.getId());
+        assertReflectionEquals(usuario, dao.buscarPorId(usuario.getId()));
 
-        Assert.assertEquals(usuario.getId(), buscarPorId.getId());
-        Assert.assertEquals(usuario.getEmail(), buscarPorId.getEmail());
-        Assert.assertEquals(usuario.getLogin(), buscarPorId.getLogin());
-        Assert.assertEquals(usuario.getNomeCompleto(), buscarPorId.getNomeCompleto());
-        Assert.assertEquals(usuario.getSenha(), buscarPorId.getSenha());
-
-        List<Usuario> buscarTodos = dao.buscarTodos();
-
-        for (Usuario user : buscarTodos) {
+        for (Usuario user : dao.buscarTodos()) {
             System.out.println(user);
         }
 
