@@ -1,34 +1,38 @@
 package br.com.sitedoph.uniph.dominio.repositorios;
 
-import org.junit.Assert;
+import br.com.sitedoph.uniph.dominio.entidade.Aluno;
+import br.com.sitedoph.uniph.tests.BaseTest;
+import br.com.six2six.fixturefactory.Fixture;
 import org.junit.Test;
 
-import br.com.sitedoph.uniph.dominio.entidade.Aluno;
+import static org.unitils.reflectionassert.ReflectionAssert.assertReflectionEquals;
 
-public class AlunoRepositorioTest {
+public class AlunoRepositorioTest extends BaseTest {
 
-	private static final String CPF = "038.865.119-95";
+    @Test
+    public void deveFuncionarORepositorio() {
 
-	@Test
-	public void deveFuncionarORepositorio() {
+        AlunoRepositorio repo = new AlunoRepositorio();
 
-		AlunoRepositorio repo = new AlunoRepositorio();
+        Aluno aluno = Fixture.from(Aluno.class).gimme(VALID);
 
-		Aluno buscarPorCPF = repo.buscarPorCPF(CPF);
+        Aluno buscarPorCPF = repo.buscarPorCPF(aluno.getCpf());
 
-		if (buscarPorCPF != null) {
-			repo.excluir(buscarPorCPF);
-		}
+        if (buscarPorCPF != null) {
+            aluno = buscarPorCPF;
+        }
 
-		Aluno aluno = new Aluno();
+        aluno = repo.salvarOuAtualizar(aluno);
 
-		aluno.setCpf(CPF);
+        assertReflectionEquals(aluno, repo.buscarPorId(aluno.getId()));
 
-		aluno = repo.salvarOuAtualizar(aluno);
+        repo.excluir(aluno);
 
-		Aluno buscarPorId = repo.buscarPorId(aluno.getId());
+        for (Aluno aluno1 : repo.buscarTodos()) {
+            System.out.println(aluno1);
+        }
 
-		Assert.assertEquals(aluno.getCpf(), buscarPorId.getCpf());
-	}
+    }
+
 
 }

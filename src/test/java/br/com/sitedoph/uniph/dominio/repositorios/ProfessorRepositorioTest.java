@@ -1,34 +1,37 @@
 package br.com.sitedoph.uniph.dominio.repositorios;
 
-import org.junit.Assert;
+import br.com.sitedoph.uniph.dominio.entidade.Professor;
+import br.com.sitedoph.uniph.tests.BaseTest;
+import br.com.six2six.fixturefactory.Fixture;
 import org.junit.Test;
 
-import br.com.sitedoph.uniph.dominio.entidade.Professor;
+import static org.unitils.reflectionassert.ReflectionAssert.assertReflectionEquals;
 
-public class ProfessorRepositorioTest {
+public class ProfessorRepositorioTest extends BaseTest {
 
-	private static final String CPF = "999.999.999-99";
+    @Test
+    public void deveFuncionarORepositorio() {
 
-	@Test
-	public void deveFuncionarORepositorio() {
+        ProfessorRepositorio repo = new ProfessorRepositorio();
 
-		ProfessorRepositorio repo = new ProfessorRepositorio();
+        Professor professor = Fixture.from(Professor.class).gimme(VALID);
 
-		Professor buscarPorCPF = repo.buscarPorCPF(CPF);
+        Professor buscarPorCPF = repo.buscarPorCPF(professor.getCpf());
 
-		if (buscarPorCPF != null) {
-			repo.excluir(buscarPorCPF);
-		}
+        if (buscarPorCPF != null) {
+            professor = buscarPorCPF;
+        }
 
-		Professor professor = new Professor();
+        professor = repo.salvarOuAtualizar(professor);
 
-		professor.setCpf(CPF);
+        assertReflectionEquals(professor, repo.buscarPorId(professor.getId()));
 
-		professor = repo.salvarOuAtualizar(professor);
+        repo.excluir(professor);
 
-		Professor buscarPorId = repo.buscarPorId(professor.getId());
+        for (Professor professor1 : repo.buscarTodos()) {
+            System.out.println(professor1);
+        }
 
-		Assert.assertEquals(professor.getCpf(), buscarPorId.getCpf());
-	}
+    }
 
 }

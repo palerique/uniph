@@ -1,39 +1,37 @@
 package br.com.sitedoph.uniph.dominio.repositorios;
 
-import org.junit.Assert;
+import br.com.sitedoph.uniph.dominio.entidade.Usuario;
+import br.com.sitedoph.uniph.tests.BaseTest;
+import br.com.six2six.fixturefactory.Fixture;
 import org.junit.Test;
 
-import br.com.sitedoph.uniph.dominio.entidade.Usuario;
+import static org.unitils.reflectionassert.ReflectionAssert.assertReflectionEquals;
 
-public class UsuarioRepositorioTest {
+public class UsuarioRepositorioTest extends BaseTest {
 
-	private static final String LOGIN = "LOGAN";
-	private static final String SENHA = "SENHAM";
+    @Test
+    public void deveFuncionarORepositorio() {
 
-	@Test
-	public void deveFuncionarORepositorio() {
+        UsuarioRepositorio repo = new UsuarioRepositorio();
 
-		UsuarioRepositorio repo = new UsuarioRepositorio();
+        Usuario usuario = Fixture.from(Usuario.class).gimme(VALID);
 
-		Usuario buscarPorLoginESenha = repo.buscarPorLoginESenha(LOGIN, SENHA);
+        Usuario buscarPorLoginESenha = repo.buscarPorLoginESenha(usuario.getLogin(), usuario.getSenha());
 
-		if (buscarPorLoginESenha != null) {
-			repo.excluir(buscarPorLoginESenha);
-		}
+        if (buscarPorLoginESenha != null) {
+            usuario = buscarPorLoginESenha;
+        }
 
-		Usuario usuario = new Usuario();
+        usuario = repo.salvarOuAtualizar(usuario);
 
-		usuario.setEmail("ph@sitedoph.com.br");
-		usuario.setNomeCompleto("Paulo Henrique");
-		usuario.setLogin(LOGIN);
-		usuario.setSenha(SENHA);
+        assertReflectionEquals(usuario, repo.buscarPorId(usuario.getId()));
 
-		usuario = repo.salvarOuAtualizar(usuario);
+        repo.excluir(usuario);
 
-		Usuario buscarPorId = repo.buscarPorId(usuario.getId());
+        for (Usuario usuario1 : repo.buscarTodos()) {
+            System.out.println(usuario);
+        }
 
-		Assert.assertEquals(usuario.getLogin(), buscarPorId.getLogin());
-		Assert.assertEquals(usuario.getSenha(), buscarPorId.getSenha());
-	}
+    }
 
 }
