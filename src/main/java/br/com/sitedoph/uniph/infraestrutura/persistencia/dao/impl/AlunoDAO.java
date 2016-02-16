@@ -8,41 +8,41 @@ import java.util.List;
 
 public class AlunoDAO {
 
-	private final GenericDAO<Aluno, Long> DAO;
+    private final GenericDAO<Aluno, Long> DAO;
 
-	public AlunoDAO(EntityManager entityManager) {
-		DAO = new GenericDAOHibernate<>(entityManager, Aluno.class);
-	}
+    public AlunoDAO(EntityManager entityManager) {
+        DAO = new GenericDAOHibernate<>(entityManager, Aluno.class);
+    }
 
-	public Aluno buscarCPF(String cpf) {
+    public Aluno buscarCPF(String cpf) {
 
-		Aluno exemplo = new Aluno();
+        Aluno exemplo = new Aluno();
 
-		exemplo.setCpf(cpf);
+        exemplo.setCpf(cpf);
 
-		List<Aluno> porExemplo = DAO.buscarPorExemplo(exemplo);
+        List<Aluno> porExemplo = DAO.buscarPorExemplo(exemplo);
 
-		if (porExemplo != null && !porExemplo.isEmpty()) {
-			return porExemplo.get(0);
-		} else {
-			return null;
-		}
-	}
+        if (porExemplo != null && !porExemplo.isEmpty()) {
+            return porExemplo.get(0);
+        } else {
+            return null;
+        }
+    }
 
-	public void excluir(Aluno entidade) {
-		DAO.excluir(entidade);
-	}
+    public void excluir(Aluno entidade) {
+        DAO.excluir(entidade);
+    }
 
-	public Aluno salvarOuAtualizar(Aluno entidade) {
-		return DAO.salvarOuAtualizar(entidade);
-	}
+    public Aluno salvarOuAtualizar(Aluno entidade) {
+        return DAO.salvarOuAtualizar(entidade);
+    }
 
-	public Aluno buscarPorId(Long id) {
-		return DAO.buscarPorId(id);
-	}
+    public Aluno buscarPorId(Long id) {
+        return DAO.buscarPorId(id);
+    }
 
-	public List<Aluno> buscarTodos() {
-		return DAO.buscarTodos();
-	}
+    public List<Aluno> buscarTodos() {
+        return DAO.buscarTodos();
+    }
 
 }

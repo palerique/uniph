@@ -9,82 +9,82 @@ import java.util.List;
 
 public class ProfessorRepositorio {
 
-	private EntityManager em;
-	private ProfessorDAO DAO;
+    private EntityManager em;
+    private ProfessorDAO DAO;
 
-	private void criarDAOeEM() {
-		em = JPAUtil.getEntityManager();
-		DAO = new ProfessorDAO(em);
-	}
+    private void criarDAOeEM() {
+        em = JPAUtil.getEntityManager();
+        DAO = new ProfessorDAO(em);
+    }
 
-	public Professor buscarPorId(Long id) {
+    public Professor buscarPorId(Long id) {
 
-		criarDAOeEM();
+        criarDAOeEM();
 
-		Professor u = DAO.buscarPorId(id);
+        Professor u = DAO.buscarPorId(id);
 
-		em.close();
+        em.close();
 
-		return u;
-	}
+        return u;
+    }
 
-	public List<Professor> buscarTodos() {
+    public List<Professor> buscarTodos() {
 
-		criarDAOeEM();
+        criarDAOeEM();
 
-		List<Professor> lista = DAO.buscarTodos();
+        List<Professor> lista = DAO.buscarTodos();
 
-		em.close();
+        em.close();
 
-		return lista;
-	}
+        return lista;
+    }
 
-	public void excluir(final Professor professor) {
+    public void excluir(final Professor professor) {
 
-		criarDAOeEM();
+        criarDAOeEM();
 
-		em.getTransaction().begin();
+        em.getTransaction().begin();
 
-		try {
-			DAO.excluir(professor);
-			em.getTransaction().commit();
-		} catch (final Exception e) {
-			e.printStackTrace();
-			em.getTransaction().rollback();
-		}
+        try {
+            DAO.excluir(professor);
+            em.getTransaction().commit();
+        } catch (final Exception e) {
+            e.printStackTrace();
+            em.getTransaction().rollback();
+        }
 
-		em.close();
+        em.close();
 
-	}
+    }
 
-	public Professor salvarOuAtualizar(Professor professor) {
+    public Professor salvarOuAtualizar(Professor professor) {
 
-		criarDAOeEM();
+        criarDAOeEM();
 
-		em.getTransaction().begin();
+        em.getTransaction().begin();
 
-		try {
-			professor = DAO.salvarOuAtualizar(professor);
-			em.getTransaction().commit();
-		} catch (Exception e) {
-			em.getTransaction().rollback();
-			throw e;
-		} finally {
-			em.close();
-		}
+        try {
+            professor = DAO.salvarOuAtualizar(professor);
+            em.getTransaction().commit();
+        } catch (Exception e) {
+            em.getTransaction().rollback();
+            throw e;
+        } finally {
+            em.close();
+        }
 
-		return professor;
-	}
+        return professor;
+    }
 
-	public Professor buscarPorCPF(String cpf) {
+    public Professor buscarPorCPF(String cpf) {
 
-		criarDAOeEM();
+        criarDAOeEM();
 
-		Professor u = DAO.buscarCPF(cpf);
+        Professor u = DAO.buscarCPF(cpf);
 
-		em.close();
+        em.close();
 
-		return u;
-	}
+        return u;
+    }
 
 }

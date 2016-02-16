@@ -6,10 +6,10 @@ import javax.validation.ValidatorFactory;
 
 public class ValidadorUtil {
 
-	private static ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
+    private static ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
 
-	public static Validator getValidator() {
-		return factory.getValidator();
-	}
+    public static Validator getValidator() {
+        return factory.getValidator();
+    }
 
 }

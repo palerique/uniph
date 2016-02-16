@@ -7,25 +7,25 @@ import java.util.List;
 
 public class UsuarioService {
 
-	private final UsuarioRepositorio repo = new UsuarioRepositorio();
+    private final UsuarioRepositorio repo = new UsuarioRepositorio();
 
-	public Usuario buscarPorId(final Long id) {
-		return repo.buscarPorId(id);
-	}
+    public Usuario buscarPorId(final Long id) {
+        return repo.buscarPorId(id);
+    }
 
-	public Usuario buscarPorLoginESenha(String login, String senha) {
-		return repo.buscarPorLoginESenha(login, senha);
-	}
+    public Usuario buscarPorLoginESenha(String login, String senha) {
+        return repo.buscarPorLoginESenha(login, senha);
+    }
 
-	public List<Usuario> buscarTodos() {
-		return repo.buscarTodos();
-	}
+    public List<Usuario> buscarTodos() {
+        return repo.buscarTodos();
+    }
 
-	public void excluir(Usuario usuario) {
-		repo.excluir(usuario);
-	}
+    public void excluir(Usuario usuario) {
+        repo.excluir(usuario);
+    }
 
-	public Usuario salvarOuAtualizar(Usuario usuario) {
-		return repo.salvarOuAtualizar(usuario);
-	}
+    public Usuario salvarOuAtualizar(Usuario usuario) {
+        return repo.salvarOuAtualizar(usuario);
+    }
 }

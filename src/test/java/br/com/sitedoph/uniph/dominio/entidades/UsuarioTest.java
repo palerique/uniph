@@ -10,21 +10,21 @@ import java.util.Set;
 
 public class UsuarioTest {
 
-	@Test
-	public void deveValidar() {
+    @Test
+    public void deveValidar() {
 
-		Validator validador = ValidadorUtil.getValidator();
+        Validator validador = ValidadorUtil.getValidator();
 
-		Usuario xpto = new Usuario();
+        Usuario xpto = new Usuario();
 
-		Set<ConstraintViolation<Usuario>> violacoes = 
-				validador.validate(xpto);
+        Set<ConstraintViolation<Usuario>> violacoes =
+                validador.validate(xpto);
 
-		for (ConstraintViolation<Usuario> constraintViolation : violacoes) {
-			System.out.println(constraintViolation);
-		}
+        for (ConstraintViolation<Usuario> constraintViolation : violacoes) {
+            System.out.println(constraintViolation);
+        }
 
-		Assert.assertEquals(4, violacoes.size());
-	}
+        Assert.assertEquals(4, violacoes.size());
+    }
 
 }
