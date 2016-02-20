@@ -14,6 +14,18 @@
 
 	<h:form>
 
+		<h:inputHidden value="#{usuarioBean.usuario.id}" />
+
+		<h2>
+
+			<h:outputText value="Novo Usuário"
+				rendered="#{empty usuarioBean.usuario.id}" />
+
+			<h:outputText value="Editar Usuário"
+				rendered="#{not empty usuarioBean.usuario.id}" />
+
+		</h2>
+
 		<h:panelGrid columns="2">
 
 			<h:outputLabel value="Nome:" for="nome" />
@@ -30,9 +42,16 @@
 
 			<h:commandButton value="Gravar" action="#{usuarioBean.gravar}" />
 
+			<h:commandButton value="Cancelar" action="#{usuarioBean.cancelar}" />
+
 		</h:panelGrid>
 
 		<h:dataTable var="usuario" value="#{usuarioBean.usuarios}">
+
+			<h:column>
+				<f:facet name="header">#</f:facet>
+				#{usuario.id}
+			</h:column>
 
 			<h:column>
 				<f:facet name="header">Nome:</f:facet>
@@ -55,9 +74,16 @@
 			</h:column>
 
 			<h:column>
+				<f:facet name="header">Editar:</f:facet>
+				<h:commandLink value="editar">
+					<f:setPropertyActionListener value="#{usuario}"
+						target="#{usuarioBean.usuario}" />
+				</h:commandLink>
+			</h:column>
+
+			<h:column>
 				<f:facet name="header">Excluir:</f:facet>
-				<h:commandLink 
-				action="#{usuarioBean.remover(usuario)}"
+				<h:commandLink action="#{usuarioBean.remover(usuario)}"
 					value="Remover" />
 			</h:column>
 

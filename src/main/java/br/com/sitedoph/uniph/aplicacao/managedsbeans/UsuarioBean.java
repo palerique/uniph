@@ -18,8 +18,16 @@ public class UsuarioBean {
 	public void gravar() {
 
 		service.salvarOuAtualizar(usuario);
-		usuario = new Usuario();
+		limpar();
 		usuarios = service.buscarTodos();
+	}
+
+	public void cancelar() {
+		limpar();
+	}
+
+	private void limpar() {
+		usuario = new Usuario();
 	}
 
 	public void remover(Usuario usuario) {
