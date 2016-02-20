@@ -27,11 +27,8 @@ public class UsuarioBean {
 		} catch (Exception e) {
 
 			if (e.getCause() instanceof ConstraintViolationException) {
-
 				MensagensUtil.adicionarMensagensDeValidacao((ConstraintViolationException) e.getCause());
-
-			} else if (e.getCause() instanceof org.hibernate.exception.ConstraintViolationException) {
-
+			} else if (e.getCause() instanceof javax.persistence.PersistenceException) {
 				MensagensUtil.erro("Login ou endereço de e-mail em uso!");
 			} else {
 				throw e;
