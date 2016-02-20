@@ -3,10 +3,12 @@ package br.com.sitedoph.uniph.aplicacao.managedsbeans;
 import java.util.Collection;
 
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ViewScoped;
 
 import br.com.sitedoph.uniph.dominio.entidades.Usuario;
 import br.com.sitedoph.uniph.dominio.services.UsuarioService;
 
+@ViewScoped
 @ManagedBean
 public class UsuarioBean {
 
