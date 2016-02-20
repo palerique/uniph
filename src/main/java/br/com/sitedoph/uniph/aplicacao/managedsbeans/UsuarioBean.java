@@ -17,20 +17,28 @@ public class UsuarioBean {
 	private Usuario usuario = new Usuario();
 	private Collection<Usuario> usuarios;
 
-	private UsuarioService service = new UsuarioService();
-
 	public void gravar() {
 
 		try {
-			service.salvarOuAtualizar(usuario);
+			new UsuarioService().salvarOuAtualizar(usuario);
 			limpar();
-			usuarios = service.buscarTodos();
+			usuarios = new UsuarioService().buscarTodos();
 			MensagensUtil.info("Usuário foi Cadastrado com Sucesso!");
-		} catch (ConstraintViolationException e) {
-			MensagensUtil.adicionarMensagensDeValidacao(e);
-		} catch (org.hibernate.exception.ConstraintViolationException e) {
-			MensagensUtil.erro("Login ou endereço de e-mail em uso!");
+		} catch (Exception e) {
+
+			if (e.getCause() instanceof ConstraintViolationException) {
+
+				MensagensUtil.adicionarMensagensDeValidacao((ConstraintViolationException) e.getCause());
+
+			} else if (e.getCause() instanceof org.hibernate.exception.ConstraintViolationException) {
+
+				MensagensUtil.erro("Login ou endereço de e-mail em uso!");
+			} else {
+				throw e;
+			}
+
 		}
+
 	}
 
 	public void cancelar() {
@@ -42,14 +50,13 @@ public class UsuarioBean {
 	}
 
 	public void remover(Usuario usuario) {
-		service.excluir(usuario);
-		usuarios = service.buscarTodos();
+		new UsuarioService().excluir(usuario);
+		usuarios = new UsuarioService().buscarTodos();
 	}
 
 	public Collection<Usuario> getUsuarios() {
-
 		if (usuarios == null) {
-			usuarios = service.buscarTodos();
+			usuarios = new UsuarioService().buscarTodos();
 		}
 
 		return usuarios;
