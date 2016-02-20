@@ -5,6 +5,9 @@ import br.com.sitedoph.uniph.infraestrutura.persistencia.dao.impl.TurmaDAO;
 import br.com.sitedoph.uniph.infraestrutura.persistencia.util.JPAUtil;
 
 import javax.persistence.EntityManager;
+import javax.persistence.PersistenceException;
+import javax.validation.ConstraintViolationException;
+
 import java.util.List;
 
 /**
@@ -68,12 +71,12 @@ public class TurmaRepositorio {
         try {
             turma = DAO.salvarOuAtualizar(turma);
             em.getTransaction().commit();
-        } catch (Exception e) {
-            em.getTransaction().rollback();
-            throw e;
-        } finally {
-            em.close();
-        }
+		} catch (ConstraintViolationException | PersistenceException e) {
+			em.getTransaction().rollback();
+			throw e;
+		} finally {
+			em.close();
+		}
 
         return turma;
     }

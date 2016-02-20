@@ -4,7 +4,9 @@ import java.util.Collection;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.validation.ConstraintViolationException;
 
+import br.com.sitedoph.uniph.aplicacao.util.MensagensUtil;
 import br.com.sitedoph.uniph.dominio.entidades.Usuario;
 import br.com.sitedoph.uniph.dominio.services.UsuarioService;
 
@@ -19,9 +21,16 @@ public class UsuarioBean {
 
 	public void gravar() {
 
-		service.salvarOuAtualizar(usuario);
-		limpar();
-		usuarios = service.buscarTodos();
+		try {
+			service.salvarOuAtualizar(usuario);
+			limpar();
+			usuarios = service.buscarTodos();
+			MensagensUtil.info("Usuário foi Cadastrado com Sucesso!");
+		} catch (ConstraintViolationException e) {
+			MensagensUtil.adicionarMensagensDeValidacao(e);
+		} catch (org.hibernate.exception.ConstraintViolationException e) {
+			MensagensUtil.erro("Login ou endereço de e-mail em uso!");
+		}
 	}
 
 	public void cancelar() {
