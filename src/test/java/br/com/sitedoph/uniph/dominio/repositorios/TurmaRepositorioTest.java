@@ -32,9 +32,7 @@ public class TurmaRepositorioTest extends BaseTest {
 
         repo.excluir(turma);
 
-        for (Turma turma1 : repo.buscarTodos()) {
-            System.out.println(turma1);
-        }
+        repo.buscarTodos().forEach(System.out::println);
 
     }
 

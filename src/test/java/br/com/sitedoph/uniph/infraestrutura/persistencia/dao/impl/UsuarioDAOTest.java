@@ -28,9 +28,7 @@ public class UsuarioDAOTest extends BaseTest {
 
         assertReflectionEquals(usuario, dao.buscarPorId(usuario.getId()));
 
-        for (Usuario user : dao.buscarTodos()) {
-            System.out.println(user);
-        }
+        dao.buscarTodos().forEach(System.out::println);
 
         excluir(em, dao, usuario);
 

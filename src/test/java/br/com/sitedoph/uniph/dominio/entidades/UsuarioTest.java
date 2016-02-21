@@ -20,9 +20,7 @@ public class UsuarioTest {
         Set<ConstraintViolation<Usuario>> violacoes =
                 validador.validate(xpto);
 
-        for (ConstraintViolation<Usuario> constraintViolation : violacoes) {
-            System.out.println(constraintViolation);
-        }
+        violacoes.forEach(System.out::println);
 
         Assert.assertEquals(4, violacoes.size());
     }

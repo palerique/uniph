@@ -35,9 +35,7 @@ public class DisciplinaDAOTest extends BaseTest {
 
         assertReflectionEquals(disciplina1, dao.buscarPorId(disciplina1.getId()));
 
-        for (Disciplina disciplina : dao.buscarTodos()) {
-            System.out.println(disciplina);
-        }
+        dao.buscarTodos().forEach(System.out::println);
 
         em.close();
 

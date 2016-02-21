@@ -28,9 +28,7 @@ public class UsuarioRepositorioTest extends BaseTest {
 
         repo.excluir(usuario);
 
-        for (Usuario usuario1 : repo.buscarTodos()) {
-            System.out.println(usuario1);
-        }
+        repo.buscarTodos().forEach(System.out::println);
 
     }
 

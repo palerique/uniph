@@ -31,9 +31,7 @@ public class AlunoServiceTest extends BaseTest {
 
         service.excluir(aluno);
 
-        for (Aluno aluno1 : service.buscarTodos()) {
-            System.out.println(aluno1);
-        }
+        service.buscarTodos().forEach(System.out::println);
 
     }
 }

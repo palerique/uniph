@@ -1,18 +1,16 @@
 package br.com.sitedoph.uniph.infraestrutura.persistencia.dao.impl;
 
-import java.io.Serializable;
-import java.util.List;
-
-import javax.persistence.EntityManager;
-import javax.persistence.criteria.CriteriaQuery;
-
+import br.com.sitedoph.uniph.infraestrutura.persistencia.dao.GenericDAO;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.Example;
 import org.hibernate.criterion.MatchMode;
 
-import br.com.sitedoph.uniph.infraestrutura.persistencia.dao.GenericDAO;
+import javax.persistence.EntityManager;
+import javax.persistence.criteria.CriteriaQuery;
+import java.io.Serializable;
+import java.util.List;
 
 public class GenericDAOHibernate<T, ID extends Serializable> implements GenericDAO<T, ID> {
 
@@ -68,8 +66,7 @@ public class GenericDAOHibernate<T, ID extends Serializable> implements GenericD
 	}
 
 	private Session getHibernateSession() {
-		final Session session = (Session) ENTITY_MANAGER.getDelegate();
-		return session;
+		return (Session) ENTITY_MANAGER.getDelegate();
 	}
 
 	@Override

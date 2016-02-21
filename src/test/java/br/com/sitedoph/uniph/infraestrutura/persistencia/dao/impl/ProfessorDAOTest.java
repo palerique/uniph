@@ -37,9 +37,7 @@ public class ProfessorDAOTest extends BaseTest {
 
         assertReflectionEquals(professor1, dao.buscarPorId(professor1.getId()));
 
-        for (Professor professor : dao.buscarTodos()) {
-            System.out.println(professor);
-        }
+        dao.buscarTodos().forEach(System.out::println);
 
         em.close();
 

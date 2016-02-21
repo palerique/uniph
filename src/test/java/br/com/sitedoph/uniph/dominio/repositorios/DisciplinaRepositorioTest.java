@@ -41,9 +41,7 @@ public class DisciplinaRepositorioTest extends BaseTest {
 
         repo.excluir(disciplina);
 
-        for (Disciplina disciplina1 : repo.buscarTodos()) {
-            System.out.println(disciplina1);
-        }
+        repo.buscarTodos().forEach(System.out::println);
 
     }
 

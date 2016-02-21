@@ -35,9 +35,7 @@ public class TurmaServiceTest extends BaseTest {
 
         service.excluir(turma);
 
-        for (Turma turma1 : service.buscarTodos()) {
-            System.out.println(turma1);
-        }
+        service.buscarTodos().forEach(System.out::println);
 
     }
 }

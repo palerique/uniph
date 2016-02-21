@@ -34,9 +34,7 @@ public class AlunoDAOTest extends BaseTest {
 
         assertReflectionEquals(estudante, dao.buscarPorId(estudante.getId()));
 
-        for (Aluno aluno : dao.buscarTodos()) {
-            System.out.println(aluno);
-        }
+        dao.buscarTodos().forEach(System.out::println);
 
         em.close();
 

@@ -44,9 +44,7 @@ public class DisciplinaServiceTest extends BaseTest {
 
         service.excluir(disciplina);
 
-        for (Disciplina disciplina1 : service.buscarTodos()) {
-            System.out.println(disciplina1);
-        }
+        service.buscarTodos().forEach(System.out::println);
 
     }
 }

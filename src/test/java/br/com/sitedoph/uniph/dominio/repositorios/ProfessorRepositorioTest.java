@@ -28,9 +28,7 @@ public class ProfessorRepositorioTest extends BaseTest {
 
         repo.excluir(professor);
 
-        for (Professor professor1 : repo.buscarTodos()) {
-            System.out.println(professor1);
-        }
+        repo.buscarTodos().forEach(System.out::println);
 
     }
 

@@ -35,9 +35,7 @@ public class TurmaDAOTest extends BaseTest {
 
         assertReflectionEquals(turma1, dao.buscarPorId(turma1.getId()));
 
-        for (Turma turma : dao.buscarTodos()) {
-            System.out.println(turma);
-        }
+        dao.buscarTodos().forEach(System.out::println);
 
         em.close();
 

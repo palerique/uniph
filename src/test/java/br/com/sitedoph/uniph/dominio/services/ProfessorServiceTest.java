@@ -31,9 +31,7 @@ public class ProfessorServiceTest extends BaseTest {
 
         service.excluir(professor);
 
-        for (Professor professor1 : service.buscarTodos()) {
-            System.out.println(professor1);
-        }
+        service.buscarTodos().forEach(System.out::println);
 
     }
 }
