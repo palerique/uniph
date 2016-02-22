@@ -3,18 +3,14 @@ package br.com.sitedoph.uniph.infraestrutura.persistencia.dao.impl;
 import br.com.sitedoph.uniph.dominio.entidades.Usuario;
 import br.com.sitedoph.uniph.infraestrutura.persistencia.dao.GenericDAO;
 
-import javax.persistence.EntityManager;
+import javax.inject.Inject;
+import java.io.Serializable;
 import java.util.List;
 
-public class UsuarioDAO {
+public class UsuarioDAO implements Serializable {
 
-    private final GenericDAO<Usuario, Long> DAO;
-
-    public UsuarioDAO(EntityManager entityManager) {
-
-        DAO = new GenericDAOHibernate<>(entityManager, Usuario.class);
-
-    }
+    @Inject
+    private GenericDAO<Usuario, Long> DAO;
 
     public Usuario buscarPorId(Long id) {
         return DAO.buscarPorId(id);

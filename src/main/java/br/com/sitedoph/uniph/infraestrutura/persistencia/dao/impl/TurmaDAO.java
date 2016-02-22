@@ -14,7 +14,7 @@ public class TurmaDAO {
     private final GenericDAO<Turma, Long> DAO;
 
     public TurmaDAO(EntityManager entityManager) {
-        DAO = new GenericDAOHibernate<>(entityManager, Turma.class);
+        DAO = new GenericDAOHibernate<>(Turma.class);
     }
 
     public void excluir(Turma entidade) {

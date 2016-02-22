@@ -7,7 +7,6 @@ import br.com.sitedoph.uniph.infraestrutura.persistencia.util.JPAUtil;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceException;
 import javax.validation.ConstraintViolationException;
-
 import java.util.List;
 
 /**
@@ -19,7 +18,7 @@ public class DisciplinaRepositorio {
     private DisciplinaDAO DAO;
 
     private void criarDAOeEM() {
-        em = JPAUtil.getEntityManager();
+        em = JPAUtil.getEntityManager(null);
         DAO = new DisciplinaDAO(em);
     }
 

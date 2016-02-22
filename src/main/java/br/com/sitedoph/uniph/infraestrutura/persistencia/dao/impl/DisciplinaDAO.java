@@ -14,7 +14,7 @@ public class DisciplinaDAO {
     private final GenericDAO<Disciplina, Long> DAO;
 
     public DisciplinaDAO(EntityManager entityManager) {
-        DAO = new GenericDAOHibernate<>(entityManager, Disciplina.class);
+        DAO = new GenericDAOHibernate<>(Disciplina.class);
     }
 
     public void excluir(Disciplina entidade) {

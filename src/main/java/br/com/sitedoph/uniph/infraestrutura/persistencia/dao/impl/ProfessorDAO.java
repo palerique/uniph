@@ -11,7 +11,7 @@ public class ProfessorDAO {
     private final GenericDAO<Professor, Long> DAO;
 
     public ProfessorDAO(EntityManager entityManager) {
-        DAO = new GenericDAOHibernate<>(entityManager, Professor.class);
+        DAO = new GenericDAOHibernate<>(Professor.class);
     }
 
     public Professor buscarCPF(String cpf) {

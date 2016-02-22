@@ -14,7 +14,7 @@ public class PersistenciaTest {
     @Test
     public void deveCriarOEntityManagerFactoryEEntityManager() {
 
-        EntityManager em = JPAUtil.getEntityManager();
+        EntityManager em = JPAUtil.getEntityManager(null);
         em.close();
 
     }
@@ -22,7 +22,7 @@ public class PersistenciaTest {
     @Test
     public void devePersistirUmAluno() {
 
-        EntityManager em = JPAUtil.getEntityManager();
+        EntityManager em = JPAUtil.getEntityManager(null);
 
         Aluno ze = new Aluno();
 

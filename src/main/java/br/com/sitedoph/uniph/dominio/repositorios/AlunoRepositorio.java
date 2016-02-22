@@ -7,7 +7,6 @@ import br.com.sitedoph.uniph.infraestrutura.persistencia.util.JPAUtil;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceException;
 import javax.validation.ConstraintViolationException;
-
 import java.util.List;
 
 public class AlunoRepositorio {
@@ -16,7 +15,7 @@ public class AlunoRepositorio {
     private AlunoDAO DAO;
 
     private void criarDAOeEM() {
-        em = JPAUtil.getEntityManager();
+        em = JPAUtil.getEntityManager(null);
         DAO = new AlunoDAO(em);
     }
 
@@ -68,12 +67,12 @@ public class AlunoRepositorio {
         try {
             aluno = DAO.salvarOuAtualizar(aluno);
             em.getTransaction().commit();
-		} catch (ConstraintViolationException | PersistenceException e) {
-			em.getTransaction().rollback();
-			throw e;
-		} finally {
-			em.close();
-		}
+        } catch (ConstraintViolationException | PersistenceException e) {
+            em.getTransaction().rollback();
+            throw e;
+        } finally {
+            em.close();
+        }
 
         return aluno;
     }

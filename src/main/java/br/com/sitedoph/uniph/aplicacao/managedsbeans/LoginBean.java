@@ -3,9 +3,10 @@ package br.com.sitedoph.uniph.aplicacao.managedsbeans;
 import br.com.sitedoph.uniph.dominio.entidades.Usuario;
 import br.com.sitedoph.uniph.dominio.services.UsuarioService;
 
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
+import javax.enterprise.context.SessionScoped;
 import javax.faces.context.FacesContext;
+import javax.inject.Inject;
+import javax.inject.Named;
 import javax.servlet.http.HttpServletRequest;
 import java.io.Serializable;
 
@@ -13,7 +14,7 @@ import java.io.Serializable;
  * Created by paulohl on 22/02/2016.
  */
 @SessionScoped
-@ManagedBean
+@Named
 public class LoginBean implements Serializable {
 
     private static final long serialVersionUID = 8038996478747618529L;
@@ -22,11 +23,12 @@ public class LoginBean implements Serializable {
 
     private boolean logado;
 
+    @Inject
+    private UsuarioService service;
+
     public String efetuarLogin() {
 
         String outcome = "login";
-
-        UsuarioService service = new UsuarioService();
 
         Usuario usuarioExistente = service.buscarPorLoginESenha(usuario.getLogin(), usuario.getSenha());
 

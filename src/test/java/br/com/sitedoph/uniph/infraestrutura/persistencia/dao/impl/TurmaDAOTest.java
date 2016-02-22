@@ -17,7 +17,7 @@ public class TurmaDAOTest extends BaseTest {
     @Test
     public void deveFazerCRUD() {
 
-        EntityManager em = JPAUtil.getEntityManager();
+        EntityManager em = JPAUtil.getEntityManager(null);
         TurmaDAO dao = new TurmaDAO(em);
 
         Turma turma1 = Fixture.from(Turma.class).uses(new HibernateProcessor((Session) em.getDelegate())).gimme("valid");

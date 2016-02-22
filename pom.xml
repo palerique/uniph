@@ -114,6 +114,13 @@
         </dependency>
 
         <dependency>
+            <groupId>org.jglue.cdi-unit</groupId>
+            <artifactId>cdi-unit</artifactId>
+            <version>3.1.2</version>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
             <groupId>org.unitils</groupId>
             <artifactId>unitils-core</artifactId>
             <version>3.4.2</version>

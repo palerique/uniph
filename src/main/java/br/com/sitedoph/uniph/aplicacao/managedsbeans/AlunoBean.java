@@ -5,8 +5,9 @@ import br.com.sitedoph.uniph.dominio.entidades.Aluno;
 import br.com.sitedoph.uniph.dominio.services.AlunoService;
 import br.com.sitedoph.uniph.infraestrutura.util.DataUtil;
 
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ViewScoped;
+import javax.faces.view.ViewScoped;
+import javax.inject.Inject;
+import javax.inject.Named;
 import javax.validation.ConstraintViolationException;
 import java.io.Serializable;
 import java.util.Collection;
@@ -16,7 +17,7 @@ import java.util.Date;
  * Created by paulohl on 22/02/2016.
  */
 @ViewScoped
-@ManagedBean
+@Named
 public class AlunoBean implements Serializable {
 
     private static final long serialVersionUID = -1935308637210420029L;
@@ -25,6 +26,9 @@ public class AlunoBean implements Serializable {
     private Collection<Aluno> alunos;
     private Date dataUtilCadastro = new Date();
     private Date dataUtilNascimento;
+
+    @Inject
+    private AlunoService service;
 
     public Aluno getAluno() {
 
@@ -49,8 +53,6 @@ public class AlunoBean implements Serializable {
         aluno.setDataDeCadastro(DataUtil.converteDataUtilCalendar(dataUtilCadastro));
         aluno.setDataDeNascimento(DataUtil.converteDataUtilCalendar(dataUtilNascimento));
 
-        AlunoService service = new AlunoService();
-
         try {
             service.salvarOuAtualizar(aluno);
 
@@ -74,15 +76,13 @@ public class AlunoBean implements Serializable {
 
         }
 
-        alunos = new AlunoService().buscarTodos();
+        alunos = service.buscarTodos();
 
     }
 
     public Collection<Aluno> getAlunos() {
 
         if (alunos == null) {
-
-            AlunoService service = new AlunoService();
 
             alunos = service.buscarTodos();
         }
@@ -93,9 +93,9 @@ public class AlunoBean implements Serializable {
 
     public void remove(Aluno aluno) {
 
-        new AlunoService().excluir(aluno);
+        service.excluir(aluno);
 
-        alunos = new AlunoService().buscarTodos();
+        alunos = service.buscarTodos();
     }
 
     public void limparCampos() {
@@ -105,7 +105,7 @@ public class AlunoBean implements Serializable {
         dataUtilCadastro = new Date();
         dataUtilNascimento = null;
 
-        alunos = new AlunoService().buscarTodos();
+        alunos = service.buscarTodos();
 
     }
 

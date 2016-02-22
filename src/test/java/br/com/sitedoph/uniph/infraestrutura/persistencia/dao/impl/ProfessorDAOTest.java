@@ -15,7 +15,7 @@ public class ProfessorDAOTest extends BaseTest {
     @Test
     public void deveFazerCRUDDeProfessor() {
 
-        EntityManager em = JPAUtil.getEntityManager();
+        EntityManager em = JPAUtil.getEntityManager(null);
         ProfessorDAO dao = new ProfessorDAO(em);
 
         Professor professor1 = Fixture.from(Professor.class).gimme(VALID);

@@ -11,7 +11,7 @@ public class AlunoDAO {
     private final GenericDAO<Aluno, Long> DAO;
 
     public AlunoDAO(EntityManager entityManager) {
-        DAO = new GenericDAOHibernate<>(entityManager, Aluno.class);
+        DAO = new GenericDAOHibernate<>(Aluno.class);
     }
 
     public Aluno buscarCPF(String cpf) {

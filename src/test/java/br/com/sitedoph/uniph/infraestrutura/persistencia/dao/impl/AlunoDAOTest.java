@@ -15,7 +15,7 @@ public class AlunoDAOTest extends BaseTest {
     @Test
     public void deveFazerCRUDDeAluno() {
 
-        EntityManager em = JPAUtil.getEntityManager();
+        EntityManager em = JPAUtil.getEntityManager(null);
         AlunoDAO dao = new AlunoDAO(em);
 
         Aluno estudante = Fixture.from(Aluno.class).gimme(VALID);

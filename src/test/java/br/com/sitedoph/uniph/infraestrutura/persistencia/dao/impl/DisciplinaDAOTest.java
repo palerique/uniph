@@ -17,7 +17,7 @@ public class DisciplinaDAOTest extends BaseTest {
     @Test
     public void deveFazerCRUDDeDisciplina() {
 
-        EntityManager em = JPAUtil.getEntityManager();
+        EntityManager em = JPAUtil.getEntityManager(null);
         DisciplinaDAO dao = new DisciplinaDAO(em);
 
         Disciplina disciplina1 = Fixture.from(Disciplina.class).uses(new HibernateProcessor((Session) em.getDelegate())).gimme("valid");

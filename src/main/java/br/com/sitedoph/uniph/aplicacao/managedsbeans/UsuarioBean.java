@@ -23,9 +23,9 @@ public class UsuarioBean {
     public void gravar() {
 
         try {
-            new UsuarioService().salvarOuAtualizar(usuario);
+            service.salvarOuAtualizar(usuario);
             limpar();
-            usuarios = new UsuarioService().buscarTodos();
+            usuarios = service.buscarTodos();
             MensagensUtil.info("Usuário foi Cadastrado com Sucesso!");
         } catch (Exception e) {
 
@@ -50,13 +50,13 @@ public class UsuarioBean {
     }
 
     public void remover(Usuario usuario) {
-        new UsuarioService().excluir(usuario);
-        usuarios = new UsuarioService().buscarTodos();
+        service.excluir(usuario);
+        usuarios = service.buscarTodos();
     }
 
     public Collection<Usuario> getUsuarios() {
         if (usuarios == null) {
-            usuarios = new UsuarioService().buscarTodos();
+            usuarios = service.buscarTodos();
         }
 
         return usuarios;

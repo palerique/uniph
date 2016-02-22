@@ -1,97 +1,46 @@
 package br.com.sitedoph.uniph.dominio.repositorios;
 
-import java.util.List;
-
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceException;
-import javax.validation.ConstraintViolationException;
-
 import br.com.sitedoph.uniph.dominio.entidades.Usuario;
 import br.com.sitedoph.uniph.infraestrutura.persistencia.dao.impl.UsuarioDAO;
-import br.com.sitedoph.uniph.infraestrutura.persistencia.util.JPAUtil;
 
-public class UsuarioRepositorio {
+import javax.inject.Inject;
+import java.io.Serializable;
+import java.util.List;
 
-	private EntityManager em;
-	private UsuarioDAO DAO;
+public class UsuarioRepositorio implements Serializable {
 
-	private void criarDAOeEM() {
-		em = JPAUtil.getEntityManager();
-		DAO = new UsuarioDAO(em);
-	}
+    @Inject
+    private UsuarioDAO DAO;
 
-	public Usuario buscarPorId(Long id) {
+    public Usuario buscarPorId(Long id) {
 
-		criarDAOeEM();
+        Usuario u = DAO.buscarPorId(id);
 
-		Usuario u = DAO.buscarPorId(id);
+        return u;
+    }
 
-		em.close();
+    public Usuario buscarPorLoginESenha(String login, String senha) {
 
-		return u;
-	}
+        Usuario u = DAO.buscarPorLoginESenha(login, senha);
 
-	public Usuario buscarPorLoginESenha(String login, String senha) {
+        return u;
+    }
 
-		criarDAOeEM();
+    public List<Usuario> buscarTodos() {
 
-		Usuario u = DAO.buscarPorLoginESenha(login, senha);
+        List<Usuario> lista = DAO.buscarTodos();
 
-		em.close();
+        return lista;
+    }
 
-		return u;
-	}
+    public void excluir(final Usuario usuario) {
+        DAO.excluir(usuario);
+    }
 
-	public List<Usuario> buscarTodos() {
+    public Usuario salvarOuAtualizar(Usuario usuario) {
 
-		criarDAOeEM();
+        usuario = DAO.salvarOuAtualizar(usuario);
 
-		List<Usuario> lista = DAO.buscarTodos();
-
-		em.close();
-
-		return lista;
-	}
-
-	public void excluir(final Usuario usuario) {
-
-		criarDAOeEM();
-
-		em.getTransaction().begin();
-
-		try {
-			DAO.excluir(usuario);
-			em.getTransaction().commit();
-		} catch (final Exception e) {
-			e.printStackTrace();
-			em.getTransaction().rollback();
-			throw e;
-		}
-
-		em.close();
-
-	}
-
-	public Usuario salvarOuAtualizar(Usuario usuario) {
-
-		criarDAOeEM();
-
-		em.getTransaction().begin();
-
-		try {
-			usuario = DAO.salvarOuAtualizar(usuario);
-			em.getTransaction().commit();
-		} catch (ConstraintViolationException | PersistenceException e) {
-
-			if (em.getTransaction().isActive()) {
-				em.getTransaction().rollback();
-			}
-
-			throw e;
-		} finally {
-			em.close();
-		}
-
-		return usuario;
-	}
+        return usuario;
+    }
 }

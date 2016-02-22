@@ -2,10 +2,11 @@ package br.com.sitedoph.uniph.infraestrutura.persistencia.dao;
 
 import org.hibernate.criterion.Criterion;
 
+import javax.persistence.EntityManager;
 import java.io.Serializable;
 import java.util.List;
 
-public interface GenericDAO<T, ID extends Serializable> {
+public interface GenericDAO<T, ID extends Serializable> extends Serializable {
 
     /**
      * Salva ou atualiza qualquer entidades.
@@ -64,4 +65,7 @@ public interface GenericDAO<T, ID extends Serializable> {
      */
     List<T> buscarPorExemplo(T exemplo,
                              String... propriedadesAExcluir);
+
+    EntityManager getEntityManager();
+
 }
