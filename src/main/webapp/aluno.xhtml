@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="_template.xhtml">
+
+    <ui:define name="titulo">Cadastro de Alunos</ui:define>
+
+    <ui:define name="conteudo">
+        <h:form>
+
+            <p:fieldset legend="Dados do Aluno">
+                <h:panelGrid columns="2">
+
+                    <h:outputLabel value="Nome:" for="nome"/>
+                    <p:inputText id="nome" value="#{alunoBean.aluno.nomeCompleto}"/>
+
+                    <h:outputLabel value="RG:" for="rg"/>
+                    <p:inputText id="rg" value="#{alunoBean.aluno.rg}"/>
+
+                    <h:outputLabel value="Sexo:" for="sexo"/>
+                    <p:selectOneRadio id="sexo" value="#{alunoBean.aluno.sexo}">
+
+                        <f:selectItem itemLabel="Masculino" itemValue="MASCULINO"/>
+                        <f:selectItem itemLabel="Feminino" itemValue="FEMININO"/>
+
+                    </p:selectOneRadio>
+
+                    <h:outputLabel value="CPF:" for="cpf"/>
+                    <p:inputMask id="cpf" mask="999.999.999-99"
+                                 value="#{alunoBean.aluno.cpf}"/>
+
+                    <h:outputLabel value="Data de Nascimento" for="dataNascimento"/>
+                    <p:calendar id="dataNascimento"
+                                value="#{alunoBean.dataUtilNascimento}" pattern="dd/MM/yyyy"
+                                navigator="true" yearRange="c-120:c" locale="pt_BR"/>
+
+                    <h:outputLabel value="Telefone:" for="telefone"/>
+                    <p:inputText id="telefone" value="#{alunoBean.aluno.telefone}"/>
+
+                    <h:outputLabel value="E-mail:" for="email"/>
+                    <p:inputText id="email" value="#{alunoBean.aluno.email}"/>
+
+                    <h:outputLabel value="Data de Cadastro" for="dataCadastro"/>
+                    <p:calendar id="dataCadastro" value="#{alunoBean.dataUtilCadastro}"
+                                pattern="dd/MM/yyyy" navigator="true" yearRange="c-120:c"
+                                locale="pt_BR"/>
+
+                    <p:commandButton value="Gravar" action="#{alunoBean.grava}"
+                                     update="@form" process="@form"/>
+
+                    <p:commandButton value="Limpar"
+                                     action="#{alunoBean.limparCampos()}" update="@form"/>
+
+                </h:panelGrid>
+
+            </p:fieldset>
+
+            <p:fieldset legend="Alunos Cadastrados">
+
+                <p:dataTable var="aluno" value="#{alunoBean.alunos}"
+                             paginator="true" rows="4" id="tabelaAlunos"
+                             emptyMessage="Nenhum Aluno Cadastrado">
+
+                    <p:column>
+                        <f:facet name="header">Nome:</f:facet>
+                        #{aluno.nomeCompleto}
+                    </p:column>
+
+                    <p:column>
+                        <f:facet name="header">RG:</f:facet>
+                        #{aluno.rg}
+                    </p:column>
+
+                    <p:column>
+                        <f:facet name="header">Sexo:</f:facet>
+                        #{aluno.sexo}
+                    </p:column>
+
+                    <p:column>
+                        <f:facet name="header">CPF:</f:facet>
+                        #{aluno.cpf}
+                    </p:column>
+
+                    <p:column>
+                        <f:facet name="header">Data de Nascimento:</f:facet>
+                        <h:outputText value="#{aluno.dataDeNascimento.time}">
+
+                            <f:convertDateTime pattern="dd/MM/yyyy"/>
+
+                        </h:outputText>
+                    </p:column>
+
+                    <p:column>
+                        <f:facet name="header">Telefone:</f:facet>
+                        #{aluno.telefone}
+                    </p:column>
+
+                    <p:column>
+                        <f:facet name="header">E-mail:</f:facet>
+                        #{aluno.email}
+                    </p:column>
+
+                    <p:column>
+                        <f:facet name="header">Data de Cadastro:</f:facet>
+                        <h:outputText value="#{aluno.dataDeCadastro.time}">
+
+                            <f:convertDateTime pattern="dd/MM/yyyy"/>
+
+                        </h:outputText>
+                    </p:column>
+
+                    <!-- 			<p:column rendered="#{empty alunoBean.aluno.id}"> -->
+                    <p:column>
+                        <f:facet name="header">Alterar:</f:facet>
+                        <p:commandLink value="Alterar" immediate="true" process="@this"
+                                       update="@form">
+
+                            <f:setPropertyActionListener target="#{alunoBean.aluno}"
+                                                         value="#{aluno}"/>
+
+                        </p:commandLink>
+                    </p:column>
+
+                    <p:column>
+                        <f:facet name="header">Excluir:</f:facet>
+                        <p:commandLink value="Remover" action="#{alunoBean.remove(aluno)}"
+                                       process="@form" update="@form" immediate="true"/>
+                    </p:column>
+
+                </p:dataTable>
+
+            </p:fieldset>
+
+
+        </h:form>
+    </ui:define>
+
+</ui:composition>
+
+</html>

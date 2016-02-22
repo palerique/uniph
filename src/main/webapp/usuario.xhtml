@@ -2,116 +2,102 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:h="http://xmlns.jcp.org/jsf/html"
-	xmlns:f="http://xmlns.jcp.org/jsf/core"
-	xmlns:ui="http://java.sun.com/jsf/facelets">
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
 
 <ui:composition template="_template.xhtml">
 
-	<ui:define name="titulo">Cadastro de Usuários</ui:define>
+    <ui:define name="titulo">Cadastro de Usuários</ui:define>
 
-	<ui:define name="conteudo">
-		<h:form>
+    <ui:define name="conteudo">
+        <h:form>
 
-			<h:messages id="mensagens" />
+            <p:fieldset legend="#{empty usuarioBean.usuario.id ? 'Novo Usuário' : 'Editar Usuário'}">
 
-			<fieldset>
-				<legend>
-					<h:outputText value="Novo Usuário"
-						rendered="#{empty usuarioBean.usuario.id}" />
-					<h:outputText value="Editar Usuário"
-						rendered="#{not empty usuarioBean.usuario.id}" />
-				</legend>
+                <h:inputHidden value="#{usuarioBean.usuario.id}"/>
 
-				<h:inputHidden value="#{usuarioBean.usuario.id}" />
+                <h:panelGrid columns="2">
 
+                    <p:outputLabel value="Nome:" for="nome"/>
+                    <p:inputText id="nome" value="#{usuarioBean.usuario.nomeCompleto}">
+                        <p:ajax process="@this"/>
+                    </p:inputText>
 
-				<h:panelGrid columns="2">
+                    <p:outputLabel value="Login:" for="login"/>
+                    <p:inputText id="login" value="#{usuarioBean.usuario.login}">
+                        <p:ajax process="@this"/>
+                    </p:inputText>
 
-					<h:outputLabel value="Nome:" for="nome" />
-					<h:inputText id="nome" value="#{usuarioBean.usuario.nomeCompleto}">
-						<f:ajax execute="@this" />
-					</h:inputText>
+                    <p:outputLabel value="E-mail:" for="email"/>
+                    <p:inputText id="email" value="#{usuarioBean.usuario.email}">
+                        <p:ajax process="@this"/>
+                    </p:inputText>
 
-					<h:outputLabel value="Login:" for="login" />
-					<h:inputText id="login" value="#{usuarioBean.usuario.login}">
-						<f:ajax execute="@this" />
-					</h:inputText>
+                    <p:outputLabel value="Senha:" for="senha"/>
+                    <p:password id="senha" value="#{usuarioBean.usuario.senha}">
+                        <p:ajax process="@this"/>
+                    </p:password>
 
-					<h:outputLabel value="E-mail:" for="email" />
-					<h:inputText id="email" value="#{usuarioBean.usuario.email}">
-						<f:ajax execute="@this" />
-					</h:inputText>
+                    <p:commandButton value="Gravar" action="#{usuarioBean.gravar}"
+                                     process="@form"/>
 
-					<h:outputLabel value="Senha:" for="senha" />
-					<h:inputSecret id="senha" value="#{usuarioBean.usuario.senha}">
-						<f:ajax execute="@this" />
-					</h:inputSecret>
+                    <p:commandButton value="Cancelar" action="#{usuarioBean.cancelar}"/>
 
-					<h:commandButton value="Gravar" action="#{usuarioBean.gravar}">
-						<f:ajax render="@form" execute="@form" />
-					</h:commandButton>
+                </h:panelGrid>
 
-					<h:commandButton value="Cancelar" action="#{usuarioBean.cancelar}" />
+            </p:fieldset>
 
-				</h:panelGrid>
+            <p:fieldset legend="Usuários Cadastrados">
 
-			</fieldset>
+                <p:dataTable var="usuario" value="#{usuarioBean.usuarios}" id="tabelaUsuarios" paginator="true" rows="5" emptyMessage="Nenhum Usuário Cadastrado">
 
-			<fieldset>
-				<legend>Lista de Usuários</legend>
+                    <p:column>
+                        <f:facet name="header">#</f:facet>
+                        #{usuario.id}
+                    </p:column>
 
-				<h:dataTable var="usuario" value="#{usuarioBean.usuarios}">
+                    <p:column>
+                        <f:facet name="header">Nome:</f:facet>
+                        #{usuario.nomeCompleto}
+                    </p:column>
 
-					<h:column>
-						<f:facet name="header">#</f:facet>
-				#{usuario.id}
-			</h:column>
+                    <p:column>
+                        <f:facet name="header">Login:</f:facet>
+                        #{usuario.login}
+                    </p:column>
 
-					<h:column>
-						<f:facet name="header">Nome:</f:facet>
-				#{usuario.nomeCompleto}
-			</h:column>
+                    <p:column>
+                        <f:facet name="header">E-mail:</f:facet>
+                        #{usuario.email}
+                    </p:column>
 
-					<h:column>
-						<f:facet name="header">Login:</f:facet>
-				#{usuario.login}
-			</h:column>
+                    <p:column>
+                        <f:facet name="header">Senha:</f:facet>
+                        #{usuario.senha}
+                    </p:column>
 
-					<h:column>
-						<f:facet name="header">E-mail:</f:facet>
-				#{usuario.email}
-			</h:column>
+                    <p:column>
+                        <f:facet name="header">Editar:</f:facet>
+                        <p:commandLink value="editar" process="@this" update="@form" immediate="true">
+                            <f:setPropertyActionListener value="#{usuario}"
+                                                         target="#{usuarioBean.usuario}"/>
+                        </p:commandLink>
+                    </p:column>
 
-					<h:column>
-						<f:facet name="header">Senha:</f:facet>
-				#{usuario.senha}
-			</h:column>
+                    <p:column>
+                        <f:facet name="header">Excluir:</f:facet>
+                        <p:commandLink action="#{usuarioBean.remover(usuario)}"
+                                       value="Remover" process="@form" update="@form" immediate="true"/>
+                    </p:column>
 
-					<h:column>
-						<f:facet name="header">Editar:</f:facet>
-						<h:commandLink value="editar">
-							<f:setPropertyActionListener value="#{usuario}"
-								target="#{usuarioBean.usuario}" />
-						</h:commandLink>
-					</h:column>
+                </p:dataTable>
 
-					<h:column>
-						<f:facet name="header">Excluir:</f:facet>
-						<h:commandLink action="#{usuarioBean.remover(usuario)}"
-							value="Remover">
+            </p:fieldset>
 
-							<f:ajax render="@form" />
-
-						</h:commandLink>
-					</h:column>
-
-				</h:dataTable>
-
-			</fieldset>
-
-		</h:form>
-	</ui:define>
+        </h:form>
+    </ui:define>
 
 </ui:composition>
 
