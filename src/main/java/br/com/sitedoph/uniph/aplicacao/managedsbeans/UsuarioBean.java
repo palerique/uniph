@@ -8,13 +8,16 @@ import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.validation.ConstraintViolationException;
+import javax.validation.Valid;
 import java.util.Collection;
 
 @ViewScoped
 @Named
 public class UsuarioBean {
 
+    @Valid
     private Usuario usuario = new Usuario();
+
     private Collection<Usuario> usuarios;
 
     @Inject

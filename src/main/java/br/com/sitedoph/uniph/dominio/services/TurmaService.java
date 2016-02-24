@@ -3,6 +3,7 @@ package br.com.sitedoph.uniph.dominio.services;
 import br.com.sitedoph.uniph.dominio.entidades.Turma;
 import br.com.sitedoph.uniph.dominio.repositorios.TurmaRepositorio;
 
+import javax.inject.Inject;
 import java.util.List;
 
 /**
@@ -10,7 +11,8 @@ import java.util.List;
  */
 public class TurmaService {
 
-    private final TurmaRepositorio repo = new TurmaRepositorio();
+    @Inject
+    private TurmaRepositorio repo;
 
     public Turma buscarPorId(final Long id) {
         return repo.buscarPorId(id);

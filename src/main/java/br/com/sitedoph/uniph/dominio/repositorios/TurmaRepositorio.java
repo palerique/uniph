@@ -1,12 +1,9 @@
 package br.com.sitedoph.uniph.dominio.repositorios;
 
 import br.com.sitedoph.uniph.dominio.entidades.Turma;
-import br.com.sitedoph.uniph.infraestrutura.persistencia.dao.impl.TurmaDAO;
-import br.com.sitedoph.uniph.infraestrutura.persistencia.util.JPAUtil;
+import br.com.sitedoph.uniph.infraestrutura.persistencia.dao.TurmaDAO;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceException;
-import javax.validation.ConstraintViolationException;
+import javax.inject.Inject;
 import java.util.List;
 
 /**
@@ -14,80 +11,30 @@ import java.util.List;
  */
 public class TurmaRepositorio {
 
-    private EntityManager em;
+    @Inject
     private TurmaDAO DAO;
 
-    private void criarDAOeEM() {
-        em = JPAUtil.getEntityManager(null);
-        DAO = new TurmaDAO(em);
-    }
-
     public Turma buscarPorId(Long id) {
-
-        criarDAOeEM();
-
         Turma u = DAO.buscarPorId(id);
-
-        em.close();
-
         return u;
     }
 
     public List<Turma> buscarTodos() {
-
-        criarDAOeEM();
-
         List<Turma> lista = DAO.buscarTodos();
-
-        em.close();
-
         return lista;
     }
 
     public void excluir(final Turma turma) {
-
-        criarDAOeEM();
-
-        em.getTransaction().begin();
-
-        try {
-            DAO.excluir(turma);
-            em.getTransaction().commit();
-        } catch (final Exception e) {
-            em.getTransaction().rollback();
-        }
-
-        em.close();
-
+        DAO.excluir(turma);
     }
 
     public Turma salvarOuAtualizar(Turma turma) {
-
-        criarDAOeEM();
-
-        em.getTransaction().begin();
-
-        try {
-            turma = DAO.salvarOuAtualizar(turma);
-            em.getTransaction().commit();
-		} catch (ConstraintViolationException | PersistenceException e) {
-			em.getTransaction().rollback();
-			throw e;
-		} finally {
-			em.close();
-		}
-
+        turma = DAO.salvarOuAtualizar(turma);
         return turma;
     }
 
     public Turma buscarPorDescricao(String descricao) {
-
-        criarDAOeEM();
-
         Turma u = DAO.buscarPorDescricao(descricao);
-
-        em.close();
-
         return u;
     }
 

@@ -1,46 +1,52 @@
 <persistence xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xmlns="http://java.sun.com/xml/ns/persistence"
-	xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd"
-	version="2.0">
+             xmlns="http://java.sun.com/xml/ns/persistence"
+             xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd"
+             version="2.0">
 
-	<persistence-unit name="uniph">
+    <persistence-unit name="uniph">
 
-		<properties>
+        <validation-mode>CALLBACK</validation-mode>
 
-			<!--****************** H2 ****************** -->
-			<property name="javax.persistence.jdbc.driver" value="org.h2.Driver" />
-			<property name="javax.persistence.jdbc.url"
-				value="jdbc:h2:file:~/uniPHdb;DB_CLOSE_DELAY=-1;MVCC=TRUE;AUTO_SERVER=TRUE" />
-			<property name="javax.persistence.jdbc.user" value="sa" />
-			<property name="javax.persistence.jdbc.password" value="" />
+        <properties>
 
-			<!-- ****************** Outras configurações ****************** -->
+            <!--****************** H2 ****************** -->
+            <property name="javax.persistence.jdbc.driver" value="org.h2.Driver"/>
+            <property name="javax.persistence.jdbc.url"
+                      value="jdbc:h2:file:~/uniPHdb;DB_CLOSE_DELAY=-1;MVCC=TRUE;AUTO_SERVER=TRUE"/>
+            <property name="javax.persistence.jdbc.user" value="sa"/>
+            <property name="javax.persistence.jdbc.password" value=""/>
 
-			<!-- Criação automática do Database -->
-			<property name="hibernate.hbm2ddl.auto" value="update" />
-			<!-- Exibição e formatação do SQL no log -->
-			<property name="hibernate.show_sql" value="true" />
-			<property name="hibernate.format_sql" value="true" />
+            <!-- ****************** Outras configurações ****************** -->
 
-			<property name="hibernate.use_sql_comments" value="true" />
-			<property name="hibernate.jdbc.wrap_result_sets" value="true" />
-			<property name="hibernate.hibernate.cache.use_query_cache"
-				value="true" />
+            <!-- Criação automática do Database -->
+            <property name="hibernate.hbm2ddl.auto" value="update"/>
+            <!-- Exibição e formatação do SQL no log -->
+            <property name="hibernate.show_sql" value="true"/>
+            <property name="hibernate.format_sql" value="true"/>
 
-			<!-- ****************** Pool de conexões ****************** -->
-			<property name="hibernate.connection.provider_class"
-				value="org.hibernate.connection.C3P0ConnectionProvider" />
-			<property name="hibernate.c3p0.min_size" value="10" />
-			<property name="hibernate.c3p0.max_size" value="50" />
-			<property name="hibernate.c3p0.acquire_increment" value="1" />
-			<property name="hibernate.c3p0.idle_test_period" value="3000" />
-			<property name="hibernate.c3p0.max_statements" value="50" />
-			<property name="hibernate.c3p0.timeout" value="1800" />
+            <property name="hibernate.use_sql_comments" value="true"/>
+            <property name="hibernate.jdbc.wrap_result_sets" value="true"/>
+            <property name="hibernate.hibernate.cache.use_query_cache"
+                      value="true"/>
 
+            <!-- ****************** Pool de conexões ****************** -->
+            <property name="hibernate.connection.provider_class"
+                      value="org.hibernate.connection.C3P0ConnectionProvider"/>
+            <property name="hibernate.c3p0.min_size" value="10"/>
+            <property name="hibernate.c3p0.max_size" value="50"/>
+            <property name="hibernate.c3p0.acquire_increment" value="1"/>
+            <property name="hibernate.c3p0.idle_test_period" value="3000"/>
+            <property name="hibernate.c3p0.max_statements" value="50"/>
+            <property name="hibernate.c3p0.timeout" value="1800"/>
 
-		</properties>
+            <property name="javax.persistence.validation.group.pre-persist"
+                      value="javax.validation.groups.Default"/>
+            <property name="javax.persistence.validation.group.pre-update"
+                      value="javax.validation.groups.Default"/>
 
-	</persistence-unit>
+        </properties>
+
+    </persistence-unit>
 
 </persistence>
 

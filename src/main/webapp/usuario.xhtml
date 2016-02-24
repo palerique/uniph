@@ -15,14 +15,13 @@
         <h:form>
 
             <p:fieldset legend="#{empty usuarioBean.usuario.id ? 'Novo Usuário' : 'Editar Usuário'}">
-
                 <h:inputHidden value="#{usuarioBean.usuario.id}"/>
 
                 <h:panelGrid columns="2">
 
                     <p:outputLabel value="Nome:" for="nome"/>
                     <p:inputText id="nome" value="#{usuarioBean.usuario.nomeCompleto}">
-                        <p:ajax process="@this"/>
+                        <p:ajax process="@this" update=":mensagens"/>
                     </p:inputText>
 
                     <p:outputLabel value="Login:" for="login"/>

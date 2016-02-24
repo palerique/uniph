@@ -1,7 +1,7 @@
 package br.com.sitedoph.uniph.infraestrutura.persistencia;
 
 import br.com.sitedoph.uniph.dominio.entidades.Aluno;
-import br.com.sitedoph.uniph.infraestrutura.persistencia.util.JPAUtil;
+import br.com.sitedoph.uniph.infraestrutura.persistencia.util.JPAProducer;
 import org.junit.Test;
 
 import javax.persistence.EntityManager;
@@ -14,7 +14,7 @@ public class PersistenciaTest {
     @Test
     public void deveCriarOEntityManagerFactoryEEntityManager() {
 
-        EntityManager em = JPAUtil.getEntityManager(null);
+        EntityManager em = JPAProducer.getEntityManager(null);
         em.close();
 
     }
@@ -22,7 +22,7 @@ public class PersistenciaTest {
     @Test
     public void devePersistirUmAluno() {
 
-        EntityManager em = JPAUtil.getEntityManager(null);
+        EntityManager em = JPAProducer.getEntityManager(null);
 
         Aluno ze = new Aluno();
 

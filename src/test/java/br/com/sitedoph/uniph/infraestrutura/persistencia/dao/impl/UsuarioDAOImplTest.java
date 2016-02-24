@@ -5,14 +5,17 @@ import br.com.sitedoph.uniph.tests.BaseTest;
 import br.com.six2six.fixturefactory.Fixture;
 import org.junit.Test;
 
+import javax.inject.Inject;
+
 import static org.unitils.reflectionassert.ReflectionAssert.assertReflectionEquals;
 
-public class UsuarioDAOTest extends BaseTest {
+public class UsuarioDAOImplTest extends BaseTest {
+
+    @Inject
+    UsuarioDAOImpl dao;
 
     @Test
     public void deveSalvar() {
-
-        UsuarioDAO dao = new UsuarioDAO();
 
         Usuario usuario = Fixture.from(Usuario.class).gimme(VALID);
 
@@ -28,7 +31,7 @@ public class UsuarioDAOTest extends BaseTest {
 
     }
 
-    private void excluir(UsuarioDAO dao, Usuario usuario) {
+    private void excluir(UsuarioDAOImpl dao, Usuario usuario) {
         Usuario loginESenha;
         loginESenha = dao.buscarPorLoginESenha(usuario.getLogin(), usuario.getSenha());
 

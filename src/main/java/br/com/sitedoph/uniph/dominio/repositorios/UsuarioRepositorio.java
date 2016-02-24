@@ -1,7 +1,7 @@
 package br.com.sitedoph.uniph.dominio.repositorios;
 
 import br.com.sitedoph.uniph.dominio.entidades.Usuario;
-import br.com.sitedoph.uniph.infraestrutura.persistencia.dao.impl.UsuarioDAO;
+import br.com.sitedoph.uniph.infraestrutura.persistencia.dao.UsuarioDAO;
 
 import javax.inject.Inject;
 import java.io.Serializable;

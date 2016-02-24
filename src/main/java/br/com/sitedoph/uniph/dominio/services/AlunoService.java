@@ -3,6 +3,7 @@ package br.com.sitedoph.uniph.dominio.services;
 import br.com.sitedoph.uniph.dominio.entidades.Aluno;
 import br.com.sitedoph.uniph.dominio.repositorios.AlunoRepositorio;
 
+import javax.inject.Inject;
 import java.util.List;
 
 /**
@@ -10,7 +11,8 @@ import java.util.List;
  */
 public class AlunoService {
 
-    private final AlunoRepositorio repo = new AlunoRepositorio();
+    @Inject
+    private AlunoRepositorio repo;
 
     public Aluno buscarPorId(final Long id) {
         return repo.buscarPorId(id);
