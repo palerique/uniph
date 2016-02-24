@@ -1,6 +1,5 @@
 package br.com.sitedoph.uniph.infraestrutura.persistencia.dao.impl;
 
-import br.com.sitedoph.uniph.infraestrutura.persistencia.dao.GenericDAO;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.criterion.Criterion;
@@ -12,81 +11,77 @@ import javax.persistence.criteria.CriteriaQuery;
 import java.io.Serializable;
 import java.util.List;
 
-public class GenericDAOHibernate<T, ID extends Serializable> implements GenericDAO<T, ID> {
+public class GenericDAOHibernate<T> implements Serializable {
 
-	private final Class<T> CLASSE;
+    private final Class<T> CLASSE;
 
-	private final EntityManager ENTITY_MANAGER;
+    private final EntityManager entityManager;
 
-	public GenericDAOHibernate(final EntityManager entityManager, final Class<T> classe) {
+    public GenericDAOHibernate(final Class<T> classe, EntityManager entityManager) {
+        CLASSE = classe;
+        this.entityManager = entityManager;
+    }
 
-		ENTITY_MANAGER = entityManager;
-		CLASSE = classe;
+    public T salvarOuAtualizar(T entidade) {
+        return entityManager.merge(entidade);
+    }
 
-	}
+    public T buscarPorId(Long id) {
+        return entityManager.find(CLASSE, id);
+    }
 
-	@Override
-	public T salvarOuAtualizar(T entidade) {
-		return ENTITY_MANAGER.merge(entidade);
-	}
+    public List<T> buscarTodos() {
 
-	@Override
-	public T buscarPorId(ID id) {
-		return ENTITY_MANAGER.find(CLASSE, id);
-	}
+        final CriteriaQuery<T> query = entityManager.getCriteriaBuilder().createQuery(CLASSE);
 
-	@Override
-	public List<T> buscarTodos() {
+        query.select(query.from(CLASSE));
 
-		final CriteriaQuery<T> query = ENTITY_MANAGER.getCriteriaBuilder().createQuery(CLASSE);
+        return entityManager.createQuery(query).getResultList();
+    }
 
-		query.select(query.from(CLASSE));
+    public void excluir(T entidade) {
+        entidade = entityManager.merge(entidade);
+        entityManager.remove(entidade);
+    }
 
-		return ENTITY_MANAGER.createQuery(query).getResultList();
-	}
+    public List<T> buscarPorCriteria(Criterion... criteria) {
 
-	@Override
-	public void excluir(T entidade) {
-		entidade = ENTITY_MANAGER.merge(entidade);
-		ENTITY_MANAGER.remove(entidade);
-	}
+        final Session session = getHibernateSession();
 
-	@Override
-	public List<T> buscarPorCriteria(Criterion... criteria) {
+        final Criteria crit = session.createCriteria(CLASSE);
 
-		final Session session = getHibernateSession();
+        for (Criterion criterion : criteria) {
+            crit.add(criterion);
+        }
 
-		final Criteria crit = session.createCriteria(CLASSE);
+        return crit.list();
+    }
 
-		for (Criterion criterion : criteria) {
-			crit.add(criterion);
-		}
+    private Session getHibernateSession() {
+        return (Session) entityManager.getDelegate();
+    }
 
-		return crit.list();
-	}
+    public List<T> buscarPorExemplo(T exemplo, String... propriedadesAExcluir) {
 
-	private Session getHibernateSession() {
-		return (Session) ENTITY_MANAGER.getDelegate();
-	}
+        final Example example = Example.create(exemplo);
 
-	@Override
-	public List<T> buscarPorExemplo(T exemplo, String... propriedadesAExcluir) {
+        example.enableLike(MatchMode.ANYWHERE);
+        example.excludeZeroes();
+        example.ignoreCase();
 
-		final Example example = Example.create(exemplo);
+        for (String prop : propriedadesAExcluir) {
+            example.excludeProperty(prop);
+        }
 
-		example.enableLike(MatchMode.ANYWHERE);
-		example.excludeZeroes();
-		example.ignoreCase();
+        final Session session = getHibernateSession();
 
-		for (String prop : propriedadesAExcluir) {
-			example.excludeProperty(prop);
-		}
+        final Criteria criteria = session.createCriteria(CLASSE).add(example);
 
-		final Session session = getHibernateSession();
+        return criteria.list();
+    }
 
-		final Criteria criteria = session.createCriteria(CLASSE).add(example);
-
-		return criteria.list();
-	}
+    public EntityManager getEntityManager() {
+        return entityManager;
+    }
 
 }

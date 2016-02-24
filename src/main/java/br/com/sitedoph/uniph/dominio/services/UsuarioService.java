@@ -2,12 +2,16 @@ package br.com.sitedoph.uniph.dominio.services;
 
 import br.com.sitedoph.uniph.dominio.entidades.Usuario;
 import br.com.sitedoph.uniph.dominio.repositorios.UsuarioRepositorio;
+import br.com.sitedoph.uniph.infraestrutura.persistencia.util.Transacional;
 
+import javax.inject.Inject;
+import java.io.Serializable;
 import java.util.List;
 
-public class UsuarioService {
+public class UsuarioService implements Serializable {
 
-    private final UsuarioRepositorio repo = new UsuarioRepositorio();
+    @Inject
+    private UsuarioRepositorio repo;
 
     public Usuario buscarPorId(final Long id) {
         return repo.buscarPorId(id);
@@ -25,6 +29,7 @@ public class UsuarioService {
         repo.excluir(usuario);
     }
 
+    @Transacional
     public Usuario salvarOuAtualizar(Usuario usuario) {
         return repo.salvarOuAtualizar(usuario);
     }

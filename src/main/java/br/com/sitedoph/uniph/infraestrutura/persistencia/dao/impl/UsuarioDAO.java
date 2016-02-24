@@ -1,23 +1,18 @@
 package br.com.sitedoph.uniph.infraestrutura.persistencia.dao.impl;
 
 import br.com.sitedoph.uniph.dominio.entidades.Usuario;
-import br.com.sitedoph.uniph.infraestrutura.persistencia.dao.GenericDAO;
+import br.com.sitedoph.uniph.dominio.repositorios.UsuarioRepositorio;
 
-import javax.persistence.EntityManager;
+import javax.inject.Inject;
 import java.util.List;
 
-public class UsuarioDAO {
+public class UsuarioDAO implements UsuarioRepositorio {
 
-    private final GenericDAO<Usuario, Long> DAO;
-
-    public UsuarioDAO(EntityManager entityManager) {
-
-        DAO = new GenericDAOHibernate<>(entityManager, Usuario.class);
-
-    }
+    @Inject
+    private GenericDAOHibernate<Usuario> genericDAOHibernate;
 
     public Usuario buscarPorId(Long id) {
-        return DAO.buscarPorId(id);
+        return genericDAOHibernate.buscarPorId(id);
     }
 
     public Usuario buscarPorLoginESenha(String login, String senha) {
@@ -26,7 +21,7 @@ public class UsuarioDAO {
         exemplo.setLogin(login);
         exemplo.setSenha(senha);
 
-        List<Usuario> list = DAO.buscarPorExemplo(exemplo);
+        List<Usuario> list = genericDAOHibernate.buscarPorExemplo(exemplo);
 
         if (list != null && !list.isEmpty()) {
             return list.get(0);
@@ -36,15 +31,15 @@ public class UsuarioDAO {
     }
 
     public List<Usuario> buscarTodos() {
-        return DAO.buscarTodos();
+        return genericDAOHibernate.buscarTodos();
     }
 
     public void excluir(Usuario usuario) {
-        DAO.excluir(usuario);
+        genericDAOHibernate.excluir(usuario);
     }
 
     public Usuario salvarOuAtualizar(Usuario usuario) {
-        return DAO.salvarOuAtualizar(usuario);
+        return genericDAOHibernate.salvarOuAtualizar(usuario);
     }
 
 }
