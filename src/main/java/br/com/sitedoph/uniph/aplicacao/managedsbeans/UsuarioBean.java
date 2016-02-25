@@ -54,4 +54,7 @@ public class UsuarioBean implements Serializable {
         this.usuario = usuario;
     }
 
+    public void limparFormulario() {
+        this.usuario = new Usuario();
+    }
 }

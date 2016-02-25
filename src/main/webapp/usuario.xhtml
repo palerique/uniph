@@ -37,6 +37,8 @@
                 <p:toolbarGroup>
                     <p:commandButton value="Salvar" action="#{usuarioBean.salvar}"
                                      update="@form"/>
+                    <p:commandButton value="Limpar" action="#{usuarioBean.limparFormulario()}"
+                                     update="@form" immediate="true"/>
                 </p:toolbarGroup>
             </p:toolbar>
 
@@ -75,6 +77,7 @@
                         <h:commandLink value="editar" immediate="true">
                             <f:setPropertyActionListener value="#{usuario}"
                                                          target="#{usuarioBean.usuario}"/>
+                            <f:ajax render="@form"/>
                         </h:commandLink>
                     </h:column>
 
