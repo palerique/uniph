@@ -1,6 +1,7 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:h="http://xmlns.jcp.org/jsf/html"
                 xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
                 xmlns:p="http://primefaces.org/ui"
                 template="/WEB-INF/templates/Layout.xhtml">
     <ui:define name="content">
@@ -32,12 +33,62 @@
                 </p:panelGrid>
             </div>
 
-            <p:toolbar>
+            <p:toolbar style="margin-top: 20px; margin-bottom: 40px">
                 <p:toolbarGroup>
                     <p:commandButton value="Salvar" action="#{usuarioBean.salvar}"
                                      update="@form"/>
                 </p:toolbarGroup>
             </p:toolbar>
+
+            <fieldset>
+                <legend>Lista de Usuários</legend>
+
+                <h:dataTable var="usuario" value="#{usuarioBean.usuarios}">
+
+                    <h:column>
+                        <f:facet name="header">#</f:facet>
+                        #{usuario.id}
+                    </h:column>
+
+                    <h:column>
+                        <f:facet name="header">Nome:</f:facet>
+                        #{usuario.nomeCompleto}
+                    </h:column>
+
+                    <h:column>
+                        <f:facet name="header">Login:</f:facet>
+                        #{usuario.login}
+                    </h:column>
+
+                    <h:column>
+                        <f:facet name="header">E-mail:</f:facet>
+                        #{usuario.email}
+                    </h:column>
+
+                    <h:column>
+                        <f:facet name="header">Senha:</f:facet>
+                        #{usuario.senha}
+                    </h:column>
+
+                    <h:column>
+                        <f:facet name="header">Editar:</f:facet>
+                        <h:commandLink value="editar" immediate="true">
+                            <f:setPropertyActionListener value="#{usuario}"
+                                                         target="#{usuarioBean.usuario}"/>
+                        </h:commandLink>
+                    </h:column>
+
+                    <h:column>
+                        <f:facet name="header">Excluir:</f:facet>
+                        <h:commandLink action="#{usuarioBean.remover(usuario)}"
+                                       value="Remover" immediate="true">
+                            <f:ajax render="@form"/>
+                        </h:commandLink>
+                    </h:column>
+
+                </h:dataTable>
+
+            </fieldset>
 
         </h:form>
     </ui:define>

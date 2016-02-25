@@ -27,6 +27,7 @@ public class UsuarioService implements Serializable {
         return repo.buscarTodos();
     }
 
+    @Transacional
     public void excluir(Usuario usuario) {
         repo.excluir(usuario);
     }

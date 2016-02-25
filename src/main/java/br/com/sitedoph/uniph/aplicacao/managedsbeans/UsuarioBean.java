@@ -10,6 +10,8 @@ import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import java.io.Serializable;
+import java.util.Collection;
+import java.util.List;
 
 @Named
 @ViewScoped
@@ -21,6 +23,7 @@ public class UsuarioBean implements Serializable {
     private UsuarioService usuarioService;
 
     private Usuario usuario = new Usuario();
+    private List<Usuario> usuarios;
 
     public void salvar() {
         usuarioService.salvarOuAtualizar(usuario);
@@ -30,8 +33,25 @@ public class UsuarioBean implements Serializable {
         FacesContext.getCurrentInstance().addMessage(null, msg);
     }
 
+    public void remover(Usuario usuario) {
+        usuarioService.excluir(usuario);
+        usuarios = usuarioService.buscarTodos();
+    }
+
+    public Collection<Usuario> getUsuarios() {
+        if (usuarios == null) {
+            usuarios = usuarioService.buscarTodos();
+        }
+
+        return usuarios;
+    }
+
     public Usuario getUsuario() {
         return usuario;
+    }
+
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
     }
 
 }
