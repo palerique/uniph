@@ -12,19 +12,19 @@
 
     <title>UniPH</title>
 
-    <h:outputStylesheet library="uniph" name="styles/custom.css"/>
-    <h:outputStylesheet library="uniph" name="styles/layout.css"/>
-    <h:outputStylesheet library="uniph" name="styles/components.css"/>
-
     <h:outputScript target="body" library="primefaces" name="jquery/jquery.js"/>
     <h:outputScript target="body" library="uniph" name="javascripts/app.js"/>
 </h:head>
 
 <h:body>
 
-    <header class="uniph-top-area">
-        <h:graphicImage library="uniph" name="images/logo.png"/>
+    <!--Para dar override no css do primefaces!-->
+    <h:outputStylesheet library="uniph" name="styles/custom.css"/>
+    <h:outputStylesheet library="uniph" name="styles/layout.css"/>
+    <h:outputStylesheet library="uniph" name="styles/components.css"/>
 
+    <header class="uniph-top-area">
+        <h:graphicImage id="logo-uniph" library="uniph" name="images/logo.png"/>
         <a href="#" class="uniph-toggle  js-toggle"><i class="fa  fa-bars"></i></a>
     </header>
 

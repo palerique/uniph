@@ -3,20 +3,13 @@
                 xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
                 xmlns:p="http://primefaces.org/ui"
                 template="/WEB-INF/templates/Layout.xhtml">
-
     <ui:define name="content">
         <h1 class="uniph-titulo-pagina">Usuário</h1>
 
         <h:form id="frm">
 
-            <p:toolbar>
-                <p:toolbarGroup>
-                    <p:commandButton value="Salvar" action="#{usuarioBean.salvar}"
-                                     update="@form"/>
-                </p:toolbarGroup>
-            </p:toolbar>
-
             <p:messages autoUpdate="false"/>
+            <p:growl autoUpdate="false"/>
 
             <div class="ui-fluid">
                 <p:panelGrid columns="4" layout="grid"
@@ -38,6 +31,13 @@
 
                 </p:panelGrid>
             </div>
+
+            <p:toolbar>
+                <p:toolbarGroup>
+                    <p:commandButton value="Salvar" action="#{usuarioBean.salvar}"
+                                     update="@form"/>
+                </p:toolbarGroup>
+            </p:toolbar>
 
         </h:form>
     </ui:define>

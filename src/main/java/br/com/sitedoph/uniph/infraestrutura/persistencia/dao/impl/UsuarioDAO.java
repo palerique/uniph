@@ -5,9 +5,12 @@ import br.com.sitedoph.uniph.dominio.repositorios.UsuarioRepositorio;
 
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
+import java.io.Serializable;
 import java.util.List;
 
-public class UsuarioDAO extends GenericDAOHibernate<Usuario> implements UsuarioRepositorio {
+public class UsuarioDAO extends GenericDAOHibernate<Usuario> implements UsuarioRepositorio, Serializable {
+
+    private static final long serialVersionUID = 1L;
 
     private EntityManager entityManager;
 

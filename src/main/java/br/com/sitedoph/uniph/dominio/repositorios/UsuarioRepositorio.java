@@ -2,9 +2,10 @@ package br.com.sitedoph.uniph.dominio.repositorios;
 
 import br.com.sitedoph.uniph.dominio.entidades.Usuario;
 
+import java.io.Serializable;
 import java.util.List;
 
-public interface UsuarioRepositorio {
+public interface UsuarioRepositorio extends Serializable {
 
     Usuario buscarPorId(Long id);
 

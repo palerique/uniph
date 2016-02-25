@@ -53,3 +53,7 @@
     font-size: 1.5em;
     color: #373737;
 }
+
+.ui-growl {
+    top: 60px;
+}

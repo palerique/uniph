@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+>
+
+<h:head>
+
+    <f:facet name="first">
+        <meta charset="UTF-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    </f:facet>
+
+    <title>Primefaces-responsivo</title>
+
+    <h:outputStylesheet library="primefaces" name="grid/grid.css"/>
+
+    <style>
+
+        body {
+            margin: 0;
+            /*color: white;*/
+            font-family: arial;
+            font-size: 15px;
+        }
+
+        .conteudo {
+            height: 100px;
+            background-color: red;
+        }
+
+        .logo-uniph {
+            width: 160px;
+            margin-left: 10px;
+        }
+
+        .topbar {
+            background-color: #9FA8AD;
+        }
+
+        .menu {
+            height: 100px;
+            background-color: #2d5666;
+        }
+
+        .titulo {
+            text-align: center;
+        }
+
+
+    </style>
+
+</h:head>
+
+<h:body>
+
+    <div class="ui-grid ui-grid-responsive">
+
+        <div class="ui-grid-row topbar">
+            <div class="ui-grid-col-4">
+                <h:graphicImage styleClass="logo-uniph" library="uniph" name="images/logo.png"/>
+            </div>
+            <div class="ui-grid-col-4 titulo">
+                <h1>UniPH</h1>
+            </div>
+            <div class="ui-grid-col-4">
+            </div>
+        </div>
+
+        <div class="ui-grid-row">
+
+            <div class="ui-grid-col-2 menu">
+                <h:form>
+                    <p:growl autoUpdate="true"/>
+
+                    <p:panelMenu style="width:300px">
+                        <p:submenu label="Ajax Menuitems">
+                            <p:menuitem value="Save" icon="ui-icon-disk"/>
+                            <p:menuitem value="Update" icon="ui-icon-arrowrefresh-1-w"/>
+                        </p:submenu>
+                        <p:submenu label="Non-Ajax Menuitem">
+                            <p:menuitem value="Delete" ajax="false" icon="ui-icon-close"/>
+                        </p:submenu>
+                        <p:separator/>
+                        <p:submenu label="Navigations">
+                            <p:submenu label="Links" icon="ui-icon-extlink">
+                                <p:submenu label="PrimeFaces" icon="ui-icon-heart">
+                                    <p:menuitem value="Home" url="http://www.primefaces.org" icon="ui-icon-home"/>
+                                    <p:menuitem value="Docs" url="http://www.primefaces.org/documentation"
+                                                icon="ui-icon-document"/>
+                                    <p:menuitem value="Download" url="http://www.primefaces.org/downloads"
+                                                icon="ui-icon-arrowthick-1-s"/>
+                                    <p:menuitem value="Support" url="http://www.primefaces.org/support"
+                                                icon="ui-icon-wrench"/>
+                                </p:submenu>
+                            </p:submenu>
+                        </p:submenu>
+                    </p:panelMenu>
+                </h:form>
+            </div>
+            <div class="ui-grid-col-10 conteudo">
+                Conteúdo
+            </div>
+        </div>
+
+        <div class="ui-grid-row topbar">
+            <div class="ui-grid-col-4">
+                <h:graphicImage styleClass="logo-uniph" library="uniph" name="images/logo.png"/>
+            </div>
+            <div class="ui-grid-col-4">
+                <h1>Footer</h1>
+            </div>
+            <div class="ui-grid-col-4">
+            </div>
+        </div>
+
+    </div>
+
+</h:body>
+
+</html>
