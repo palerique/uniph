@@ -42,56 +42,54 @@
                 </p:toolbarGroup>
             </p:toolbar>
 
-            <fieldset>
-                <legend>Lista de Usuários</legend>
+            <p:dataTable id="usuarios-table" value="#{usuarioBean.usuarios}"
+                         var="usuario"
+                         reflow="true"
+                         styleClass="ui-fluid"
+                         style="margin-top: 10px"
+                         emptyMessage="Nenhum usuário cadastrado.">
 
-                <h:dataTable var="usuario" value="#{usuarioBean.usuarios}">
 
-                    <h:column>
-                        <f:facet name="header">#</f:facet>
-                        #{usuario.id}
-                    </h:column>
+                <p:column headerText="#" styleClass="ui-grid-col-1">
+                    <h:outputText value="#{usuario.id}"/>
+                </p:column>
 
-                    <h:column>
-                        <f:facet name="header">Nome:</f:facet>
-                        #{usuario.nomeCompleto}
-                    </h:column>
+                <p:column headerText="Nome" styleClass="ui-grid-col-2">
+                    <h:outputText value="#{usuario.nomeCompleto}"/>
+                </p:column>
 
-                    <h:column>
-                        <f:facet name="header">Login:</f:facet>
-                        #{usuario.login}
-                    </h:column>
+                <p:column headerText="Login" styleClass="ui-grid-col-2">
+                    <h:outputText value="#{usuario.login}"/>
+                </p:column>
 
-                    <h:column>
-                        <f:facet name="header">E-mail:</f:facet>
-                        #{usuario.email}
-                    </h:column>
+                <p:column headerText="E-mail" styleClass="ui-grid-col-3">
+                    <h:outputText value="#{usuario.email}"/>
+                </p:column>
 
-                    <h:column>
-                        <f:facet name="header">Senha:</f:facet>
-                        #{usuario.senha}
-                    </h:column>
+                <p:column headerText="Senha" styleClass="ui-grid-col-2">
+                    <h:outputText value="#{usuario.senha}"/>
+                </p:column>
 
-                    <h:column>
-                        <f:facet name="header">Editar:</f:facet>
-                        <h:commandLink value="editar" immediate="true">
-                            <f:setPropertyActionListener value="#{usuario}"
-                                                         target="#{usuarioBean.usuario}"/>
-                            <f:ajax render="@form"/>
-                        </h:commandLink>
-                    </h:column>
+                <p:column styleClass="ui-grid-col-1">
+                    <f:facet name="header">
+                        <i class="fa fa-pencil"></i>
+                    </f:facet>
+                    <p:commandLink immediate="true" process="@this" update="@form">
+                        <i class="fa fa-pencil"></i>
+                        <f:setPropertyActionListener target="#{usuarioBean.usuario}" value="#{usuario}"/>
+                    </p:commandLink>
+                </p:column>
 
-                    <h:column>
-                        <f:facet name="header">Excluir:</f:facet>
-                        <h:commandLink action="#{usuarioBean.remover(usuario)}"
-                                       value="Remover" immediate="true">
-                            <f:ajax render="@form"/>
-                        </h:commandLink>
-                    </h:column>
+                <p:column headerText=" " styleClass="ui-grid-col-1">
+                    <f:facet name="header">
+                        <i class="fa fa-trash"></i>
+                    </f:facet>
+                    <p:commandLink action="#{usuarioBean.remover(usuario)}" process="@form" update="@form" immediate="true">
+                        <i class="fa fa-trash"></i>
+                    </p:commandLink>
+                </p:column>
 
-                </h:dataTable>
-
-            </fieldset>
+            </p:dataTable>
 
         </h:form>
     </ui:define>
