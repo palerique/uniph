@@ -53,7 +53,7 @@
 						value="#{alunoBean.dataUtilCadastro}" disabled="true" />
 				</p:panelGrid>
 			</div>
-			
+
 			<p:toolbar style="margin-top: 20px; margin-bottom: 40px">
 				<p:toolbarGroup>
 
@@ -67,6 +67,103 @@
 
 				</p:toolbarGroup>
 			</p:toolbar>
+
+			<p:dataTable id="alunos-table" value="#{alunoBean.alunos}"
+				var="aluno" reflow="true" style="text-align: center;"
+				emptyMessage="Nenhum Aluno Cadastrado!">
+
+				<p:column headerText="#" style="width: 20px;">
+					<h:outputText value="#{aluno.id}" />
+				</p:column>
+
+				<p:column headerText="Data de Cadastro">
+					<h:outputText value="#{aluno.dataDeCadastro.time}">
+						<f:convertDateTime pattern="dd/MM/yyyy" />
+					</h:outputText>
+				</p:column>
+
+				<p:column headerText="Nome" style="width: 20%;">
+					<h:outputText value="#{aluno.nomeCompleto}" />
+				</p:column>
+
+				<p:column headerText="Sexo">
+					<h:outputText value="#{aluno.sexo}" />
+				</p:column>
+
+				<p:column headerText="CPF">
+					<h:outputText value="#{aluno.cpf}" />
+				</p:column>
+
+				<p:column headerText="RG">
+					<h:outputText value="#{aluno.rg}" />
+				</p:column>
+
+				<p:column headerText="E-mail" style="width: 15%">
+					<h:outputText value="#{aluno.email}" />
+				</p:column>
+
+				<p:column headerText="Telefone">
+					<h:outputText value="#{aluno.telefone}" />
+				</p:column>
+
+				<p:column headerText="Data de Nascimento">
+					<h:outputText value="#{aluno.dataDeNascimento.time}">
+						<f:convertDateTime pattern="dd/MM/yyyy" />
+					</h:outputText>
+				</p:column>
+
+				<p:column style="width: 20px;">
+					<f:facet name="header">
+						<i class="fa fa-pencil"></i>
+					</f:facet>
+					<p:commandLink 
+					immediate="true" 
+					process="@this" 
+					update="@form">
+						<i class="fa fa-pencil"></i>
+						<f:setPropertyActionListener value="#{aluno}"
+							target="#{alunoBean.aluno}" />
+					</p:commandLink>
+				</p:column>
+
+				<p:column style="width: 20px;">
+					<f:facet name="header">
+						<i class="fa fa-trash"></i>
+					</f:facet>
+					<p:commandLink 
+					action="#{alunoBean.remover(aluno)}"
+					immediate="true" 
+					process="@this" 
+					update="@form">
+						<i class="fa fa-trash"></i>
+						<p:confirm 
+						header="Confirmação de Exclusão"
+						message="Você tem certeza que quer excluir esse aluno?"
+						icon="ui-icon-alert" />
+					</p:commandLink>
+				</p:column>
+
+			</p:dataTable>
+			
+			<p:confirmDialog 
+			global="true" 
+			showEffect="fade" 
+			hideEffect="fade" 
+			appendTo="@(body)">
+			
+				<p:commandButton 
+				value="Sim" 
+				type="button" 
+				styleClass="ui-confirmdialog-yes" 
+				icon="ui-icon-check"/>
+				
+				<p:commandButton 
+				value="Não" 
+				type="button" 
+				styleClass="ui-confirmdialog-no" 
+				icon="ui-icon-close"/>
+			
+			</p:confirmDialog>
 
 		</h:form>
 
