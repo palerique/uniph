@@ -50,11 +50,23 @@
 
 					<p:outputLabel value="Data de Cadastro" for="dt-cadastro" />
 					<p:calendar pattern="dd/MM/yyyy" id="dt-cadastro"
-						value="#{alunoBean.dataUtilCadastro}" 
-						disabled="true" />
+						value="#{alunoBean.dataUtilCadastro}" disabled="true" />
 				</p:panelGrid>
-
 			</div>
+			
+			<p:toolbar style="margin-top: 20px; margin-bottom: 40px">
+				<p:toolbarGroup>
+
+					<p:commandButton value="Salvar" action="#{alunoBean.salvar}"
+						process="@this panel-grid-aluno" update="@form" />
+
+					<p:commandButton value="Limpar" update="panel-grid-aluno"
+						actionListener="#{alunoBean.limpar}" process="@this" style="">
+						<p:resetInput target="panel-grid-aluno" />
+					</p:commandButton>
+
+				</p:toolbarGroup>
+			</p:toolbar>
 
 		</h:form>
 
