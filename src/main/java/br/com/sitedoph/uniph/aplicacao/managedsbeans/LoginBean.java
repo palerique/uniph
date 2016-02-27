@@ -4,7 +4,6 @@ import java.io.Serializable;
 
 import javax.enterprise.context.SessionScoped;
 import javax.faces.context.FacesContext;
-import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.servlet.http.HttpServletRequest;
@@ -54,6 +53,13 @@ public class LoginBean implements Serializable {
 		}
 
 		return outcome;
+	}
+
+	public String efetuarLogout() {
+		logado = false;
+		usuario = new Usuario();
+
+		return "login?faces-redirect=true";
 	}
 
 	public Usuario getUsuario() {
