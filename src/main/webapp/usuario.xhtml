@@ -7,13 +7,13 @@
     <ui:define name="content">
         <h1 class="uniph-titulo-pagina">Usuário</h1>
 
-        <h:form id="frm">
+        <h:form>
 
             <p:messages autoUpdate="false"/>
             <p:growl autoUpdate="false"/>
 
             <div class="ui-fluid">
-                <p:panelGrid columns="4" layout="grid"
+                <p:panelGrid id="panel-grid-usuario" columns="4" layout="grid"
                              style="margin-top: 20px"
                              styleClass="panelgrid-noborder"
                              columnClasses="ui-grid-col-2, ui-grid-col-4, ui-grid-col-2, ui-grid-col-4">
@@ -36,41 +36,45 @@
             <p:toolbar style="margin-top: 20px; margin-bottom: 40px">
                 <p:toolbarGroup>
                     <p:commandButton value="Salvar" action="#{usuarioBean.salvar}"
-                                     update="@form"/>
-                    <p:commandButton value="Limpar" action="#{usuarioBean.limparFormulario()}"
-                                     update="@form" immediate="true"/>
+                                     process="@this panel-grid-usuario" update="@form"/>
+
+                    <p:commandButton actionListener="#{usuarioBean.limpar}" value="Limpar" update="panel-grid-usuario"
+                                     process="@this"
+                                     style="margin-right:20px;">
+                        <p:resetInput target="panel-grid-usuario"/>
+                    </p:commandButton>
+
                 </p:toolbarGroup>
             </p:toolbar>
 
             <p:dataTable id="usuarios-table" value="#{usuarioBean.usuarios}"
                          var="usuario"
                          reflow="true"
-                         styleClass="ui-fluid"
-                         style="margin-top: 10px"
+                         style="text-align: center"
                          emptyMessage="Nenhum usuário cadastrado.">
 
 
-                <p:column headerText="#" styleClass="ui-grid-col-1">
+                <p:column headerText="#">
                     <h:outputText value="#{usuario.id}"/>
                 </p:column>
 
-                <p:column headerText="Nome" styleClass="ui-grid-col-2">
+                <p:column headerText="Nome">
                     <h:outputText value="#{usuario.nomeCompleto}"/>
                 </p:column>
 
-                <p:column headerText="Login" styleClass="ui-grid-col-2">
+                <p:column headerText="Login">
                     <h:outputText value="#{usuario.login}"/>
                 </p:column>
 
-                <p:column headerText="E-mail" styleClass="ui-grid-col-3">
+                <p:column headerText="E-mail">
                     <h:outputText value="#{usuario.email}"/>
                 </p:column>
 
-                <p:column headerText="Senha" styleClass="ui-grid-col-2">
+                <p:column headerText="Senha">
                     <h:outputText value="#{usuario.senha}"/>
                 </p:column>
 
-                <p:column styleClass="ui-grid-col-1">
+                <p:column>
                     <f:facet name="header">
                         <i class="fa fa-pencil"></i>
                     </f:facet>
@@ -80,17 +84,24 @@
                     </p:commandLink>
                 </p:column>
 
-                <p:column headerText=" " styleClass="ui-grid-col-1">
+                <p:column>
                     <f:facet name="header">
                         <i class="fa fa-trash"></i>
                     </f:facet>
-                    <p:commandLink action="#{usuarioBean.remover(usuario)}" process="@form" update="@form" immediate="true">
+                    <p:commandLink action="#{usuarioBean.remover(usuario)}" process="@form" update="@form"
+                                   immediate="true">
                         <i class="fa fa-trash"></i>
+                        <p:confirm header="Confirmação de Exclusão"
+                                   message="Você tem certeza que quer excluir esse usuário?" icon="ui-icon-alert"/>
                     </p:commandLink>
                 </p:column>
 
             </p:dataTable>
 
+            <p:confirmDialog global="true" showEffect="fade" hideEffect="fade" appendTo="@(body)">
+                <p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check"/>
+                <p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close"/>
+            </p:confirmDialog>
         </h:form>
     </ui:define>
 

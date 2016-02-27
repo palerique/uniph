@@ -26,16 +26,32 @@ public class UsuarioBean implements Serializable {
     private List<Usuario> usuarios;
 
     public void salvar() {
+
+        boolean edicao = usuario.getId() != null;
+
         usuarioService.salvarOuAtualizar(usuario);
         usuario = new Usuario();
+        usuarios = usuarioService.buscarTodos();
 
-        FacesMessage msg = new FacesMessage("Usuário cadastrado com sucesso!");
+        FacesMessage msg;
+        if (edicao) {
+            msg = new FacesMessage("Usuário alterado com sucesso!");
+        } else {
+            msg = new FacesMessage("Usuário cadastrado com sucesso!");
+        }
         FacesContext.getCurrentInstance().addMessage(null, msg);
     }
 
     public void remover(Usuario usuario) {
         usuarioService.excluir(usuario);
         usuarios = usuarioService.buscarTodos();
+
+        FacesMessage msg = new FacesMessage("Usuário excluído com sucesso!");
+        FacesContext.getCurrentInstance().addMessage(null, msg);
+    }
+
+    public void limpar() {
+        this.usuario = new Usuario();
     }
 
     public Collection<Usuario> getUsuarios() {
@@ -52,9 +68,5 @@ public class UsuarioBean implements Serializable {
 
     public void setUsuario(Usuario usuario) {
         this.usuario = usuario;
-    }
-
-    public void limparFormulario() {
-        this.usuario = new Usuario();
     }
 }

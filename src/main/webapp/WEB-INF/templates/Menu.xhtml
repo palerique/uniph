@@ -1,20 +1,24 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-                xmlns:h="http://xmlns.jcp.org/jsf/html">
+                xmlns:p="http://primefaces.org/ui"
+>
 
     <nav class="uniph-menu">
         <ul>
-            <li>
-                <h:link><i class="fa  fa-fw  fa-home"></i>Dashboard</h:link>
+            <li class="#{view.viewId eq '/aluno.xhtml' ? 'is-selected' : ''}">
+                <p:link href="/aluno.xhtml"><i class="fa  fa-fw  fa-graduation-cap"></i>Alunos</p:link>
             </li>
-            <li>
-                <h:link><i class="fa  fa-fw  fa-user"></i>Clientes</h:link>
+            <li class="#{view.viewId eq '/professor.xhtml' ? 'is-selected' : ''}">
+                <p:link href="/professor.xhtml"><i class="fa  fa-fw  fa-male"></i>Professores</p:link>
             </li>
-            <li class="is-selected">
-                <h:link><i class="fa  fa-fw  fa-file-text"></i>Orçamentos</h:link>
+            <li class="#{view.viewId eq '/disciplina.xhtml' ? 'is-selected' : ''}">
+                <p:link href="/disciplina.xhtml"><i class="fa  fa-fw  fa-book"></i>Disciplinas</p:link>
             </li>
-            <li>
-                <h:link><i class="fa  fa-fw  fa-cog"></i>Configurações</h:link>
+            <li class="#{view.viewId eq '/turma.xhtml' ? 'is-selected' : ''}">
+                <p:link href="/turma.xhtml"><i class="fa  fa-fw  fa-users"></i>Turmas</p:link>
+            </li>
+            <li class="#{view.viewId eq '/usuario.xhtml' ? 'is-selected' : ''}">
+                <p:link href="/usuario.xhtml"><i class="fa  fa-fw  fa-user"></i>Usuários</p:link>
             </li>
         </ul>
     </nav>
