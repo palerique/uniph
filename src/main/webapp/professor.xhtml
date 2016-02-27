@@ -5,7 +5,7 @@
                 xmlns:p="http://primefaces.org/ui"
                 template="/WEB-INF/templates/Layout.xhtml">
     <ui:define name="content">
-        <h1 class="uniph-titulo-pagina">Aluno</h1>
+        <h1 class="uniph-titulo-pagina">Professor</h1>
 
         <h:form>
 
@@ -13,59 +13,57 @@
             <p:growl autoUpdate="false"/>
 
             <div class="ui-fluid">
-                <p:panelGrid id="panel-grid-aluno" columns="4" layout="grid"
+                <p:panelGrid id="panel-grid-professor" columns="4" layout="grid"
                              style="margin-top: 20px"
                              styleClass="panelgrid-noborder"
                              columnClasses="ui-grid-col-2, ui-grid-col-4, ui-grid-col-2, ui-grid-col-4">
 
                     <p:outputLabel value="Nome:" for="nome"/>
-                    <p:inputText id="nome" value="#{alunoBean.aluno.nomeCompleto}"/>
-
-                    <p:outputLabel value="RG:" for="rg"/>
-                    <p:inputText id="rg" value="#{alunoBean.aluno.rg}"/>
-
-                    <p:outputLabel value="Sexo:" for="sexo"/>
-                    <p:selectOneRadio id="sexo" value="#{alunoBean.aluno.sexo}">
-
-                        <f:selectItem itemLabel="Masculino" itemValue="MASCULINO"/>
-                        <f:selectItem itemLabel="Feminino" itemValue="FEMININO"/>
-
-                    </p:selectOneRadio>
+                    <p:inputText id="nome" value="#{professorBean.professor.nomeCompleto}"/>
 
                     <p:outputLabel value="CPF:" for="cpf"/>
                     <p:inputMask id="cpf" mask="999.999.999-99"
-                                 value="#{alunoBean.aluno.cpf}"/>
-
-                    <p:outputLabel value="Data de Nascimento" for="dataNascimento"/>
-                    <p:calendar id="dataNascimento"
-                                value="#{alunoBean.dataUtilNascimento}" pattern="dd/MM/yyyy"
-                                navigator="true" yearRange="c-120:c" locale="pt_BR"/>
+                                 value="#{professorBean.professor.cpf}"/>
 
                     <p:outputLabel value="Telefone:" for="telefone"/>
                     <p:inputMask id="telefone"
                                  mask="(99) 99999999?9"
-                                 value="#{alunoBean.aluno.telefone}"/>
+                                 value="#{professorBean.professor.telefone}"/>
 
                     <p:outputLabel value="E-mail:" for="email"/>
-                    <p:inputText id="email" value="#{alunoBean.aluno.email}"/>
+                    <p:inputText id="email" value="#{professorBean.professor.email}"/>
 
                     <p:outputLabel value="Data de Cadastro" for="dataCadastro"/>
-                    <p:calendar id="dataCadastro" value="#{alunoBean.dataUtilCadastro}"
+                    <p:calendar id="dataCadastro" value="#{professorBean.dataUtilCadastro}"
                                 pattern="dd/MM/yyyy" navigator="true" yearRange="c-120:c"
                                 locale="pt_BR" disabled="true"/>
 
+
+                    <p:outputLabel/>
+                    <p:outputLabel/>
+
                 </p:panelGrid>
+
+            </div>
+
+            <div class="ui-grid ui-grid-responsive">
+                <div class="ui-grid-row">
+                    <div class="ui-grid-col-12">
+                        <p:editor id="editor" widgetVar="editorWidget" value="#{professorBean.professor.currriculo}"/>
+                    </div>
+                </div>
             </div>
 
             <p:toolbar style="margin-top: 20px; margin-bottom: 40px">
                 <p:toolbarGroup>
-                    <p:commandButton value="Salvar" action="#{alunoBean.salvar}"
-                                     process="@this panel-grid-aluno" update="@form"/>
+                    <p:commandButton value="Salvar" action="#{professorBean.salvar}"
+                                     process="@this panel-grid-professor editor" update="@form"/>
 
-                    <p:commandButton actionListener="#{alunoBean.limpar}" value="Limpar" update="panel-grid-aluno"
+                    <p:commandButton actionListener="#{professorBean.limpar}" value="Limpar"
+                                     update="panel-grid-professor editor"
                                      process="@this"
                                      style="margin-right:20px;">
-                        <p:resetInput target="panel-grid-aluno"/>
+                        <p:resetInput target="panel-grid-professor"/>
                     </p:commandButton>
 
                 </p:toolbarGroup>
@@ -77,59 +75,49 @@
                         <p:outputLabel value="Filtro:" for="filtro"/>
                     </div>
                     <div class="ui-grid-col-10">
-                        <p:inputText style="width: 100%" id="filtro" value="#{alunoBean.filtro}"/>
+                        <p:inputText style="width: 100%" id="filtro" value="#{professorBean.filtro}"/>
                     </div>
                     <div class="ui-grid-col-1" style="padding-left: 20px;">
-                        <p:commandButton value="Filtrar" action="#{alunoBean.filtrar}"
+                        <p:commandButton value="Filtrar" action="#{professorBean.filtrar}"
                                          process="@this filtro" update="@form"/>
                     </div>
                 </div>
             </div>
 
-            <p:dataTable id="alunos-table" widgetVar="alunos-table" value="#{alunoBean.alunos}"
-                         var="aluno"
+            <p:dataTable id="professors-table" widgetVar="professors-table" value="#{professorBean.professors}"
+                         var="professor"
                          reflow="true"
                          style="text-align: center"
-                         emptyMessage="Nenhum aluno cadastrado.">
+                         emptyMessage="Nenhum professor cadastrado.">
 
                 <p:column headerText="#" style="width: 20px;">
-                    <h:outputText value="#{aluno.id}"/>
+                    <h:outputText value="#{professor.id}"/>
                 </p:column>
 
                 <p:column headerText="Data de Cadastro">
-                    <h:outputText value="#{aluno.dataDeCadastro.time}">
+                    <h:outputText value="#{professor.dataDeCadastro.time}">
                         <f:convertDateTime pattern="dd/MM/yyyy"/>
                     </h:outputText>
                 </p:column>
 
                 <p:column headerText="Nome" style="width: 20%;">
-                    <h:outputText value="#{aluno.nomeCompleto}"/>
-                </p:column>
-
-                <p:column headerText="Sexo">
-                    #{aluno.sexo}
+                    <h:outputText value="#{professor.nomeCompleto}"/>
                 </p:column>
 
                 <p:column headerText="CPF">
-                    <h:outputText value="#{aluno.cpf}"/>
-                </p:column>
-
-                <p:column headerText="RG">
-                    <h:outputText value="#{aluno.rg}"/>
+                    <h:outputText value="#{professor.cpf}"/>
                 </p:column>
 
                 <p:column headerText="E-mail" style="width: 15%;">
-                    <h:outputText value="#{aluno.email}"/>
+                    <h:outputText value="#{professor.email}"/>
                 </p:column>
 
                 <p:column headerText="Telefone">
-                    <h:outputText value="#{aluno.telefone}"/>
+                    <h:outputText value="#{professor.telefone}"/>
                 </p:column>
 
-                <p:column headerText="Data de Nascimento">
-                    <h:outputText value="#{aluno.dataDeNascimento.time}">
-                        <f:convertDateTime pattern="dd/MM/yyyy"/>
-                    </h:outputText>
+                <p:column headerText="Currículo" styleClass="singleLine">
+                    <h:outputText escape="false" value="#{professor.currriculo}"/>
                 </p:column>
 
                 <p:column style="width: 20px;">
@@ -138,7 +126,7 @@
                     </f:facet>
                     <p:commandLink immediate="true" process="@this" update="@form">
                         <i class="fa fa-pencil"></i>
-                        <f:setPropertyActionListener target="#{alunoBean.aluno}" value="#{aluno}"/>
+                        <f:setPropertyActionListener target="#{professorBean.professor}" value="#{professor}"/>
                     </p:commandLink>
                 </p:column>
 
@@ -146,11 +134,11 @@
                     <f:facet name="header">
                         <i class="fa fa-trash"></i>
                     </f:facet>
-                    <p:commandLink action="#{alunoBean.remover(aluno)}" process="@form" update="@form"
+                    <p:commandLink action="#{professorBean.remover(professor)}" process="@form" update="@form"
                                    immediate="true">
                         <i class="fa fa-trash"></i>
                         <p:confirm header="Confirmação de Exclusão"
-                                   message="Você tem certeza que quer excluir esse aluno?" icon="ui-icon-alert"/>
+                                   message="Você tem certeza que quer excluir esse professor?" icon="ui-icon-alert"/>
                     </p:commandLink>
                 </p:column>
 
