@@ -2,10 +2,7 @@ package br.com.sitedoph.uniph.dominio.entidades;
 
 import org.hibernate.validator.constraints.NotEmpty;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.ManyToMany;
+import javax.persistence.*;
 import java.util.List;
 
 @Entity
@@ -21,10 +18,12 @@ public class Turma {
     private String diasDaSemana;
     private String horario;
 
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(name = "turma_aluno", joinColumns = @JoinColumn(name = "id_turma"), inverseJoinColumns = @JoinColumn(name = "id_aluno"))
     private List<Aluno> alunos;
 
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(name = "turma_disciplina", joinColumns = @JoinColumn(name = "id_turma"), inverseJoinColumns = @JoinColumn(name = "id_disciplina"))
     private List<Disciplina> disciplinas;
 
     public Long getId() {
@@ -86,5 +85,6 @@ public class Turma {
 
         this.disciplinas = disciplinas;
     }
+
 
 }

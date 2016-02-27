@@ -23,16 +23,6 @@ public class Disciplina {
 
     private String cargaHoraria;
 
-    public Long getId() {
-
-        return id;
-    }
-
-    public void setId(Long id) {
-
-        this.id = id;
-    }
-
     public String getDescricao() {
 
         return descricao;
@@ -67,6 +57,14 @@ public class Disciplina {
     public String toString() {
 
         return "Disciplina [id=" + id + ", descricao=" + descricao + ", professor=" + professor + ", cargaHoraria=" + cargaHoraria + "]";
+    }
+
+    public Long getId() {
+        return this.id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     @Override

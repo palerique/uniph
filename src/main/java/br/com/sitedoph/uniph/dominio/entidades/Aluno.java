@@ -6,6 +6,7 @@ import org.hibernate.validator.constraints.br.CPF;
 
 import javax.persistence.*;
 import java.util.Calendar;
+import java.util.Objects;
 
 @Entity
 public class Aluno {
@@ -140,4 +141,16 @@ public class Aluno {
                 + (sexo != null ? "sexo=" + sexo : "") + "]";
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || this.getClass() != o.getClass()) return false;
+        Aluno aluno = (Aluno) o;
+        return Objects.equals(this.id, aluno.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(this.id);
+    }
 }
