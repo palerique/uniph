@@ -19,7 +19,7 @@ public class GenericDAOHibernate<T> implements Serializable {
 
     private final EntityManager entityManager;
 
-    public GenericDAOHibernate(final Class<T> classe, EntityManager entityManager) {
+    public GenericDAOHibernate(Class<T> classe, EntityManager entityManager) {
         CLASSE = classe;
         this.entityManager = entityManager;
     }
@@ -34,7 +34,7 @@ public class GenericDAOHibernate<T> implements Serializable {
 
     public List<T> buscarTodos() {
 
-        final CriteriaQuery<T> query = entityManager.getCriteriaBuilder().createQuery(CLASSE);
+        CriteriaQuery<T> query = entityManager.getCriteriaBuilder().createQuery(CLASSE);
 
         query.select(query.from(CLASSE));
 
@@ -48,9 +48,9 @@ public class GenericDAOHibernate<T> implements Serializable {
 
     public List<T> buscarPorCriteria(Criterion... criteria) {
 
-        final Session session = getHibernateSession();
+        Session session = getHibernateSession();
 
-        final Criteria crit = session.createCriteria(CLASSE);
+        Criteria crit = session.createCriteria(CLASSE);
 
         for (Criterion criterion : criteria) {
             crit.add(criterion);
@@ -65,7 +65,7 @@ public class GenericDAOHibernate<T> implements Serializable {
 
     public List<T> buscarPorExemplo(T exemplo, String... propriedadesAExcluir) {
 
-        final Example example = Example.create(exemplo);
+        Example example = Example.create(exemplo);
 
         example.enableLike(MatchMode.ANYWHERE);
         example.excludeZeroes();
@@ -75,9 +75,9 @@ public class GenericDAOHibernate<T> implements Serializable {
             example.excludeProperty(prop);
         }
 
-        final Session session = getHibernateSession();
+        Session session = getHibernateSession();
 
-        final Criteria criteria = session.createCriteria(CLASSE).add(example);
+        Criteria criteria = session.createCriteria(CLASSE).add(example);
 
         return criteria.list();
     }

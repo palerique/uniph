@@ -6,14 +6,13 @@ import br.com.sitedoph.uniph.dominio.repositorios.TurmaRepositorio;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
-import java.io.Serializable;
 import java.util.List;
 
-public class TurmaDAO extends GenericDAOHibernate<Turma> implements TurmaRepositorio, Serializable {
+public class TurmaDAO extends GenericDAOHibernate<Turma> implements TurmaRepositorio {
 
     private static final long serialVersionUID = 1L;
 
-    private EntityManager entityManager;
+    private final EntityManager entityManager;
 
     @Inject
     public TurmaDAO(EntityManager entityManager) {

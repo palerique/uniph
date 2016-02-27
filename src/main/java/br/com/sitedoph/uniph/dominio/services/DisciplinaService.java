@@ -15,7 +15,7 @@ public class DisciplinaService implements Serializable {
     @Inject
     private DisciplinaRepositorio repo;
 
-    public Disciplina buscarPorId(final Long id) {
+    public Disciplina buscarPorId(Long id) {
         return repo.buscarPorId(id);
     }
 

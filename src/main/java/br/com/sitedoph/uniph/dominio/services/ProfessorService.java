@@ -15,7 +15,7 @@ public class ProfessorService implements Serializable {
     @Inject
     private ProfessorRepositorio repo;
 
-    public Professor buscarPorId(final Long id) {
+    public Professor buscarPorId(Long id) {
         return repo.buscarPorId(id);
     }
 

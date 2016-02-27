@@ -6,14 +6,13 @@ import br.com.sitedoph.uniph.dominio.repositorios.DisciplinaRepositorio;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
-import java.io.Serializable;
 import java.util.List;
 
-public class DisciplinaDAO extends GenericDAOHibernate<Disciplina> implements DisciplinaRepositorio, Serializable {
+public class DisciplinaDAO extends GenericDAOHibernate<Disciplina> implements DisciplinaRepositorio {
 
     private static final long serialVersionUID = 1L;
 
-    private EntityManager entityManager;
+    private final EntityManager entityManager;
 
     @Inject
     public DisciplinaDAO(EntityManager entityManager) {

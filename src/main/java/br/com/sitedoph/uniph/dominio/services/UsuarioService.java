@@ -15,7 +15,7 @@ public class UsuarioService implements Serializable {
     @Inject
     private UsuarioRepositorio repo;
 
-    public Usuario buscarPorId(final Long id) {
+    public Usuario buscarPorId(Long id) {
         return repo.buscarPorId(id);
     }
 

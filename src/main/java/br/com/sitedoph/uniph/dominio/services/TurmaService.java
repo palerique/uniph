@@ -15,7 +15,7 @@ public class TurmaService implements Serializable {
     @Inject
     private TurmaRepositorio repo;
 
-    public Turma buscarPorId(final Long id) {
+    public Turma buscarPorId(Long id) {
         return repo.buscarPorId(id);
     }
 

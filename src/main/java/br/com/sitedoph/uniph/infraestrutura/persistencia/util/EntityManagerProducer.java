@@ -11,7 +11,7 @@ import javax.persistence.Persistence;
 @ApplicationScoped
 public class EntityManagerProducer {
 
-    private EntityManagerFactory factory;
+    private final EntityManagerFactory factory;
 
     public EntityManagerProducer() {
         this.factory = Persistence.createEntityManagerFactory("uniph");

@@ -15,7 +15,7 @@ public class AlunoService implements Serializable {
     @Inject
     private AlunoRepositorio repo;
 
-    public Aluno buscarPorId(final Long id) {
+    public Aluno buscarPorId(Long id) {
         return repo.buscarPorId(id);
     }
 
