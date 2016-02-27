@@ -10,6 +10,8 @@ import br.com.sitedoph.uniph.aplicacao.managedsbeans.LoginBean;
 
 public class AutorizadorListener implements PhaseListener {
 
+	private static final long serialVersionUID = 1L;
+
 	@Override
 	public void afterPhase(PhaseEvent evento) {
 
@@ -23,12 +25,9 @@ public class AutorizadorListener implements PhaseListener {
 				LoginBean.class);
 
 		if (!loginBean.isLogado()) {
-			NavigationHandler gerente = 
-					contexto.getApplication()
-					.getNavigationHandler();
+			NavigationHandler gerente = contexto.getApplication().getNavigationHandler();
 
-			gerente.handleNavigation(contexto, 
-					null, "login?faces-redirect=true");
+			gerente.handleNavigation(contexto, null, "login?faces-redirect=true");
 
 			contexto.renderResponse();
 		}
