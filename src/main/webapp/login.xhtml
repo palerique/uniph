@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+
+	<h:outputScript target="body" library="uniph"
+		name="javascripts/primefaces-locale.js" />
+
+</h:head>
+
+<h:body>
+
+	<div id="cabecalho">
+
+		<h:graphicImage id="logo-uniph" 
+		library="uniph" name="images/logo.png" />
+
+		<h3>Para Acessar o Sistema é 
+		Necessário Efetuar Login.</h3>
+
+	</div>
+
+	<div id="conteudo">
+
+		<h:form>
+
+			<p:growl id="growl" autoUpdate="true" />
+			<p:messages id="growl" autoUpdate="true" />
+
+			<p:fieldset>
+			
+			<p:panelGrid columns="2">
+			
+			<p:outputLabel value="Login:" for="login"/>
+			<p:inputText id="login" required="true"
+			requiredMessage="Digite o seu login!"
+			value="#{loginBean.usuario.login}"  />
+			
+			<p:outputLabel value="Senha:" for="senha"/>
+			<p:password id="senha" required="true"
+			requiredMessage="Digite a sua senha!"
+			value="#{loginBean.usuario.senha}"  />
+			
+			<p:commandButton value="Efetuar Login"
+			action="#{loginBean.efetuarLogin}"
+			ajax="false"/>
+			
+			</p:panelGrid>
+			
+			</p:fieldset>
+			
+			
+		</h:form>
+
+	</div>
+
+</h:body>
+
+</html>
