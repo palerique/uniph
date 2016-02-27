@@ -5,33 +5,29 @@ import br.com.sitedoph.uniph.dominio.entidades.Usuario;
 import br.com.sitedoph.uniph.dominio.services.UsuarioService;
 
 import javax.faces.application.FacesMessage;
+import javax.faces.bean.ManagedBean;
 import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
-import javax.inject.Inject;
-import javax.inject.Named;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.List;
 
-@Named
+@ManagedBean
 @ViewScoped
 public class UsuarioBean implements Serializable {
 
     private static final long serialVersionUID = 1L;
-
-    @Inject
-    private UsuarioService usuarioService;
 
     private Usuario usuario = new Usuario();
     private List<Usuario> usuarios;
 
     public void salvar() {
 
-        boolean edicao = usuario.getId() != null;
+        boolean edicao = this.usuario.getId() != null;
 
-        usuarioService.salvarOuAtualizar(usuario);
-        usuario = new Usuario();
-        usuarios = usuarioService.buscarTodos();
+        new UsuarioService().salvarOuAtualizar(this.usuario);
+        this.usuario = new Usuario();
+        this.usuarios = new UsuarioService().buscarTodos();
 
         FacesMessage msg;
         if (edicao) {
@@ -43,27 +39,27 @@ public class UsuarioBean implements Serializable {
     }
 
     public void remover(Usuario usuario) {
-        usuarioService.excluir(usuario);
-        usuarios = usuarioService.buscarTodos();
+        new UsuarioService().excluir(usuario);
+        this.usuarios = new UsuarioService().buscarTodos();
 
         FacesMessage msg = new FacesMessage("Usuário excluído com sucesso!");
         FacesContext.getCurrentInstance().addMessage(null, msg);
     }
 
     public void limpar() {
-        this.usuario = new Usuario();
+        usuario = new Usuario();
     }
 
     public Collection<Usuario> getUsuarios() {
-        if (usuarios == null) {
-            usuarios = usuarioService.buscarTodos();
+        if (this.usuarios == null) {
+            this.usuarios = new UsuarioService().buscarTodos();
         }
 
-        return usuarios;
+        return this.usuarios;
     }
 
     public Usuario getUsuario() {
-        return usuario;
+        return this.usuario;
     }
 
     public void setUsuario(Usuario usuario) {

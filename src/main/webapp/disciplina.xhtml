@@ -25,13 +25,7 @@
                     <p:inputText id="carga-horaria" value="#{disciplinaBean.disciplina.cargaHoraria}"/>
 
                     <p:outputLabel for="professor" value="Professor:"/>
-                    <p:selectOneMenu id="professor" value="#{disciplinaBean.disciplina.professor}"
-                                     filter="true" filterMatchMode="contains" converter="#{professorConverter}">
-                        <f:selectItem itemLabel="Selecione..." itemValue=""/>
-                        <f:selectItems value="#{disciplinaBean.professores}"
-                                       var="professor" itemLabel="#{professor.nomeCompleto}"
-                                       itemValue="#{professor}"/>
-                    </p:selectOneMenu>
+                    <h:outputText id="professor" value="Aqui tem que selecionar o professor!!!"/>
 
                     <h:outputLabel/>
                     <h:outputLabel/>
