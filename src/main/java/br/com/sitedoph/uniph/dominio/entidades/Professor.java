@@ -7,6 +7,7 @@ import org.hibernate.validator.constraints.br.CPF;
 import javax.persistence.*;
 import javax.validation.constraints.Size;
 import java.util.Calendar;
+import java.util.Objects;
 
 @Entity
 public class Professor {
@@ -113,5 +114,16 @@ public class Professor {
                 + (currriculo != null ? "currriculo=" + currriculo : "") + "]";
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Professor professor = (Professor) o;
+        return Objects.equals(id, professor.id);
+    }
 
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
+    }
 }

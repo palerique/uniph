@@ -1,0 +1,126 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                template="/WEB-INF/templates/Layout.xhtml">
+    <ui:define name="content">
+        <h1 class="uniph-titulo-pagina">Disciplina</h1>
+
+        <h:form>
+
+            <p:messages autoUpdate="false"/>
+            <p:growl autoUpdate="false"/>
+
+            <div class="ui-fluid">
+                <p:panelGrid id="panel-grid-disciplina" columns="4" layout="grid"
+                             style="margin-top: 20px"
+                             styleClass="panelgrid-noborder"
+                             columnClasses="ui-grid-col-2, ui-grid-col-4, ui-grid-col-2, ui-grid-col-4">
+
+                    <p:outputLabel value="Descrição:" for="descricao"/>
+                    <p:inputText id="descricao" value="#{disciplinaBean.disciplina.descricao}"/>
+
+                    <p:outputLabel value="Carga Horária" for="carga-horaria"/>
+                    <p:inputText id="carga-horaria" value="#{disciplinaBean.disciplina.cargaHoraria}"/>
+
+                    <p:outputLabel for="professor" value="Professor:"/>
+                    <p:selectOneMenu id="professor" value="#{disciplinaBean.disciplina.professor}"
+                                     filter="true" filterMatchMode="contains" converter="#{professorConverter}">
+                        <f:selectItem itemLabel="Selecione..." itemValue=""/>
+                        <f:selectItems value="#{disciplinaBean.professores}"
+                                       var="professor" itemLabel="#{professor.nomeCompleto}"
+                                       itemValue="#{professor}"/>
+                    </p:selectOneMenu>
+
+                    <h:outputLabel/>
+                    <h:outputLabel/>
+
+                </p:panelGrid>
+
+            </div>
+
+            <p:toolbar style="margin-top: 20px; margin-bottom: 40px">
+                <p:toolbarGroup>
+                    <p:commandButton value="Salvar" action="#{disciplinaBean.salvar}"
+                                     process="@this panel-grid-disciplina" update="@form"/>
+
+                    <p:commandButton actionListener="#{disciplinaBean.limpar}" value="Limpar"
+                                     update="panel-grid-disciplina"
+                                     process="@this"
+                                     style="margin-right:20px;">
+                        <p:resetInput target="panel-grid-disciplina"/>
+                    </p:commandButton>
+
+                </p:toolbarGroup>
+            </p:toolbar>
+
+            <div class="ui-grid ui-grid-responsive" style="margin-top: 20px">
+                <div class="ui-grid-row">
+                    <div class="ui-grid-col-1" style="text-align: right; padding: 8px 8px;">
+                        <p:outputLabel value="Filtro:" for="filtro"/>
+                    </div>
+                    <div class="ui-grid-col-10">
+                        <p:inputText style="width: 100%" id="filtro" value="#{disciplinaBean.filtro}"/>
+                    </div>
+                    <div class="ui-grid-col-1" style="padding-left: 20px;">
+                        <p:commandButton value="Filtrar" action="#{disciplinaBean.filtrar}"
+                                         process="@this filtro" update="@form"/>
+                    </div>
+                </div>
+            </div>
+
+            <p:dataTable id="disciplinas-table" widgetVar="disciplinas-table" value="#{disciplinaBean.disciplinas}"
+                         var="disciplina"
+                         reflow="true"
+                         style="text-align: center"
+                         emptyMessage="Nenhuma disciplina cadastrada.">
+
+                <p:column headerText="#" style="width: 20px;">
+                    <h:outputText value="#{disciplina.id}"/>
+                </p:column>
+
+                <p:column headerText="Descrição">
+                    <h:outputText value="#{disciplina.descricao}"/>
+                </p:column>
+
+                <p:column headerText="Carga Horária" style="width: 20%;">
+                    <h:outputText value="#{disciplina.cargaHoraria}"/>
+                </p:column>
+
+                <p:column headerText="Professor">
+                    <h:outputText value="#{disciplina.professor.nomeCompleto}"/>
+                </p:column>
+
+                <p:column style="width: 20px;">
+                    <f:facet name="header">
+                        <i class="fa fa-pencil"></i>
+                    </f:facet>
+                    <p:commandLink immediate="true" process="@this" update="@form">
+                        <i class="fa fa-pencil"></i>
+                        <f:setPropertyActionListener target="#{disciplinaBean.disciplina}" value="#{disciplina}"/>
+                    </p:commandLink>
+                </p:column>
+
+                <p:column style="width: 20px;">
+                    <f:facet name="header">
+                        <i class="fa fa-trash"></i>
+                    </f:facet>
+                    <p:commandLink action="#{disciplinaBean.remover(disciplina)}" process="@form" update="@form"
+                                   immediate="true">
+                        <i class="fa fa-trash"></i>
+                        <p:confirm header="Confirmação de Exclusão"
+                                   message="Você tem certeza que quer excluir esse disciplina?" icon="ui-icon-alert"/>
+                    </p:commandLink>
+                </p:column>
+
+            </p:dataTable>
+
+            <p:confirmDialog global="true" showEffect="fade" hideEffect="fade" appendTo="@(body)">
+                <p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check"/>
+                <p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close"/>
+            </p:confirmDialog>
+        </h:form>
+    </ui:define>
+
+</ui:composition>

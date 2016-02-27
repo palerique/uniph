@@ -2,7 +2,9 @@ package br.com.sitedoph.uniph.aplicacao.managedsbeans;
 
 
 import br.com.sitedoph.uniph.dominio.entidades.Disciplina;
+import br.com.sitedoph.uniph.dominio.entidades.Professor;
 import br.com.sitedoph.uniph.dominio.services.DisciplinaService;
+import br.com.sitedoph.uniph.dominio.services.ProfessorService;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
@@ -22,10 +24,14 @@ public class DisciplinaBean implements Serializable {
     @Inject
     private DisciplinaService disciplinaService;
 
+    @Inject
+    private ProfessorService professorService;
+
     private Disciplina disciplina = new Disciplina();
     private List<Disciplina> disciplinas;
 
     private String filtro;
+    private Collection<Professor> professores;
 
     public void filtrar() {
         this.disciplinas = disciplinaService.filtrarPorPalavraChave(filtro);
@@ -34,8 +40,6 @@ public class DisciplinaBean implements Serializable {
     public void salvar() {
 
         boolean edicao = disciplina.getId() != null;
-
-        disciplina.setProfessor(null);
 
         disciplinaService.salvarOuAtualizar(disciplina);
         disciplina = new Disciplina();
@@ -86,4 +90,14 @@ public class DisciplinaBean implements Serializable {
     public void setFiltro(String filtro) {
         this.filtro = filtro;
     }
+
+    public Collection<Professor> getProfessores() {
+
+        if (professores == null) {
+            professores = professorService.buscarTodos();
+        }
+
+        return professores;
+    }
+
 }
