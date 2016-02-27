@@ -1,108 +1,111 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
-                xmlns:h="http://xmlns.jcp.org/jsf/html"
-                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-                xmlns:f="http://xmlns.jcp.org/jsf/core"
-                xmlns:p="http://primefaces.org/ui"
-                template="/WEB-INF/templates/Layout.xhtml">
-    <ui:define name="content">
-        <h1 class="uniph-titulo-pagina">Usuário</h1>
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	template="/WEB-INF/templates/Layout.xhtml">
+	<ui:define name="content">
+		<h1 class="uniph-titulo-pagina">Usuário</h1>
 
-        <h:form>
+		<h:form>
 
-            <p:messages autoUpdate="false"/>
-            <p:growl autoUpdate="false"/>
+			<p:messages autoUpdate="false" />
+			<p:growl autoUpdate="false" />
 
-            <div class="ui-fluid">
-                <p:panelGrid id="panel-grid-usuario" columns="4" layout="grid"
-                             style="margin-top: 20px"
-                             styleClass="panelgrid-noborder"
-                             columnClasses="ui-grid-col-2, ui-grid-col-4, ui-grid-col-2, ui-grid-col-4">
+			<div class="ui-fluid">
+				<p:panelGrid id="panel-grid-usuario" columns="4" layout="grid"
+					style="margin-top: 20px" styleClass="panelgrid-noborder"
+					columnClasses="ui-grid-col-2, ui-grid-col-4, ui-grid-col-2, ui-grid-col-4">
 
-                    <p:outputLabel value="Nome Completo" for="nomeCompleto"/>
-                    <p:inputText id="nomeCompleto" value="#{usuarioBean.usuario.nomeCompleto}"/>
+					<p:outputLabel value="Nome Completo" for="nomeCompleto" />
+					<p:inputText id="nomeCompleto"
+						value="#{usuarioBean.usuario.nomeCompleto}" />
 
-                    <p:outputLabel value="E-mail" for="email"/>
-                    <p:inputText id="email" value="#{usuarioBean.usuario.email}"/>
+					<p:outputLabel value="E-mail" for="email" />
+					<p:inputText id="email" value="#{usuarioBean.usuario.email}" />
 
-                    <p:outputLabel value="Login" for="login"/>
-                    <p:inputText id="login" value="#{usuarioBean.usuario.login}"/>
+					<p:outputLabel value="Login" for="login" />
+					<p:inputText id="login" value="#{usuarioBean.usuario.login}" />
 
-                    <p:outputLabel value="Senha" for="senha"/>
-                    <p:password id="senha" value="#{usuarioBean.usuario.senha}"/>
+					<p:outputLabel value="Senha" for="senha" />
+					<p:password id="senha" value="#{usuarioBean.usuario.senha}" />
 
-                </p:panelGrid>
-            </div>
+				</p:panelGrid>
+			</div>
 
-            <p:toolbar style="margin-top: 20px; margin-bottom: 40px">
-                <p:toolbarGroup>
-                    <p:commandButton value="Salvar" action="#{usuarioBean.salvar}"
-                                     process="@this panel-grid-usuario" update="@form"/>
+			<p:toolbar style="margin-top: 20px; margin-bottom: 40px">
+				<p:toolbarGroup>
+					<p:commandButton value="Salvar" action="#{usuarioBean.salvar}"
+						process="@this panel-grid-usuario" update="@form" />
 
-                    <p:commandButton actionListener="#{usuarioBean.limpar}" value="Limpar" update="panel-grid-usuario"
-                                     process="@this"
-                                     style="margin-right:20px;">
-                        <p:resetInput target="panel-grid-usuario"/>
-                    </p:commandButton>
+					<p:commandButton actionListener="#{usuarioBean.limpar}"
+						value="Limpar" update="panel-grid-usuario" process="@this"
+						style="margin-right:20px;">
+						<p:resetInput target="panel-grid-usuario" />
+					</p:commandButton>
 
-                </p:toolbarGroup>
-            </p:toolbar>
+				</p:toolbarGroup>
+			</p:toolbar>
 
-            <p:dataTable id="usuarios-table" value="#{usuarioBean.usuarios}"
-                         var="usuario"
-                         reflow="true"
-                         style="text-align: center"
-                         emptyMessage="Nenhum usuário cadastrado.">
+			<p:dataTable id="usuarios-table" value="#{usuarioBean.usuarios}"
+				var="usuario" reflow="true" style="text-align: center"
+				emptyMessage="Nenhum usuário cadastrado.">
 
 
-                <p:column headerText="#">
-                    <h:outputText value="#{usuario.id}"/>
-                </p:column>
+				<p:column headerText="#">
+					<h:outputText value="#{usuario.id}" />
+				</p:column>
 
-                <p:column headerText="Nome">
-                    <h:outputText value="#{usuario.nomeCompleto}"/>
-                </p:column>
+				<p:column headerText="Nome">
+					<h:outputText value="#{usuario.nomeCompleto}" />
+				</p:column>
 
-                <p:column headerText="Login">
-                    <h:outputText value="#{usuario.login}"/>
-                </p:column>
+				<p:column headerText="Login">
+					<h:outputText value="#{usuario.login}" />
+				</p:column>
 
-                <p:column headerText="E-mail">
-                    <h:outputText value="#{usuario.email}"/>
-                </p:column>
+				<p:column headerText="E-mail">
+					<h:outputText value="#{usuario.email}" />
+				</p:column>
 
-                <p:column headerText="Senha">
-                    <h:outputText value="#{usuario.senha}"/>
-                </p:column>
+				<p:column headerText="Senha">
+					<h:outputText value="#{usuario.senha}" />
+				</p:column>
 
-                <p:column>
-                    <f:facet name="header">
-                        <i class="fa fa-pencil"></i>
-                    </f:facet>
-                    <p:commandLink immediate="true" process="@this" update="@form">
-                        <i class="fa fa-pencil"></i>
-                        <f:setPropertyActionListener target="#{usuarioBean.usuario}" value="#{usuario}"/>
-                    </p:commandLink>
-                </p:column>
+				<p:column>
+					<f:facet name="header">
+						<i class="fa fa-pencil"></i>
+					</f:facet>
+					<p:commandLink immediate="true" process="@this" update="@form">
+						<i class="fa fa-pencil"></i>
+						<f:setPropertyActionListener target="#{usuarioBean.usuario}"
+							value="#{usuario}" />
+					</p:commandLink>
+				</p:column>
 
-                <p:column>
-                    <f:facet name="header">
-                        <i class="fa fa-trash"></i>
-                    </f:facet>
-                    <p:commandLink action="#{usuarioBean.remover(usuario)}" process="@form" update="@form"
-                                   immediate="true">
-                        <i class="fa fa-trash"></i>
-                        <p:confirm header="Confirmação de Exclusão"
-                                   message="Você tem certeza que quer excluir esse usuário?" icon="ui-icon-alert"/>
-                    </p:commandLink>
-                </p:column>
+				<p:column>
+					<f:facet name="header">
+						<i class="fa fa-trash"></i>
+					</f:facet>
+					<p:commandLink action="#{usuarioBean.remover(usuario)}"
+						process="@form" update="@form" immediate="true">
+						<i class="fa fa-trash"></i>
+						<p:confirm header="Confirmação de Exclusão"
+							message="Você tem certeza que quer excluir esse usuário?"
+							icon="ui-icon-alert" />
+					</p:commandLink>
+				</p:column>
 
-            </p:dataTable>
+			</p:dataTable>
 
-            <p:confirmDialog global="true" showEffect="fade" hideEffect="fade" appendTo="@(body)">
-                <p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check"/>
-                <p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close"/>
-            </p:confirmDialog>
-        </h:form>
-    </ui:define>
+			<p:confirmDialog global="true" showEffect="fade" hideEffect="fade"
+				appendTo="@(body)">
+				<p:commandButton value="Sim" type="button"
+					styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+				<p:commandButton value="Não" type="button"
+					styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+			</p:confirmDialog>
+		</h:form>
+	</ui:define>
 
 </ui:composition>

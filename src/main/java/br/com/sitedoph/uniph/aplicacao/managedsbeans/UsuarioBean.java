@@ -1,68 +1,72 @@
 package br.com.sitedoph.uniph.aplicacao.managedsbeans;
 
-
-import br.com.sitedoph.uniph.dominio.entidades.Usuario;
-import br.com.sitedoph.uniph.dominio.services.UsuarioService;
-
-import javax.faces.application.FacesMessage;
-import javax.faces.bean.ManagedBean;
-import javax.faces.context.FacesContext;
-import javax.faces.view.ViewScoped;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.List;
 
-@ManagedBean
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
+import javax.faces.view.ViewScoped;
+import javax.inject.Inject;
+import javax.inject.Named;
+
+import br.com.sitedoph.uniph.dominio.entidades.Usuario;
+import br.com.sitedoph.uniph.dominio.services.UsuarioService;
+
+@Named
 @ViewScoped
 public class UsuarioBean implements Serializable {
 
-    private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;
 
-    private Usuario usuario = new Usuario();
-    private List<Usuario> usuarios;
+	private Usuario usuario = new Usuario();
+	private List<Usuario> usuarios;
 
-    public void salvar() {
+	@Inject
+	private UsuarioService usuarioService;
 
-        boolean edicao = this.usuario.getId() != null;
+	public void salvar() {
 
-        new UsuarioService().salvarOuAtualizar(this.usuario);
-        this.usuario = new Usuario();
-        this.usuarios = new UsuarioService().buscarTodos();
+		boolean edicao = this.usuario.getId() != null;
 
-        FacesMessage msg;
-        if (edicao) {
-            msg = new FacesMessage("Usuário alterado com sucesso!");
-        } else {
-            msg = new FacesMessage("Usuário cadastrado com sucesso!");
-        }
-        FacesContext.getCurrentInstance().addMessage(null, msg);
-    }
+		usuarioService.salvarOuAtualizar(this.usuario);
+		this.usuario = new Usuario();
+		this.usuarios = usuarioService.buscarTodos();
 
-    public void remover(Usuario usuario) {
-        new UsuarioService().excluir(usuario);
-        this.usuarios = new UsuarioService().buscarTodos();
+		FacesMessage msg;
+		if (edicao) {
+			msg = new FacesMessage("Usuário alterado com sucesso!");
+		} else {
+			msg = new FacesMessage("Usuário cadastrado com sucesso!");
+		}
+		FacesContext.getCurrentInstance().addMessage(null, msg);
+	}
 
-        FacesMessage msg = new FacesMessage("Usuário excluído com sucesso!");
-        FacesContext.getCurrentInstance().addMessage(null, msg);
-    }
+	public void remover(Usuario usuario) {
+		usuarioService.excluir(usuario);
+		this.usuarios = usuarioService.buscarTodos();
 
-    public void limpar() {
-        usuario = new Usuario();
-    }
+		FacesMessage msg = new FacesMessage("Usuário excluído com sucesso!");
+		FacesContext.getCurrentInstance().addMessage(null, msg);
+	}
 
-    public Collection<Usuario> getUsuarios() {
-        if (this.usuarios == null) {
-            this.usuarios = new UsuarioService().buscarTodos();
-        }
+	public void limpar() {
+		usuario = new Usuario();
+	}
 
-        return this.usuarios;
-    }
+	public Collection<Usuario> getUsuarios() {
+		if (this.usuarios == null) {
+			this.usuarios = usuarioService.buscarTodos();
+		}
 
-    public Usuario getUsuario() {
-        return this.usuario;
-    }
+		return this.usuarios;
+	}
 
-    public void setUsuario(Usuario usuario) {
-        this.usuario = usuario;
-    }
+	public Usuario getUsuario() {
+		return this.usuario;
+	}
+
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
+	}
 }
