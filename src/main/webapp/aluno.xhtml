@@ -68,6 +68,30 @@
 				</p:toolbarGroup>
 			</p:toolbar>
 
+			<div class="ui-grid ui-grid-responsive" style="margin-top: 20px;">
+				<div class="ui-grid-row">
+					<div class="ui-grid-col-1">
+						<p:outputLabel value="Filtro:" for="filtro" />
+					</div>
+					<div class="ui-grid-col-10">
+						<p:inputText 
+						style="width: 100%" 
+						id="filtro" 
+						value="#{alunoBean.filtro}"/>
+					</div>
+					<div 
+					class="ui-grid-col-1"
+					style="padding-left: 20px;">
+					
+						<p:commandButton value="Filtrar"
+						action="#{alunoBean.filtrar}"
+						process="@this filtro" 
+						update="@form"/>
+					
+					</div>
+				</div>
+			</div>
+
 			<p:dataTable id="alunos-table" value="#{alunoBean.alunos}"
 				var="aluno" reflow="true" style="text-align: center;"
 				emptyMessage="Nenhum Aluno Cadastrado!">
@@ -116,10 +140,7 @@
 					<f:facet name="header">
 						<i class="fa fa-pencil"></i>
 					</f:facet>
-					<p:commandLink 
-					immediate="true" 
-					process="@this" 
-					update="@form">
+					<p:commandLink immediate="true" process="@this" update="@form">
 						<i class="fa fa-pencil"></i>
 						<f:setPropertyActionListener value="#{aluno}"
 							target="#{alunoBean.aluno}" />
@@ -130,39 +151,26 @@
 					<f:facet name="header">
 						<i class="fa fa-trash"></i>
 					</f:facet>
-					<p:commandLink 
-					action="#{alunoBean.remover(aluno)}"
-					immediate="true" 
-					process="@this" 
-					update="@form">
+					<p:commandLink action="#{alunoBean.remover(aluno)}"
+						immediate="true" process="@this" update="@form">
 						<i class="fa fa-trash"></i>
-						<p:confirm 
-						header="Confirmação de Exclusão"
-						message="Você tem certeza que quer excluir esse aluno?"
-						icon="ui-icon-alert" />
+						<p:confirm header="Confirmação de Exclusão"
+							message="Você tem certeza que quer excluir esse aluno?"
+							icon="ui-icon-alert" />
 					</p:commandLink>
 				</p:column>
 
 			</p:dataTable>
-			
-			<p:confirmDialog 
-			global="true" 
-			showEffect="fade" 
-			hideEffect="fade" 
-			appendTo="@(body)">
-			
-				<p:commandButton 
-				value="Sim" 
-				type="button" 
-				styleClass="ui-confirmdialog-yes" 
-				icon="ui-icon-check"/>
-				
-				<p:commandButton 
-				value="Não" 
-				type="button" 
-				styleClass="ui-confirmdialog-no" 
-				icon="ui-icon-close"/>
-			
+
+			<p:confirmDialog global="true" showEffect="fade" hideEffect="fade"
+				appendTo="@(body)">
+
+				<p:commandButton value="Sim" type="button"
+					styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+
+				<p:commandButton value="Não" type="button"
+					styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+
 			</p:confirmDialog>
 
 		</h:form>

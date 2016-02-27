@@ -26,10 +26,16 @@ public class AlunoBean implements Serializable {
 
 	private Aluno aluno = new Aluno();
 
+	private String filtro = "";
+
 	private Date dataUtilNascimento;
 	private Date dataUtilCadastro = new Date();
 
 	private List<Aluno> alunos;
+
+	public void filtrar() {
+		alunos = alunoService.filtrarPorPalavraChave(filtro);
+	}
 
 	public void salvar() {
 
@@ -54,6 +60,15 @@ public class AlunoBean implements Serializable {
 	public void limpar() {
 		this.aluno = new Aluno();
 		this.dataUtilNascimento = null;
+	}
+
+	public void remover(Aluno aluno) {
+		alunoService.excluir(aluno);
+		alunos = alunoService.buscarTodos();
+
+		FacesMessage msg = new FacesMessage("Aluno excluído com sucesso!");
+
+		FacesContext.getCurrentInstance().addMessage(null, msg);
 	}
 
 	public Aluno getAluno() {
@@ -100,6 +115,14 @@ public class AlunoBean implements Serializable {
 
 	public void setAlunos(List<Aluno> alunos) {
 		this.alunos = alunos;
+	}
+
+	public String getFiltro() {
+		return filtro;
+	}
+
+	public void setFiltro(String filtro) {
+		this.filtro = filtro;
 	}
 
 }
