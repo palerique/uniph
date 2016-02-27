@@ -71,12 +71,26 @@
                 </p:toolbarGroup>
             </p:toolbar>
 
-            <p:dataTable id="alunos-table" value="#{alunoBean.alunos}"
+            <div class="ui-grid ui-grid-responsive" style="margin-top: 20px">
+                <div class="ui-grid-row">
+                    <div class="ui-grid-col-1" style="text-align: right; padding: 8px 8px;">
+                        <p:outputLabel value="Filtro:" for="filtro"/>
+                    </div>
+                    <div class="ui-grid-col-10">
+                        <p:inputText style="width: 100%" id="filtro" value="#{alunoBean.filtro}"/>
+                    </div>
+                    <div class="ui-grid-col-1" style="padding-left: 20px;">
+                        <p:commandButton value="Filtrar" action="#{alunoBean.filtrar}"
+                                         process="@this filtro" update="@form"/>
+                    </div>
+                </div>
+            </div>
+
+            <p:dataTable id="alunos-table" widgetVar="alunos-table" value="#{alunoBean.alunos}"
                          var="aluno"
                          reflow="true"
                          style="text-align: center"
                          emptyMessage="Nenhum aluno cadastrado.">
-
 
                 <p:column headerText="#">
                     <h:outputText value="#{aluno.id}"/>

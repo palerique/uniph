@@ -15,4 +15,5 @@ public interface AlunoRepositorio extends Serializable {
 
     Aluno salvarOuAtualizar(Aluno aluno);
 
+    List<Aluno> filtrarPorPalavraChave(String filtro);
 }
