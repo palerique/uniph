@@ -15,67 +15,67 @@ import br.com.sitedoph.uniph.dominio.services.UsuarioService;
 @SessionScoped
 public class LoginBean implements Serializable {
 
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-	private Usuario usuario = new Usuario();
+    private Usuario usuario = new Usuario();
 
-	@Inject
-	UsuarioService usuarioService;
+    @Inject
+    UsuarioService usuarioService;
 
-	private boolean logado;
+    private boolean logado;
 
-	public String efetuarLogin() {
-		String outcome = "login";
+    public String efetuarLogin() {
+        String outcome = "login";
 
-		Usuario existente = usuarioService.buscarPorLoginESenha(usuario.getLogin(), usuario.getSenha());
+        Usuario existente = usuarioService.buscarPorLoginESenha(usuario.getLogin(), usuario.getSenha());
 
-		if (existente != null && existente.getId() != null) {
+        if (existente != null && existente.getId() != null) {
 
-			HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext()
-					.getRequest();
+            HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext()
+                    .getRequest();
 
-			String uri = request.getRequestURI();
+            String uri = request.getRequestURI();
 
-			uri = uri.replace("/uniph/", "");
-			uri = uri.replace(".xhtml", "");
+            uri = uri.replace("/uniph/", "");
+            uri = uri.replace(".xhtml", "");
 
-			if (uri.equals("login")) {
-				uri = "usuario";
-			}
+            if (uri.equals("login")) {
+                uri = "usuario";
+            }
 
-			outcome = uri + "?faces-redirect=true";
+            outcome = uri + "?faces-redirect=true";
 
-			setLogado(true);
+            setLogado(true);
 
-		} else {
-			usuario = new Usuario();
-			setLogado(false);
-		}
+        } else {
+            usuario = new Usuario();
+            setLogado(false);
+        }
 
-		return outcome;
-	}
+        return outcome;
+    }
 
-	public String efetuarLogout() {
-		logado = false;
-		usuario = new Usuario();
+    public String efetuarLogout() {
+        logado = false;
+        usuario = new Usuario();
 
-		return "login?faces-redirect=true";
-	}
+        return "login?faces-redirect=true";
+    }
 
-	public Usuario getUsuario() {
-		return usuario;
-	}
+    public Usuario getUsuario() {
+        return usuario;
+    }
 
-	public void setUsuario(Usuario usuario) {
-		this.usuario = usuario;
-	}
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
+    }
 
-	public boolean isLogado() {
-		return logado;
-	}
+    public boolean isLogado() {
+        return logado;
+    }
 
-	public void setLogado(boolean logado) {
-		this.logado = logado;
-	}
+    public void setLogado(boolean logado) {
+        this.logado = logado;
+    }
 
 }
